@@ -1,6 +1,11 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
+//We do not have any stack allocated instances of Cell
+//so we don't need to include it. This reduces the chance of accidental
+//circuluar dependencies
+class Cell;
+
 //for ostream
 #include <iostream>
 
