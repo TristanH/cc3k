@@ -1,6 +1,13 @@
 #ifndef __CMD_INTERPRETER_H__
 #define __CMD_INTERPRETER_H__
 
+//We do not have any stack allocated instances of Floor or Player
+//so we don't need to include them. This reduces the chance of accidental
+//circuluar dependencies
+class Floor;
+class Player;
+
+//for ostream
 #include <iostream>
 
 // Singleton class, receives input from cin and interprets commands
