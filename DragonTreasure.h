@@ -1,7 +1,9 @@
 #ifndef __DRAGON_TREASURE_H__
 #define __DRAGON_TREASURE_H__
 
-#include "Entity.h"
+class Player;
+
+#include "Treasure.h"
 
 class DragonTreasure: public Treasure{
 	
