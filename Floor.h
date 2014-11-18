@@ -13,6 +13,9 @@ class Enemy;
 //vector used to store enemies on floor
 #include <vector>
 
+//map used to define the probability of each entity spawning (enemies, potions, etc.)
+#include <map>
+
 class Floor{
 	// fill in proper numbers later, maybe needs to be on heap?
 	// cells[i][j] will be NULL if it is outside of a chamber
@@ -21,6 +24,10 @@ class Floor{
 
 	// this looks right?
 	std::vector<Enemy *> enemies;
+
+	// maps the displayChar of an entity to its probability of spawnining.
+	// this allows us to have different spawn probabilities for different floors.
+	std::map<char, float> spawnRates;
 
 	public:
 		// sets cells, spawns entities

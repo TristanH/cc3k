@@ -2,6 +2,7 @@
 #define __DRAGON_TREASURE_H__
 
 class Player;
+class Dragon;
 
 #include "Treasure.h"
 
