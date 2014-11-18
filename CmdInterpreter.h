@@ -7,13 +7,21 @@
 class Floor;
 class Player;
 
-//for ostream
 #include <iostream>
+#include <string>
 
 // Singleton class, receives input from cin and interprets commands
 class CmdInterpreter{
-    CmdInterpreter* instance;
+    static CmdInterpreter* instance;
+    static void cleanup();
     bool isFinished;
+    bool shouldRestart;
+
+    // keeps track of current state of the game:
+    // 0 -> race selection
+    // 1 -> playing
+    //TODO: instead of using a int to represent a state we should have a state object and have a stack of states in the CmdInterpreter class
+    int state;
 
     // this is an observer of the cmd interpreter
     Floor *floor;
@@ -21,9 +29,8 @@ class CmdInterpreter{
     Player *player;
     
     CmdInterpreter();
-    void cleanup();
 
-    void readCommand();
+    void executeCmd(std::string cmd);
 
     // these are all called by notifyEntities
     void notifyPlayer();
@@ -36,7 +43,7 @@ class CmdInterpreter{
 
 
     public:
-        CmdInterpreter *getInstance();
+        static CmdInterpreter *getInstance();
         
         //contains main game loop
         void start();

@@ -11,7 +11,7 @@ class Player: public Character{
 	//combat logic lives here
 	public:
 		// this fight is for the player attacking an enemy
-		void fight(Character *against);
+		virtual void fight(Character *against);
 		void *instance getInstance();
         void addGold(int amount); //just adds amount to current gold
 
