@@ -8,6 +8,8 @@ class Treasure: public Item{
 	int value;
 	public:
 		Treasure(int value);
+
+        // calls player->addGold(value)
 		bool collect(Player* player);
 };
 
