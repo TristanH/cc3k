@@ -3,7 +3,7 @@
 
 #include "Entity.h"
 
-class Potion: public Entity{
+class Potion: public Item{
 
 	public:
 

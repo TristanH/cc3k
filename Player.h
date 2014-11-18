@@ -8,6 +8,7 @@ class Player: public Character{
 
 	//combat logic lives here
 	public:
+		// this fight is for the player attacking an enemy
 		void fight(Character *against);
 		void *instance getInstance();
 
