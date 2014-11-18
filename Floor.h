@@ -1,10 +1,11 @@
 #ifndef __FLOOR_H__
 #define __FLOOR_H__
 
-//We do not have any stack allocated instances of Display
-//so we don't need to include it. This reduces the chance of accidental
+//We do not have any stack allocated instances of Display or Enemmy
+//so we don't need to include them. This reduces the chance of accidental
 //circuluar dependencies
 class Display;
+class Enemy;
 
 //ifstream needed to generate maps from file
 #include <fstream>
@@ -19,7 +20,7 @@ class Floor{
 	Display *display; //map needs to notify dislpay
 
 	// this looks right?
-	std::vector<Enemy> enemies;
+	std::vector<Enemy *> enemies;
 
 	public:
 		// sets cells, spawns entities
