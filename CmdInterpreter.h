@@ -18,16 +18,15 @@ class CmdInterpreter{
 
     void readCommand();
 
-    //we notify the relevant entities from the given command 
-    // the map is then notified by the entitys of their changes and itself updates
-    void notifyEntitys();
-
-
     // these are all called by notifyEntities
     void notifyPlayer();
-    void updateEnemies();
-    void updateEnvironment();
-    void updateCombat(); 
+
+    // since the floor is responsible for spawning enemies
+    // it should also be responsible for doing all the updates for
+    // enemies, environment and such
+    void updateFloor();
+    // we have to update the player first, because the enemies won't move if he goes near them
+
 
     public:
         CmdInterpreter *getInstance();
@@ -35,7 +34,10 @@ class CmdInterpreter{
         //contains main game loop
         void start();
 
+        // called when user wants to restart game, deletes and recreates everything
         void restart();
+
+        //finishes game, deletes everything and quits
         void end();
 
 };
