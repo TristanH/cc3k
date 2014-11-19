@@ -68,7 +68,7 @@ void Floor::setSpawnRates(map<char,float> sr) {
 }
 
 void Floor::floodCreateChamber(int y, int x, bool** visited, Chamber *chamber){
-    if(visited[y][x])
+    if(visited[y][x] || cells[y][x].getType() != '.')
         return;
     chamber.addCell(cells[y][x]);
     visited[y][x] = true;
@@ -92,7 +92,7 @@ void Floor::generateChambers(){
     for(int y =0; y < 25; y++){
         for(int x=0; x<79; x++){
             if(!visited[y][x] && cells[y][x].getType() == '.'){
-                Chamber* newChamber = new Chamber(y, x);
+                Chamber* newChamber = new Chamber();
                 floodCreateChamber(y, x, visited, newChamber);
                 chambers.push(newChamber);
             }

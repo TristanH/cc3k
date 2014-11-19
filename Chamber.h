@@ -17,15 +17,12 @@ class Chamber {
     // you have defeated all the enemies. DAT DLC THO!!!
     std::vector<Enemy *> enemies;
 
-    std::vector<std::vector<Cell *>> cells;
-
-    int cornerY;
-    int cornerX;
+    std::vector<Cell *> cells;
  
     void updateEnemies();
 
     public:
-    	Chamber(int y, int x);
+    	Chamber();
         void update();
         void addCell(Cell *cell);
 
