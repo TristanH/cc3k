@@ -18,7 +18,7 @@ class Display;
 class Floor{
 	// fill in proper numbers later, maybe needs to be on heap?
 	// cells[i][j] will be NULL if it is outside of a chamber
-	std::vector<std::vector<Cell> >;
+	std::vector<std::vector<Cell> > cells;
 	Display *display; //map needs to notify dislpay
 
 	// maps the displayChar of an entity to its probability of spawnining.

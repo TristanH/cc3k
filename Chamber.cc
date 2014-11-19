@@ -1,6 +1,10 @@
 #include "Chamber.h"
 using namespace std;
 
+Chamber::Chamber() {
+
+}
+
 void Chamber::updateEnemies() {
 
 }
