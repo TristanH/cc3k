@@ -104,3 +104,12 @@ void Floor::generateChambers(){
 ostream &operator<<(ostream &out, Floor &f) {
     return out << f.display;
 }
+
+Cell* Floor::getCell(int y, int x){
+    if(y < 0 || y >= HEIGHT || x < 0 || x>= WIDTH){
+        cerr << "Invalid coordinates sent to floor.getCell"
+        return NULL;
+    }
+    else
+        return cells[y][x];
+}

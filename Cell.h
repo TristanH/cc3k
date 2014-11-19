@@ -6,23 +6,31 @@
 //circuluar dependencies
 class Entity;
 class Map;
+class Player;
 
 class Cell{
 	// the entity on this cell
 	Entity *entity;
+	int y, x;
 	// Can be floor, wall, passage, stairway
+	// will not change when entity is on it
 	const char type;
-	Map *map;
+	Floor *floor;
+	static string directions[8];
 
-	void notifyMap();
+	void notifyFloor();
 
 	public:
+		Cell(int y, int x);
 		void setEntity(const Entity *newEntity);
 		Entity *getEntity();
 		bool isWalkable();
 		char getType();
 		// gets the cell from eg no, nw, sw used for enemy attacking, potions, moving
-		Entity *getAdjacentCell(string direction);
+		Cell *getAdjacentCell(string direction);
+
+		Player *findPlayerInBounds();
+		static std::string getRandomDirection();
 
 };
 

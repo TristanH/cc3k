@@ -40,7 +40,6 @@ class Floor{
 	// the idea is that updateEnemies makes the enemies move their shit, then the enemies update their respective cells
 	// and the cells notify the map of these updates
 
-	// tells the display of all the updates after all the enemies are updated
 	void notifyDisplay();
 
 	void generateChambers();
@@ -54,6 +53,8 @@ class Floor{
 
 		//updating gamestep should move all the enemies and give them their chances to do combat
 		void updateGameStep();
+
+		Cell *getCell(int y, int x);
 
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };
