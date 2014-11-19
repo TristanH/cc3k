@@ -30,23 +30,23 @@ void Floor::generateCells(string filename) {
     }
 }
 
+void Floor::updateRooms() {
+    //iterate through the vector of rooms and update them
+    vector<Chamber>::iterator it; //define iterator
+    for(it = v.begin(); it != v.end(); ++i) {
+        it->update();
+    }
+}
+
 Floor::Floor(string fileName) : display(NULL){
     generateCells(filename);
     generateChambers();
-}
-
-void Floor::notify() {
-    //what are we notifying the display of??
 }
 
 void Floor::updateGameStep() {
     // TODO: is the player implicitly updated before this????? I DUNNOOOOO BRAH
     updateRooms();
     notifyDisplay();
-}
-
-void Floor::updateRooms() {
-    //iterate through the vector of rooms and update them
 }
 
 void Floor::notifyDisplay(int i, int j, char newState) {
