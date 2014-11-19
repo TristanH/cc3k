@@ -32,6 +32,8 @@ class Floor{
 	const int WIDTH;
 	const int HEIGHT;
 
+	void generateCells(std::string filename);
+
 	// --Following 2 methods called by updateGameStep--
 	//update enemies gives enemies a chance to move or attack player
 	void updateEnemies();
