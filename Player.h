@@ -5,14 +5,16 @@
 
 class Player: public Character{
 	Player *instance;
-    void cleanup(); //passed into atexit()
+    static void cleanup(); //passed into atexit()
     int gold; //keeps track of how much gold the player has
 
 	//combat logic lives here
 	public:
+        virtual Player() = 0;
+        virtual Player(){};
 		// this fight is for the player attacking an enemy
 		virtual void fight(Character *against);
-		void *instance getInstance();
+		static void *instance getInstance(char race);
         void addGold(int amount); //just adds amount to current gold
 
 };

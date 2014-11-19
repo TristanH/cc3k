@@ -55,6 +55,9 @@ class Floor{
 		//updating gamestep should move all the enemies and give them their chances to do combat
 		void updateGameStep();
 
+		// this will use the spawnRates to populate the already generate map
+		void populate();
+
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };
 

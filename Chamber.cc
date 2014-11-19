@@ -2,7 +2,14 @@
 using namespace std;
 
 void Chamber::updateEnemies() {
-
+	//iterate through the vector of enemies and update them
+    vector<Enemy>::iterator it; //define iterator
+    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
+        // enemies need to first check if the player is in fighting range.
+        // if the player can't be attacked, move in a random direction (unless enemy is a dragon)
+        // all of this should be taken care by the enemy (which will call some cell function)
+    	it->updateMove();
+    }
 }
 
 void Chamber::addEnemy(Enemy *e) {

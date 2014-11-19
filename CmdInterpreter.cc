@@ -66,7 +66,18 @@ void CmdInterpreter::executeCmd(string cmd) {
         }
     } else {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
-            //create new player with race corresponding to cmd
+            // generate the first floor
+            // create new player with race corresponding to cmd
+            
+            // generating/populating floor 
+            map<char,float> mapping; // we need to initialize this. This probably should be moved somewhere else though...
+            floor = new Floor();
+            floor->setSpawnRates(mapping);
+            floor->populate();
+
+            //creating player
+            player = getInstance(cmd);
         }
     }
+    floor->updateGameStep();
 }
