@@ -16,8 +16,7 @@ class Display;
 #include <map>
 
 class Floor{
-	// fill in proper numbers later, maybe needs to be on heap?
-	// cells[i][j] will be NULL if it is outside of a chamber
+
 	std::vector<std::vector<Cell> > cells;
 	Display *display; //map needs to notify dislpay
 
@@ -28,6 +27,8 @@ class Floor{
 	// keeps track of floor dimensions
 	int width;
 	int height;
+
+	void generateCells(std::string filename);
 
 	// --Following 2 methods called by updateGameStep--
 	//update enemies gives enemies a chance to move or attack player

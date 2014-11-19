@@ -6,7 +6,9 @@
 #include "Floor.h"
 using namespace std;
 
-Floor::Floor(string fileName) : display(NULL){
+void Floor::generate
+
+void Floor::generateCells(string filename) {
     // generate the walls and shit.
     ifstream f(fileName.c_str());
     string line;
@@ -26,8 +28,11 @@ Floor::Floor(string fileName) : display(NULL){
         c = 0;
         r++;
     }
+}
 
-    // determine where the rooms are and put them into the rooms vector
+Floor::Floor(string fileName) : display(NULL){
+    generateCells(filename);
+    generateChambers();
 }
 
 void Floor::notify() {
