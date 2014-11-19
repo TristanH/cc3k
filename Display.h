@@ -4,9 +4,11 @@
 
 class Display {
 
-	char theDisplay[100][100];
+    // Will be initialized simultaneously with the cells vector in Floor
+    std::vector<std::vector<char> > theDisplay;
+    
 	public:
-		//notifys theDisplay at (i,j) with new state
+		// notifys theDisplay at (i,j) with new state
 		void notify(int i, int j, char newState);
 		char getState(int i, int j);
 

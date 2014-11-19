@@ -10,6 +10,7 @@ void Floor::generate
 
 void Floor::generateCells(string filename) {
     // generate the walls and shit.
+    // initialize display->theDisplay simultaneously
     ifstream f(fileName.c_str());
     string line;
     int r = 0;
@@ -19,14 +20,26 @@ void Floor::generateCells(string filename) {
         istringstream ss(line);
         char curr;
         vector<Cell> column; //column vector to be pushed into cells (the vector of vectors of Cells)
+        vector<char> theDisplay_column; //column vector to be pused into display->theDisplay
         while(ss.getchar(curr)) {
             Cell cell(r,c,curr);
             column.push_back(cell);
+            theDisplay_column.push_back(curr);
             c++;
         }
         cells.push_back(column);
+        display->theDisplay.push_back(theDisplay_column);
         c = 0;
         r++;
+    }
+    // At this point, both the cells and display->theDisplay should be initialized
+}
+
+void Floor::updateRooms() {
+    //iterate through the vector of rooms and update them
+    vector<Chamber>::iterator it; //define iterator
+    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
+        it->update(); //update the current chamber in the vector of chambers
     }
 }
 
@@ -35,18 +48,10 @@ Floor::Floor(string fileName) : display(NULL){
     generateChambers();
 }
 
-void Floor::notify() {
-    //what are we notifying the display of??
-}
-
 void Floor::updateGameStep() {
     // TODO: is the player implicitly updated before this????? I DUNNOOOOO BRAH
     updateRooms();
     notifyDisplay();
-}
-
-void Floor::updateRooms() {
-    //iterate through the vector of rooms and update them
 }
 
 void Floor::notifyDisplay(int i, int j, char newState) {

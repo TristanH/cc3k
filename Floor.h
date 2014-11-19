@@ -51,7 +51,6 @@ class Floor{
 		Floor(string fileName);
 		void setDisplay(Display *display);
 		void setSpawnRates(sed::map<char,float> mapping);
-		void notify(/* TODO: we probably need to pass stuff into this */);
 
 		//updating gamestep should move all the enemies and give them their chances to do combat
 		void updateGameStep();
