@@ -56,6 +56,9 @@ class Floor{
 
 		Cell *getCell(int y, int x);
 
+		// this will use the spawnRates to populate the already generate map
+		void populate();
+
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };
 
