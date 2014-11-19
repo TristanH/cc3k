@@ -6,6 +6,8 @@
 #ifndef __CHAMBER_H__
 #define __CHAMBER_H__
 
+#include "Cell.h"
+
 class Enemy;
 
 class Chamber {
@@ -14,10 +16,18 @@ class Chamber {
     // floor. This way we can know if a room is clear. This could lead to us creating rooms that only unlock after
     // you have defeated all the enemies. DAT DLC THO!!!
     std::vector<Enemy *> enemies;
+
+    std::vector<std::vector<Cell *>> cells;
+
+    int cornerY;
+    int cornerX;
+ 
     void updateEnemies();
 
     public:
-        update();
+    	Chamber(int y, int x);
+        void update();
+        void addCell(Cell *cell);
 
 };
 #endif

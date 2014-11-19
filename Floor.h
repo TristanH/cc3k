@@ -6,6 +6,8 @@
 //circuluar dependencies
 class Display;
 
+class Chamber;
+
 //ifstream needed to generate maps from file
 #include <fstream>
 
@@ -18,16 +20,17 @@ class Display;
 class Floor{
 	// fill in proper numbers later, maybe needs to be on heap?
 	// cells[i][j] will be NULL if it is outside of a chamber
-	std::vector<std::vector<Cell> >;
+	std::vector<std::vector<Cell> > cells;
 	Display *display; //map needs to notify dislpay
+	std::vector<Chamber *> chambers;
 
 	// maps the displayChar of an entity to its probability of spawnining.
 	// this allows us to have different spawn probabilities for different floors.
 	std::map<char, float> spawnRates;
 
 	// keeps track of floor dimensions
-	int width;
-	int height;
+	const int WIDTH;
+	const int HEIGHT;
 
 	// --Following 2 methods called by updateGameStep--
 	//update enemies gives enemies a chance to move or attack player
@@ -37,6 +40,9 @@ class Floor{
 
 	// tells the display of all the updates after all the enemies are updated
 	void notifyDisplay();
+
+	void generateChambers();
+	void floodCreateChamber(int y, int x, bool **visited, Chamber* chamber);
 
 	public:
 		// sets cells, spawns entities
