@@ -80,4 +80,13 @@ string Cell::getRandomDirection(){
 	return directions[random(7)];
 }
 
+bool Cell::isValidDirection(string direction){
+	for(int i=0; i < 8; i++){
+		if(direction == Cell::directions[i])
+			return true;
+	}
+	return false;
+
+}
+
 

@@ -33,3 +33,11 @@ Player *Player::getInstance(char cmd = 's') {
 void Player::addGold(int amount) {
     gold += amount;
 }
+
+bool Player::move(string direction){
+    if(tryMove(direction))
+        return true;
+
+    // TODO: check gold collecting here
+    return false;
+}

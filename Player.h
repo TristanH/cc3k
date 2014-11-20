@@ -16,7 +16,7 @@ class Player: public Character{
 		virtual void fight(Character *against);
 		static void *instance getInstance(char race);
         void addGold(int amount); //just adds amount to current gold
-
+        void move(string direction);
 };
 
 #endif

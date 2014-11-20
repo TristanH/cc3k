@@ -14,6 +14,9 @@ class Character: public Entity{
 		// if it does, it will remove itself from the cell it's on (has a cell from entity) and set itself on the adjacent one
 		// the old cell and the new cell with both notify map
 		bool tryMove(string direction);
+
+		bool isAttackable();
+
 };
 
 #endif

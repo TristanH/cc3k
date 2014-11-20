@@ -6,6 +6,7 @@
 class Human : public Enemy {
 
     public:
+    	Human(Cell *cell);
 
 };
 

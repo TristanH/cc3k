@@ -33,6 +33,7 @@ class Cell{
 
 		Player *findPlayerInBounds();
 		static std::string getRandomDirection();
+		static bool isValidDirection(string direction);
 
 };
 

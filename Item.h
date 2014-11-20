@@ -8,7 +8,6 @@ class Item: public Entity{
 	public:
 		// returns true if it was able to be collected
 		virtual bool collect(Player* player) = 0;
-
 };
 
 #endif
