@@ -19,9 +19,12 @@ class Entity{
     //or created at the start of the game (in the case of the player)
 	char displayChar;
 
+    // This creates and returns a pointer to a new Entity of the corresponding type of "type".
+    static Entity *getNewEntity(char type);
+
 	public:
 		virtual void notify() = 0;
-		virtual Entity() = 0;
+		virtual Entity(char type) = 0;
 		virtual ~Entity(){};
 
 };

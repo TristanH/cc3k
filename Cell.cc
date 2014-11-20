@@ -6,10 +6,9 @@
 
 using namespace std;
 
-Cell::Cell(int r, int c, char type): 
-	entity(NULL), r(r), c(c), type(type){
+Cell::Cell(int r, int c, char type, Entity *entity = NULL): 
+	entity(entity), r(r), c(c), type(type) {
 	floor = Floor.getInstance();
-	directions = {}
 }
 
 //make this const?

@@ -21,7 +21,9 @@ class Cell{
 	void notifyFloor();
 
 	public:
-		Cell(int y, int x);
+		// If the cell being created doesn't have an entity on it, the entity
+		// field is just NULL
+		Cell(int y, int x, char type, Entity *entity = NULL);
 		void setEntity(const Entity *newEntity);
 		Entity *getEntity();
 		bool isWalkable();
