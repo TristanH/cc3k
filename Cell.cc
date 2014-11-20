@@ -39,6 +39,14 @@ char Cell::getType(){
 	return type;
 }
 
+int Cell::getR() {
+	return r;
+}
+
+int Cell::getC() {
+	return c;
+}
+
 Cell* Cell::getAdjacentCell(string direction){
 	if(direction == "no")
 		return floor->getCell(r-1,c);

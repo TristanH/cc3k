@@ -6,10 +6,10 @@
 #ifndef __CHAMBER_H__
 #define __CHAMBER_H__
 
-#include "Cell.h"
 #include <vector>
 
 class Enemy;
+class Cell;
 
 class Chamber {
 
@@ -25,6 +25,7 @@ class Chamber {
     public:
     	Chamber();
         void update();
+        void addEnemy(Enemy *);
         void addCell(Cell *cell);
 
 };

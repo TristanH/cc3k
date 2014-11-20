@@ -1,15 +1,15 @@
 #include "Chamber.h"
+#include "Enemy.h"
+#include "Cell.h"
 #include <vector>
+#include <iterator>
 using namespace std;
 
 void Chamber::updateEnemies() {
 	//iterate through the vector of enemies and update them
-    vector<Enemy *>::iterator it; //define iterator
-    for(it = enemies.begin(); it != enemies.end(); ++it) { // iterators look weird but the are just glorified pointers
-        // enemies need to first check if the player is in fighting range.
-        // if the player can't be attacked, move in a random direction (unless enemy is a dragon)
-        // all of this should be taken care by the enemy (which will call some cell function)
-    	it->updateMove();
+    int enemiesSize = enemies.size();
+    for(int i=0; i < enemiesSize; i++) { // was using an iterator here before but fuck that shit
+    	enemies[i]->updateMove();
     }
 }
 
@@ -23,12 +23,13 @@ void Chamber::update() {
 
 void Chamber::addCell(Cell *newCell){
 	// we want to insert cells in the order they should be updated, eg starting at top then left to right
-	int y = newCell.getY();
-	int x = newCell.getX();
-	for(int i=0; i < cells.size(); i++){
+	int r = newCell->getR();
+	int c = newCell->getC();
+    vector<Cell *>::iterator it;
+	for(it = cells.begin(); it != cells.end(); it++){
 		// if we've found the right place to insert this cell
-		if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
-			cells.insert(i, newCell);
+		if(r < it->getR() || (r == it->getR() && c < it->getC())){
+			cells.insert(it, newCell);
 			return;
 		}
 	}

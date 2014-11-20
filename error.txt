@@ -1,60 +1,13 @@
-Chamber.cc:12:8: error: member reference base type 'Enemy *' is not a structure or union
-        it->updateMove();
-        ~~^ ~~~~~~~~~~
-Chamber.cc:16:15: error: out-of-line definition of 'addEnemy' does not match any declaration in 'Chamber'
-void Chamber::addEnemy(Enemy *e) {
-              ^~~~~~~~
-Chamber.cc:26:17: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
-        int y = newCell.getY();
-                ~~~~~~~^
-                       ->
-Chamber.cc:26:18: error: no member named 'getY' in 'Cell'
-        int y = newCell.getY();
-                ~~~~~~~ ^
-Chamber.cc:27:17: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
-        int x = newCell.getX();
-                ~~~~~~~^
-                       ->
-Chamber.cc:27:18: error: no member named 'getX' in 'Cell'
-        int x = newCell.getX();
-                ~~~~~~~ ^
-Chamber.cc:30:18: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
-                if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
-                       ~~~~~~~~^
-                               ->
-Chamber.cc:30:19: error: no member named 'getY' in 'Cell'
-                if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
-                       ~~~~~~~~ ^
-Chamber.cc:30:43: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
-                if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
-                                                ~~~~~~~~^
-                                                        ->
-Chamber.cc:30:44: error: no member named 'getY' in 'Cell'
-                if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
-                                                ~~~~~~~~ ^
-Chamber.cc:30:66: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
-                if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
-                                                                       ~~~~~~~~^
-                                                                               ->
-Chamber.cc:30:67: error: no member named 'getX' in 'Cell'
-                if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
-                                                                       ~~~~~~~~ ^
-Chamber.cc:31:10: error: no matching member function for call to 'insert'
-                        cells.insert(i, newCell);
-                        ~~~~~~^~~~~~
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/vector:710:14: note: candidate function not viable: no known conversion from 'int' to 'const_iterator' (aka '__wrap_iter<const_pointer>') for 1st argument
-    iterator insert(const_iterator __position, const_reference __x);
-             ^
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/vector:729:9: note: candidate function template not viable: requires 3 arguments, but 2 were provided
-        insert(const_iterator __position, _InputIterator __first, _InputIterator __last);
-        ^
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/vector:739:9: note: candidate function template not viable: requires 3 arguments, but 2 were provided
-        insert(const_iterator __position, _ForwardIterator __first, _ForwardIterator __last);
-        ^
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/vector:718:14: note: candidate function not viable: requires 3 arguments, but 2 were provided
-    iterator insert(const_iterator __position, size_type __n, const_reference __x);
-             ^
-13 errors generated.
+Chamber.cc:31:12: error: member reference base type 'Cell *' is not a structure or union
+                if(r < it->getR() || (r == it->getR() && c < it->getC())){
+                       ~~^ ~~~~
+Chamber.cc:31:32: error: member reference base type 'Cell *' is not a structure or union
+                if(r < it->getR() || (r == it->getR() && c < it->getC())){
+                                           ~~^ ~~~~
+Chamber.cc:31:50: error: member reference base type 'Cell *' is not a structure or union
+                if(r < it->getR() || (r == it->getR() && c < it->getC())){
+                                                             ~~^ ~~~~
+3 errors generated.
 Character.cc:6:19: error: member access into incomplete type 'Cell'
         Cell *goTo = cell->getAdjacentCell(direction);
                          ^
@@ -280,12 +233,6 @@ Display.cc:16:20: error: use of undeclared identifier 'theDisplay'
                    ^
 8 errors generated.
 In file included from Dragon.cc:1:
-In file included from ./Dragon.h:4:
-./Enemy.h:4:10: error: 'Character.h' file not found with <angled> include; use "quotes" instead
-#include <Character.h>
-         ^~~~~~~~~~~~~
-         "Character.h"
-In file included from Dragon.cc:1:
 ./Dragon.h:8:2: error: unknown type name 'DragonTreasure'
         DragonTreasure *treasure;
         ^
@@ -310,12 +257,7 @@ Dragon.cc:5:2: error: member initializer 'defence' does not name a non-static da
 Dragon.cc:5:15: error: member initializer 'HP' does not name a non-static data member or base class
         defence(20), HP(150){}
                      ^~~~~~~
-9 errors generated.
-In file included from Enemy.cc:1:
-./Enemy.h:4:10: error: 'Character.h' file not found with <angled> include; use "quotes" instead
-#include <Character.h>
-         ^~~~~~~~~~~~~
-         "Character.h"
+8 errors generated.
 Enemy.cc:10:23: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
         Player *player = cell.findPlayerInBounds();
                          ~~~~^
@@ -326,7 +268,7 @@ Enemy.cc:10:19: error: 'cell' is a private member of 'Entity'
 ./Entity.h:15:8: note: implicitly declared private here
         Cell *cell;
               ^
-3 errors generated.
+2 errors generated.
 Entity.cc:1:1: error: unknown type name 'Entity'
 Entity * Entity::getNewEntity(char type) {
 ^
@@ -412,12 +354,6 @@ Floor::Floor(string fileName) : display(NULL){
                   ^
 fatal error: too many errors emitted, stopping now [-ferror-limit=]
 20 errors generated.
-In file included from Human.cc:1:
-In file included from ./Human.h:4:
-./Enemy.h:4:10: error: 'Character.h' file not found with <angled> include; use "quotes" instead
-#include <Character.h>
-         ^~~~~~~~~~~~~
-         "Character.h"
 Human.cc:4:2: error: member initializer 'displayChar' does not name a non-static data member or base class
         displayChar('H'), cell(cell), attack(20), defence(20), HP(140){}
         ^~~~~~~~~~~~~~~~
@@ -433,7 +369,7 @@ Human.cc:4:44: error: member initializer 'defence' does not name a non-static da
 Human.cc:4:57: error: member initializer 'HP' does not name a non-static data member or base class
         displayChar('H'), cell(cell), attack(20), defence(20), HP(140){}
                                                                ^~~~~~~
-6 errors generated.
+5 errors generated.
 Player.cc:9:16: error: expected ';' after using declaration
 using namesapce std;
                ^

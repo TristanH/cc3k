@@ -30,6 +30,8 @@ class Cell{
 		void setEntity(Entity *newEntity);
 		Entity *getEntity();
 		bool isWalkable();
+		int getR();
+		int getC();
 		char getType();
 		// gets the cell from eg no, nw, sw used for enemy attacking, potions, moving
 		Cell *getAdjacentCell(std::string direction);
