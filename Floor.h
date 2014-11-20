@@ -59,6 +59,9 @@ class Floor{
 		// this will use the spawnRates to populate the already generate map
 		void populate();
 
+		// simply tells the floor that this entity has just occupied it's space and the display should be updated
+		void notify(int i, int j, Entity *entity);
+
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };
 

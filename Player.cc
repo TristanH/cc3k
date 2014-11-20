@@ -41,3 +41,9 @@ bool Player::move(string direction){
     // TODO: check gold collecting here
     return false;
 }
+
+void Player::fight(Entity *against) {
+    // TODO: implement fighting. Maybe it can call a takeDamage function on against which can be overriden
+    //       such that if a player attacks a potion then it inidcates to the player that they can't attack
+    //       a potion.
+}
