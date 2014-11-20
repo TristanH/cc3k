@@ -17,7 +17,10 @@ void Enemy::updateMove(){
 	// choose random directions until we find one 
 	// that we can move to
 	string tryDirection;
+	//currently numChecks is just a cheap dirty trick to avoid infinite loops
+	int numChecks = 0;
 	do{
 		tryDirection = Cell::getRandomDirection();
-	}while(!tryMove(tryDirection) && numChecks <= 8);
+		numChecks++;
+	}while(!tryMove(tryDirection) && numChecks <= 1000);
 }
