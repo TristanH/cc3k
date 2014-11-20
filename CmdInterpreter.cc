@@ -1,4 +1,5 @@
 #include "CmdInterpreter.h"
+#include "Die.h"
 #include <iostream> //for NULL
 #include <string>
 using namespace std;
@@ -80,16 +81,17 @@ void CmdInterpreter::executeCmd(string cmd) {
             // create new player with race corresponding to cmd
 
             // generating/populating floor 
-            map<char, int[2]> > mapping; // I HAVE NO IDEA IF THIS SYNTAX IS VALID....
+            Die spawnDie(18); 
 
             // Initialize the probability mapping. mapping[X][0]->numerator, mapping[X][1]->denominator
             // TODO: read in cmd line argument for file to override the mapping if
-            mapping["Human"] = {2,9};
-            mapping["Dwarf"] = {3,18};
-            mapping["Halfling"] = {5,18};
-            mapping["Elf"] = {1,9};
-            mapping["Orc"] = {1,9};
-            mapping["Merchant"] = {1,9};
+            spawnDie.addSides(4, 'H');
+            spawnDie.addSides(3, 'D');
+            spawnDie.addSides(5, 'L');
+            spawnDie.addSides(2, 'E');
+            spawnDie.addSides(2, 'O');
+            spawnDie.addSides(2, 'M');
+
 
             floor = new Floor();
             floor->setSpawnRates(mapping);
