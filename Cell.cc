@@ -6,21 +6,14 @@
 
 using namespace std;
 
-Cell::Cell(int r, int c, char type, Entity *entity = NULL): 
-	entity(entity), r(r), c(c), type(type) {
-	floor = Floor.getInstance();
-}
+Cell::Cell(int r, int c, char type, Floor *floor, Entity *entity = NULL): 
+	(r), c(c), type(type), floor(floor), entity(entity) {}
 
 //make this const?
 Cell::directions[] = {"no", "ne", "ea", "se", "so", "sw", "we", "nw"};
 
 void Cell::notifyFloor(){
-	//idk how to do this
-
-	// what i think we want is to print this->type if entity is null
-	// otherwise print the entity.displayChar
-	// but what actually needs to be done by the map? I can't think of anything
-	// the display char just needs to update..
+	floor->notify(i,j,entity);
 }
 
 void Cell::setEntity(const Entity *newEntity){

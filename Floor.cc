@@ -102,6 +102,10 @@ void Floor::generateChambers(){
 
 }
 
+void Floor::notify(int i, int j, Entity *entity) {
+    display->notify(i,j,entity->displayChar);
+}
+
 ostream &operator<<(ostream &out, Floor &f) {
     return out << f.display;
 }
