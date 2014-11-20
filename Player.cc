@@ -8,12 +8,19 @@ class Troll;
 
 using namesapce std;
 
+// We declared the dtor to be pure virtual because we need Player to not be instantiated. This causes issues though because all subclasses
+// will implicitly called Player::~Player() when being destroyed but it doesn't have an implementation when it is pure virtual. This is why
+// we simply implement it as an empty function here. It is pure virtual but also has a concrete (empty) implementation. Black magic brah.
+Player::~Player(){}
+
 void Player::cleanup() {
     delete instance;
 }
 
+
 // After the player has been initialy created, you can get it by simply calling getInstance (no params).
-Player *Player::getInstance(char cmd = 's') {
+// cmd defaults to 's' (see Player.h)
+Player *Player::getInstance(char cmd) {
     if(!instance) {
         if(cmd == 's') {
             instance = new Shade();

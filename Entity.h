@@ -24,7 +24,6 @@ class Entity{
 
 	public:
 		virtual void notify() = 0;
-		virtual Entity(char type) = 0;
 		virtual ~Entity(){};
 
 };

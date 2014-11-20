@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Enemy::updateMove(){
+void Enemy::updateMove() {
 
 	//check block radius for player to fight
 	Player *player = cell.findPlayerInBounds();

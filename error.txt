@@ -1,78 +1,45 @@
-Cell.cc:66:16: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
-                if(*checkCell.getEntity() == Player.getInstance())
-                    ~~~~~~~~~^
-                             ->
-Cell.cc:66:32: error: 'Player' does not refer to a value
-                if(*checkCell.getEntity() == Player.getInstance())
-                                             ^
-./Cell.h:9:7: note: declared here
-class Player;
-      ^
-Cell.cc:67:20: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
-                        return checkCell.getEntity();
-                               ~~~~~~~~~^
-                                        ->
-Cell.cc:67:11: error: cannot initialize return object of type 'Player *' with an rvalue of type 'Entity *'
-                        return checkCell.getEntity();
-                               ^~~~~~~~~~~~~~~~~~~~~
-Cell.cc:74:2: error: unknown type name 'prng'
-        prng random(time(NULL));
-        ^
-5 errors generated.
-Chamber.cc:7:14: error: use of undeclared identifier 'v'
-    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
-             ^
-Chamber.cc:7:31: error: use of undeclared identifier 'v'
-    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
-                              ^
-Chamber.cc:7:42: error: use of undeclared identifier 'i'
-    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
-                                         ^
-Chamber.cc:11:8: error: member access into incomplete type 'Enemy'
+Chamber.cc:12:8: error: member reference base type 'Enemy *' is not a structure or union
         it->updateMove();
-          ^
-./Chamber.h:12:7: note: forward declaration of 'Enemy'
-class Enemy;
-      ^
-Chamber.cc:15:15: error: out-of-line definition of 'addEnemy' does not match any declaration in 'Chamber'
+        ~~^ ~~~~~~~~~~
+Chamber.cc:16:15: error: out-of-line definition of 'addEnemy' does not match any declaration in 'Chamber'
 void Chamber::addEnemy(Enemy *e) {
               ^~~~~~~~
-Chamber.cc:25:17: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
-        int y = newCell.getY();
-                ~~~~~~~^
-                       ->
-Chamber.cc:25:18: error: no member named 'getY' in 'Cell'
-        int y = newCell.getY();
-                ~~~~~~~ ^
 Chamber.cc:26:17: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
+        int y = newCell.getY();
+                ~~~~~~~^
+                       ->
+Chamber.cc:26:18: error: no member named 'getY' in 'Cell'
+        int y = newCell.getY();
+                ~~~~~~~ ^
+Chamber.cc:27:17: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
         int x = newCell.getX();
                 ~~~~~~~^
                        ->
-Chamber.cc:26:18: error: no member named 'getX' in 'Cell'
+Chamber.cc:27:18: error: no member named 'getX' in 'Cell'
         int x = newCell.getX();
                 ~~~~~~~ ^
-Chamber.cc:29:18: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
+Chamber.cc:30:18: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
                 if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
                        ~~~~~~~~^
                                ->
-Chamber.cc:29:19: error: no member named 'getY' in 'Cell'
+Chamber.cc:30:19: error: no member named 'getY' in 'Cell'
                 if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
                        ~~~~~~~~ ^
-Chamber.cc:29:43: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
+Chamber.cc:30:43: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
                 if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
                                                 ~~~~~~~~^
                                                         ->
-Chamber.cc:29:44: error: no member named 'getY' in 'Cell'
+Chamber.cc:30:44: error: no member named 'getY' in 'Cell'
                 if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
                                                 ~~~~~~~~ ^
-Chamber.cc:29:66: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
+Chamber.cc:30:66: error: member reference type 'value_type' (aka 'Cell *') is a pointer; maybe you meant to use '->'?
                 if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
                                                                        ~~~~~~~~^
                                                                                ->
-Chamber.cc:29:67: error: no member named 'getX' in 'Cell'
+Chamber.cc:30:67: error: no member named 'getX' in 'Cell'
                 if(y < cells[i].getY() || (y == cells[i].getY() && x < cells[i].getX())){
                                                                        ~~~~~~~~ ^
-Chamber.cc:30:10: error: no matching member function for call to 'insert'
+Chamber.cc:31:10: error: no matching member function for call to 'insert'
                         cells.insert(i, newCell);
                         ~~~~~~^~~~~~
 /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/vector:710:14: note: candidate function not viable: no known conversion from 'int' to 'const_iterator' (aka '__wrap_iter<const_pointer>') for 1st argument
@@ -87,137 +54,201 @@ Chamber.cc:30:10: error: no matching member function for call to 'insert'
 /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/vector:718:14: note: candidate function not viable: requires 3 arguments, but 2 were provided
     iterator insert(const_iterator __position, size_type __n, const_reference __x);
              ^
-16 errors generated.
-In file included from Character.cc:1:
-./Character.h:4:25: error: expected class name
-class Character: public Entity{
-                        ^
-./Character.h:16:16: error: unknown type name 'string'
-                bool tryMove(string direction);
-                             ^
-Character.cc:3:17: warning: using directive refers to implicitly-defined namespace 'std'
-using namespace std;
-                ^
-Character.cc:5:25: error: unknown type name 'string'
-bool Character::tryMove(string direction){
-                        ^
-Character.cc:6:2: error: unknown type name 'Cell'
+13 errors generated.
+Character.cc:6:19: error: member access into incomplete type 'Cell'
         Cell *goTo = cell->getAdjacentCell(direction);
-        ^
-Character.cc:6:15: error: use of undeclared identifier 'cell'
+                         ^
+./Entity.h:7:7: note: forward declaration of 'Cell'
+class Cell;
+      ^
+Character.cc:6:15: error: 'cell' is a private member of 'Entity'
         Cell *goTo = cell->getAdjacentCell(direction);
                      ^
-Character.cc:7:6: error: use of undeclared identifier 'cell'
+./Entity.h:15:8: note: implicitly declared private here
+        Cell *cell;
+              ^
+Character.cc:7:6: error: 'cell' is a private member of 'Entity'
         if (cell->isWalkable()){
             ^
-Character.cc:8:3: error: use of undeclared identifier 'cell'
+./Entity.h:15:8: note: implicitly declared private here
+        Cell *cell;
+              ^
+Character.cc:7:10: error: member access into incomplete type 'Cell'
+        if (cell->isWalkable()){
+                ^
+./Entity.h:7:7: note: forward declaration of 'Cell'
+class Cell;
+      ^
+Character.cc:8:3: error: 'cell' is a private member of 'Entity'
                 cell->setEntity(NULL);
                 ^
-Character.cc:8:19: error: use of undeclared identifier 'NULL'
+./Entity.h:15:8: note: implicitly declared private here
+        Cell *cell;
+              ^
+Character.cc:8:7: error: member access into incomplete type 'Cell'
                 cell->setEntity(NULL);
-                                ^
-1 warning and 8 errors generated.
-CmdInterpreter.cc:13:22: error: return type of out-of-line definition of 'CmdInterpreter::getInstance' differs from that in the declaration
+                    ^
+./Entity.h:7:7: note: forward declaration of 'Cell'
+class Cell;
+      ^
+Character.cc:9:7: error: member access into incomplete type 'Cell'
+                goTo->setEntity(this);
+                    ^
+./Entity.h:7:7: note: forward declaration of 'Cell'
+class Cell;
+      ^
+7 errors generated.
+In file included from CmdInterpreter.cc:2:
+./Die.h:16:2: error: C++ requires a type specifier for all declarations
+        Die(int numSides);
+        ^~~
+./Die.h:17:3: error: expected the class name after '~' to name a destructor
+        ~Die();
+         ^~~
+         DIE
+CmdInterpreter.cc:14:22: error: return type of out-of-line definition of 'CmdInterpreter::getInstance' differs from that in the declaration
 void CmdInterpreter::getInstance() {
                      ^
 ./CmdInterpreter.h:48:32: note: previous declaration is here
         static CmdInterpreter *getInstance();
                                ^
-CmdInterpreter.cc:18:5: error: void function 'getInstance' should not return a value [-Wreturn-type]
+CmdInterpreter.cc:19:5: error: void function 'getInstance' should not return a value [-Wreturn-type]
     return instance;
     ^      ~~~~~~~~
-CmdInterpreter.cc:31:17: error: definition of implicitly declared destructor
+CmdInterpreter.cc:32:17: error: definition of implicitly declared destructor
 CmdInterpreter::~CmdInterpreter() {
                 ^
-CmdInterpreter.cc:32:5: warning: deleting pointer to incomplete type 'Floor' may cause undefined behavior [-Wdelete-incomplete]
+CmdInterpreter.cc:33:5: warning: deleting pointer to incomplete type 'Floor' may cause undefined behavior [-Wdelete-incomplete]
     delete floor;
     ^      ~~~~~
 ./CmdInterpreter.h:7:7: note: forward declaration of 'Floor'
 class Floor;
       ^
-CmdInterpreter.cc:33:5: warning: deleting pointer to incomplete type 'Player' may cause undefined behavior [-Wdelete-incomplete]
+CmdInterpreter.cc:34:5: warning: deleting pointer to incomplete type 'Player' may cause undefined behavior [-Wdelete-incomplete]
     delete player;
     ^      ~~~~~~
 ./CmdInterpreter.h:8:7: note: forward declaration of 'Player'
 class Player;
       ^
-CmdInterpreter.cc:68:13: error: use of undeclared identifier 'cer'; did you mean 'cerr'?
+CmdInterpreter.cc:69:13: error: use of undeclared identifier 'cer'; did you mean 'cerr'?
             cer << "This isn't implemented yet :(" << endl; 
             ^~~
             cerr
 /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/iostream:51:33: note: 'cerr' declared here
 extern _LIBCPP_FUNC_VIS ostream cerr;
                                 ^
-CmdInterpreter.cc:73:13: error: unknown type name 'Cell'
+CmdInterpreter.cc:74:13: error: unknown type name 'Cell'
             Cell *otherCell = player->cell->getAdjacentCell(dir);
             ^
-CmdInterpreter.cc:73:37: error: member access into incomplete type 'Player'
+CmdInterpreter.cc:74:37: error: member access into incomplete type 'Player'
             Cell *otherCell = player->cell->getAdjacentCell(dir);
                                     ^
 ./CmdInterpreter.h:8:7: note: forward declaration of 'Player'
 class Player;
       ^
-CmdInterpreter.cc:74:13: error: unknown type name 'Entity'
+CmdInterpreter.cc:75:13: error: unknown type name 'Entity'
             Entity *otherEntity = otherCell->getEntity();
             ^
-CmdInterpreter.cc:75:19: error: member access into incomplete type 'Player'
+CmdInterpreter.cc:76:19: error: member access into incomplete type 'Player'
             player->fight(otherEntity); // At this point we know    
                   ^
 ./CmdInterpreter.h:8:7: note: forward declaration of 'Player'
 class Player;
       ^
-CmdInterpreter.cc:80:13: error: use of undeclared identifier 'cer'; did you mean 'cerr'?
+CmdInterpreter.cc:81:13: error: use of undeclared identifier 'cer'; did you mean 'cerr'?
             cer << "This isn't implemented yet :(" << endl; 
             ^~~
             cerr
 /Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/iostream:51:33: note: 'cerr' declared here
 extern _LIBCPP_FUNC_VIS ostream cerr;
                                 ^
-CmdInterpreter.cc:81:19: error: use of undeclared identifier 'Cell'
+CmdInterpreter.cc:82:19: error: use of undeclared identifier 'Cell'
         } else if(Cell::isValidDirection(cmd)) {
                   ^
-CmdInterpreter.cc:82:19: error: member access into incomplete type 'Player'
+CmdInterpreter.cc:83:19: error: member access into incomplete type 'Player'
             player->move(cmd);
                   ^
 ./CmdInterpreter.h:8:7: note: forward declaration of 'Player'
 class Player;
       ^
-CmdInterpreter.cc:88:18: error: member access into incomplete type 'Floor'
+CmdInterpreter.cc:89:18: error: member access into incomplete type 'Floor'
             floor->updateGameStep();
                  ^
 ./CmdInterpreter.h:7:7: note: forward declaration of 'Floor'
 class Floor;
       ^
-CmdInterpreter.cc:95:22: error: incomplete type 'Player' named in nested name specifier
+CmdInterpreter.cc:96:22: error: incomplete type 'Player' named in nested name specifier
             player = Player::getInstance(cmd);
                      ^~~~~~~~
 ./CmdInterpreter.h:8:7: note: forward declaration of 'Player'
 class Player;
       ^
-CmdInterpreter.cc:99:13: error: no template named 'map'; did you mean 'max'?
-            map<char, int[2]> > mapping; // I HAVE NO IDEA IF THIS SYNTAX IS VALID....
+CmdInterpreter.cc:100:13: error: use of undeclared identifier 'Die'; did you mean 'DIE::Die'?
+            Die spawnDie(18); 
             ^~~
-            max
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/algorithm:2600:1: note: 'max' declared here
-max(const _Tp& __a, const _Tp& __b, _Compare __comp)
-^
-CmdInterpreter.cc:99:33: error: use of undeclared identifier 'mapping'
-            map<char, int[2]> > mapping; // I HAVE NO IDEA IF THIS SYNTAX IS VALID....
-                                ^
-CmdInterpreter.cc:103:13: error: use of undeclared identifier 'mapping'
-            mapping["Human"] = {2,9};
+            DIE::Die
+./Die.h:16:2: note: 'DIE::Die' declared here
+        Die(int numSides);
+        ^
+CmdInterpreter.cc:100:13: error: call to non-static member function without an object argument
+            Die spawnDie(18); 
+            ^~~
+CmdInterpreter.cc:104:13: error: use of undeclared identifier 'spawnDie'
+            spawnDie.addSides(4, 'H');
             ^
-CmdInterpreter.cc:103:32: error: expected expression
-            mapping["Human"] = {2,9};
-                               ^
-CmdInterpreter.cc:104:13: error: use of undeclared identifier 'mapping'
-            mapping["Dwarf"] = {3,18};
+CmdInterpreter.cc:105:13: error: use of undeclared identifier 'spawnDie'
+            spawnDie.addSides(3, 'D');
             ^
-CmdInterpreter.cc:104:32: error: expected expression
-            mapping["Dwarf"] = {3,18};
-                               ^
 fatal error: too many errors emitted, stopping now [-ferror-limit=]
 2 warnings and 20 errors generated.
+In file included from Die.cc:1:
+./Die.h:16:2: error: C++ requires a type specifier for all declarations
+        Die(int numSides);
+        ^~~
+./Die.h:17:3: error: expected the class name after '~' to name a destructor
+        ~Die();
+         ^~~
+         DIE
+Die.cc:4:1: error: use of undeclared identifier 'Die'
+Die::Die(int numSides): numSides(numSides), sidesWithResult(){
+^
+Die.cc:8:6: error: use of undeclared identifier 'Die'
+void Die::addSides(int number, char result){
+     ^
+Die.cc:20:5: error: use of undeclared identifier 'number'
+        if(number + sidesWithResult >= numSides){
+           ^
+Die.cc:20:14: error: use of undeclared identifier 'sidesWithResult'
+        if(number + sidesWithResult >= numSides){
+                    ^
+Die.cc:20:33: error: use of undeclared identifier 'numSides'
+        if(number + sidesWithResult >= numSides){
+                                       ^
+Die.cc:21:3: error: use of undeclared identifier 'cerr'
+                cerr << "Error: tried to roll die without filling all the sides" << endl;
+                ^
+Die.cc:21:71: error: use of undeclared identifier 'endl'
+                cerr << "Error: tried to roll die without filling all the sides" << endl;
+                                                                                    ^
+Die.cc:24:2: error: unknown type name 'prng'
+        prng random(time(NULL));
+        ^
+Die.cc:24:19: error: use of undeclared identifier 'NULL'
+        prng random(time(NULL));
+                         ^
+Die.cc:25:26: error: use of undeclared identifier 'numSides'
+        int sideChosen = random(numSides);
+                                ^
+Die.cc:26:9: error: use of undeclared identifier 'sides'
+        return sides[sideChosen];
+               ^
+Die.cc:29:1: error: use of undeclared identifier 'Die'
+Die::~Die(){
+^
+Die.cc:29:7: error: expected the class name after '~' to name a destructor
+Die::~Die(){
+      ^
+15 errors generated.
 In file included from Display.cc:2:
 ./Display.h:8:10: error: no type named 'vector' in namespace 'std'
     std::vector<std::vector<char> > theDisplay;
@@ -255,23 +286,11 @@ In file included from ./Dragon.h:4:
          ^~~~~~~~~~~~~
          "Character.h"
 In file included from Dragon.cc:1:
-In file included from ./Dragon.h:4:
-In file included from ./Enemy.h:4:
-./Character.h:4:25: error: expected class name
-class Character: public Entity{
-                        ^
-./Character.h:16:16: error: unknown type name 'string'
-                bool tryMove(string direction);
-                             ^
-In file included from Dragon.cc:1:
 ./Dragon.h:8:2: error: unknown type name 'DragonTreasure'
         DragonTreasure *treasure;
         ^
 ./Dragon.h:11:13: error: unknown type name 'DragonTreasure'
         Dragon(DragonTreasure* dt);
-               ^
-Dragon.cc:3:16: error: unknown type name 'Cell'
-Dragon::Dragon(Cell *cell, DragonTreasure* dt): 
                ^
 Dragon.cc:3:28: error: unknown type name 'DragonTreasure'
 Dragon::Dragon(Cell *cell, DragonTreasure* dt): 
@@ -279,6 +298,9 @@ Dragon::Dragon(Cell *cell, DragonTreasure* dt):
 Dragon.cc:4:16: error: member initializer 'displayChar' does not name a non-static data member or base class
         treasure(dt), displayChar('D'), cell(cell), attack(20),
                       ^~~~~~~~~~~~~~~~
+Dragon.cc:4:34: error: member initializer 'cell' does not name a non-static data member or base class
+        treasure(dt), displayChar('D'), cell(cell), attack(20),
+                                        ^~~~~~~~~~
 Dragon.cc:4:46: error: member initializer 'attack' does not name a non-static data member or base class
         treasure(dt), displayChar('D'), cell(cell), attack(20),
                                                     ^~~~~~~~~~
@@ -288,48 +310,23 @@ Dragon.cc:5:2: error: member initializer 'defence' does not name a non-static da
 Dragon.cc:5:15: error: member initializer 'HP' does not name a non-static data member or base class
         defence(20), HP(150){}
                      ^~~~~~~
-11 errors generated.
+9 errors generated.
 In file included from Enemy.cc:1:
 ./Enemy.h:4:10: error: 'Character.h' file not found with <angled> include; use "quotes" instead
 #include <Character.h>
          ^~~~~~~~~~~~~
          "Character.h"
-In file included from Enemy.cc:1:
-In file included from ./Enemy.h:4:
-./Character.h:4:25: error: expected class name
-class Character: public Entity{
-                        ^
-./Character.h:16:16: error: unknown type name 'string'
-                bool tryMove(string direction);
-                             ^
-In file included from Enemy.cc:3:
-./Player.h:13:17: error: constructor cannot be declared 'virtual'
-        virtual Player() = 0;
-        ~~~~~~~ ^~~~~~
-./Player.h:14:17: error: constructor cannot be declared 'virtual'
-        virtual Player(){};
-        ~~~~~~~ ^~~~~~
-./Player.h:17:16: error: redefinition of 'instance' as different kind of symbol
-                static void *instance getInstance(char race);
-                             ^
-./Player.h:7:10: note: previous definition is here
-        Player *instance;
-                ^
-./Player.h:17:24: error: expected ';' at end of declaration list
-                static void *instance getInstance(char race);
-                                     ^
-                                     ;
-./Player.h:19:19: error: unknown type name 'string'; did you mean 'std::string'?
-        void move(string direction);
-                  ^~~~~~
-                  std::string
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/iosfwd:189:65: note: 'std::string' declared here
-typedef basic_string<char, char_traits<char>, allocator<char> > string;
-                                                                ^
-Enemy.cc:10:19: error: use of undeclared identifier 'cell'
+Enemy.cc:10:23: error: member reference type 'Cell *' is a pointer; maybe you meant to use '->'?
+        Player *player = cell.findPlayerInBounds();
+                         ~~~~^
+                             ->
+Enemy.cc:10:19: error: 'cell' is a private member of 'Entity'
         Player *player = cell.findPlayerInBounds();
                          ^
-9 errors generated.
+./Entity.h:15:8: note: implicitly declared private here
+        Cell *cell;
+              ^
+3 errors generated.
 Entity.cc:1:1: error: unknown type name 'Entity'
 Entity * Entity::getNewEntity(char type) {
 ^
@@ -357,45 +354,6 @@ In file included from Floor.cc:6:
 ./Floor.h:65:29: error: unknown type name 'Entity'
                 void notify(int i, int j, Entity *entity);
                                           ^
-In file included from Floor.cc:7:
-In file included from ./Player.h:4:
-./Character.h:4:25: error: expected class name
-class Character: public Entity{
-                        ^
-./Character.h:16:16: error: unknown type name 'string'; did you mean 'std::string'?
-                bool tryMove(string direction);
-                             ^~~~~~
-                             std::string
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/iosfwd:189:65: note: 'std::string' declared here
-typedef basic_string<char, char_traits<char>, allocator<char> > string;
-                                                                ^
-In file included from Floor.cc:7:
-./Player.h:13:17: error: constructor cannot be declared 'virtual'
-        virtual Player() = 0;
-        ~~~~~~~ ^~~~~~
-./Player.h:14:17: error: constructor cannot be declared 'virtual'
-        virtual Player(){};
-        ~~~~~~~ ^~~~~~
-./Player.h:16:22: error: unknown type name 'Entity'
-                virtual void fight(Entity *against); // TODO: we changed this to fight Entity so that we don't have to check if Character. Need to implement properly so attacking an Item just logs something.
-                                   ^
-./Player.h:17:16: error: redefinition of 'instance' as different kind of symbol
-                static void *instance getInstance(char race);
-                             ^
-./Player.h:7:10: note: previous definition is here
-        Player *instance;
-                ^
-./Player.h:17:24: error: expected ';' at end of declaration list
-                static void *instance getInstance(char race);
-                                     ^
-                                     ;
-./Player.h:19:19: error: unknown type name 'string'; did you mean 'std::string'?
-        void move(string direction);
-                  ^~~~~~
-                  std::string
-/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/iosfwd:189:65: note: 'std::string' declared here
-typedef basic_string<char, char_traits<char>, allocator<char> > string;
-                                                                ^
 Floor.cc:10:13: error: no member named 'generate' in 'Floor'
 void Floor::generate
      ~~~~~~~^
@@ -410,12 +368,48 @@ Floor.cc:15:16: error: use of undeclared identifier 'fileName'; did you mean 'fi
 Floor.cc:12:34: note: 'filename' declared here
 void Floor::generateCells(string filename) {
                                  ^
-Floor.cc:23:16: error: use of undeclared identifier 'Cell'
-        vector<Cell> column; //column vector to be pushed into cells (the vector of vectors of Cells)
-               ^
 Floor.cc:25:18: error: no member named 'getchar' in 'std::__1::basic_istringstream<char, std::__1::char_traits<char>, std::__1::allocator<char> >'
         while(ss.getchar(curr)) {
               ~~ ^
+Floor.cc:26:38: error: 'getNewEntity' is a private member of 'Entity'
+            Entity *entity = Entity::getNewEntity(curr);
+                                     ^
+./Entity.h:23:20: note: implicitly declared private here
+    static Entity *getNewEntity(char type);
+                   ^
+Floor.cc:27:18: error: variable has incomplete type 'Cell'
+            Cell cell(r, c, curr, entity);
+                 ^
+./Entity.h:7:7: note: forward declaration of 'Cell'
+class Cell;
+      ^
+Floor.cc:33:18: error: no member named 'theDisplay' in 'Display'
+        display->theDisplay.push_back(theDisplay_column);
+        ~~~~~~~  ^
+Floor.cc:40:13: error: out-of-line definition of 'updateRooms' does not match any declaration in 'Floor'
+void Floor::updateRooms() {
+            ^~~~~~~~~~~
+Floor.cc:43:14: error: use of undeclared identifier 'v'
+    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
+             ^
+Floor.cc:43:31: error: use of undeclared identifier 'v'
+    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
+                              ^
+Floor.cc:43:42: error: use of undeclared identifier 'i'
+    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
+                                         ^
+Floor.cc:44:11: error: member access into incomplete type 'Chamber'
+        it->update(); //update the current chamber in the vector of chambers
+          ^
+./Floor.h:9:7: note: forward declaration of 'Chamber'
+class Chamber;
+      ^
+Floor.cc:48:8: error: constructor for 'Floor' must explicitly initialize the const member 'WIDTH'
+Floor::Floor(string fileName) : display(NULL){
+       ^
+./Floor.h:34:12: note: declared here
+        const int WIDTH;
+                  ^
 fatal error: too many errors emitted, stopping now [-ferror-limit=]
 20 errors generated.
 In file included from Human.cc:1:
@@ -424,25 +418,12 @@ In file included from ./Human.h:4:
 #include <Character.h>
          ^~~~~~~~~~~~~
          "Character.h"
-In file included from Human.cc:1:
-In file included from ./Human.h:4:
-In file included from ./Enemy.h:4:
-./Character.h:4:25: error: expected class name
-class Character: public Entity{
-                        ^
-./Character.h:16:16: error: unknown type name 'string'
-                bool tryMove(string direction);
-                             ^
-In file included from Human.cc:1:
-./Human.h:9:12: error: unknown type name 'Cell'
-        Human(Cell *cell);
-              ^
-Human.cc:3:14: error: unknown type name 'Cell'
-Human::Human(Cell *cell):
-             ^
 Human.cc:4:2: error: member initializer 'displayChar' does not name a non-static data member or base class
         displayChar('H'), cell(cell), attack(20), defence(20), HP(140){}
         ^~~~~~~~~~~~~~~~
+Human.cc:4:20: error: member initializer 'cell' does not name a non-static data member or base class
+        displayChar('H'), cell(cell), attack(20), defence(20), HP(140){}
+                          ^~~~~~~~~~
 Human.cc:4:32: error: member initializer 'attack' does not name a non-static data member or base class
         displayChar('H'), cell(cell), attack(20), defence(20), HP(140){}
                                       ^~~~~~~~~~
@@ -452,38 +433,7 @@ Human.cc:4:44: error: member initializer 'defence' does not name a non-static da
 Human.cc:4:57: error: member initializer 'HP' does not name a non-static data member or base class
         displayChar('H'), cell(cell), attack(20), defence(20), HP(140){}
                                                                ^~~~~~~
-9 errors generated.
-In file included from Player.cc:1:
-In file included from ./Player.h:4:
-./Character.h:4:25: error: expected class name
-class Character: public Entity{
-                        ^
-./Character.h:16:16: error: unknown type name 'string'
-                bool tryMove(string direction);
-                             ^
-In file included from Player.cc:1:
-./Player.h:13:17: error: constructor cannot be declared 'virtual'
-        virtual Player() = 0;
-        ~~~~~~~ ^~~~~~
-./Player.h:14:17: error: constructor cannot be declared 'virtual'
-        virtual Player(){};
-        ~~~~~~~ ^~~~~~
-./Player.h:16:22: error: unknown type name 'Entity'
-                virtual void fight(Entity *against); // TODO: we changed this to fight Entity so that we don't have to check if Character. Need to implement properly so attacking an Item just logs something.
-                                   ^
-./Player.h:17:16: error: redefinition of 'instance' as different kind of symbol
-                static void *instance getInstance(char race);
-                             ^
-./Player.h:7:10: note: previous definition is here
-        Player *instance;
-                ^
-./Player.h:17:24: error: expected ';' at end of declaration list
-                static void *instance getInstance(char race);
-                                     ^
-                                     ;
-./Player.h:19:19: error: unknown type name 'string'
-        void move(string direction);
-                  ^
+6 errors generated.
 Player.cc:9:16: error: expected ';' after using declaration
 using namesapce std;
                ^
@@ -491,50 +441,74 @@ using namesapce std;
 Player.cc:9:7: error: using declaration requires a qualified name
 using namesapce std;
       ^
-Player.cc:12:12: error: invalid use of member 'instance' in static member function
+Player.cc:17:12: error: invalid use of member 'instance' in static member function
     delete instance;
            ^~~~~~~~
-Player.cc:16:17: error: out-of-line definition of 'getInstance' does not match any declaration in 'Player'
-Player *Player::getInstance(char cmd = 's') {
-                ^~~~~~~~~~~
-Player.cc:19:28: error: allocation of incomplete type 'Shade'
+Player.cc:24:9: error: invalid use of member 'instance' in static member function
+    if(!instance) {
+        ^~~~~~~~
+Player.cc:26:13: error: invalid use of member 'instance' in static member function
+            instance = new Shade();
+            ^~~~~~~~
+Player.cc:26:28: error: allocation of incomplete type 'Shade'
             instance = new Shade();
                            ^~~~~
 Player.cc:3:7: note: forward declaration of 'Shade'
 class Shade;
       ^
-Player.cc:21:28: error: allocation of incomplete type 'Drow'
+Player.cc:28:13: error: invalid use of member 'instance' in static member function
+            instance = new Drow();
+            ^~~~~~~~
+Player.cc:28:28: error: allocation of incomplete type 'Drow'
             instance = new Drow();
                            ^~~~
 Player.cc:4:7: note: forward declaration of 'Drow'
 class Drow;
       ^
-Player.cc:23:28: error: allocation of incomplete type 'Vampire'
+Player.cc:30:13: error: invalid use of member 'instance' in static member function
+            instance = new Vampire();
+            ^~~~~~~~
+Player.cc:30:28: error: allocation of incomplete type 'Vampire'
             instance = new Vampire();
                            ^~~~~~~
 Player.cc:5:7: note: forward declaration of 'Vampire'
 class Vampire;
       ^
-Player.cc:25:28: error: allocation of incomplete type 'Goblin'
+Player.cc:32:13: error: invalid use of member 'instance' in static member function
+            instance = new Goblin();
+            ^~~~~~~~
+Player.cc:32:28: error: allocation of incomplete type 'Goblin'
             instance = new Goblin();
                            ^~~~~~
 Player.cc:6:7: note: forward declaration of 'Goblin'
 class Goblin;
       ^
-Player.cc:27:28: error: allocation of incomplete type 'Troll'
+Player.cc:34:13: error: invalid use of member 'instance' in static member function
+            instance = new Troll();
+            ^~~~~~~~
+Player.cc:34:28: error: allocation of incomplete type 'Troll'
             instance = new Troll();
                            ^~~~~
 Player.cc:7:7: note: forward declaration of 'Troll'
 class Troll;
       ^
-Player.cc:29:9: error: use of undeclared identifier 'atexit'
-        atexit(cleanup);
-        ^
-Player.cc:38:19: error: unknown type name 'string'
+Player.cc:38:12: error: invalid use of member 'instance' in static member function
+    return instance;
+           ^~~~~~~~
+Player.cc:45:19: error: unknown type name 'string'; did you mean 'std::string'?
 bool Player::move(string direction){
-                  ^
-fatal error: too many errors emitted, stopping now [-ferror-limit=]
-20 errors generated.
+                  ^~~~~~
+                  std::string
+/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1/iosfwd:189:65: note: 'std::string' declared here
+typedef basic_string<char, char_traits<char>, allocator<char> > string;
+                                                                ^
+Player.cc:45:14: error: return type of out-of-line definition of 'Player::move' differs from that in the declaration
+bool Player::move(string direction){
+             ^
+./Player.h:19:14: note: previous declaration is here
+        void move(std::string direction);
+             ^
+17 errors generated.
 cc3k.cc:5:20: error: calling a private constructor of class 'CmdInterpreter'
     CmdInterpreter ci;
                    ^

@@ -1,6 +1,7 @@
 #include "Cell.h"
 #include "Floor.h"
 #include "PRNG.h"
+#include "Player.h"
 
 #include <iostream>
 #include <ctime>
@@ -63,15 +64,22 @@ Cell* Cell::getAdjacentCell(string direction){
 Player* Cell::findPlayerInBounds(){
 	for(int i=0;i<7;i++){
 		Cell *checkCell = getAdjacentCell(directions[i]);
-		if(checkCell->getEntity() == Player.getInstance())
-			return checkCell->getEntity();
+		if(checkCell->getEntity() == Player::getInstance()) {
+			Entity *checkEntity = checkCell->getEntity();
+			Player *thePlayer = dynamic_cast<Player *>(checkEntity);
+			if(thePlayer) {
+				return thePlayer;
+			} else {
+				cerr << "Error in dynamic_cast from Entity * to Player * in Cell::findPlayerInBounds" << endl;
+			}
+		}
 	}
 	// return NULL if the player's not in a block radius
 	return NULL;
 }
 
 string Cell::getRandomDirection(){
-	prng random(time(NULL));
+	PRNG random(time(NULL));
 	return directions[random(7)];
 }
 
