@@ -19,5 +19,5 @@ void Enemy::updateMove(){
 	string tryDirection;
 	do{
 		tryDirection = Cell::getRandomDirection();
-	}while(!tryMove(tryDirection));
+	}while(!tryMove(tryDirection) && numChecks <= 8);
 }

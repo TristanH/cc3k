@@ -6,14 +6,14 @@
 
 using namespace std;
 
-Cell::Cell(int y, int x, char type): 
-	entity(NULL), y(y), x(x), type(type){
+Cell::Cell(int r, int c, char type): 
+	entity(NULL), r(r), c(c), type(type){
 	floor = Floor.getInstance();
 	directions = {}
 }
 
 //make this const?
-string Cell::directions[] = {"no", "ne", "ea", "se", "so", "sw", "we", "nw"};
+Cell::directions[] = {"no", "ne", "ea", "se", "so", "sw", "we", "nw"};
 
 void Cell::notifyFloor(){
 	//idk how to do this
@@ -34,7 +34,10 @@ Entity* Cell::getEntity(){
 }
 
 bool Cell::isWalkable(){
-	return type == '.' && entity == NULL;
+	// what about the case where the entity is gold?
+	// technically you are supposed to walk onto gold to pick it up but we can fake this.
+	// same goes for potions.
+	return (type == '.' || type == '#' || type == '+') && entity == NULL;
 }
 
 char Cell::getType(){

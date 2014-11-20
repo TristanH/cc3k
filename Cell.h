@@ -11,12 +11,12 @@ class Player;
 class Cell{
 	// the entity on this cell
 	Entity *entity;
-	int y, x;
+	int r, c; // row, column
 	// Can be floor, wall, passage, stairway
 	// will not change when entity is on it
 	const char type;
 	Floor *floor;
-	static string directions[8];
+	static const string directions[8];
 
 	void notifyFloor();
 
