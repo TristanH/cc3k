@@ -37,7 +37,7 @@ void Floor::generateCells(string filename) {
     // At this point, both the cells and display->theDisplay should be initialized
 }
 
-void Floor::updateRooms() {
+void Floor::notifyChambers() {
     //iterate through the vector of rooms and update them
     vector<Chamber>::iterator it; //define iterator
     for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers

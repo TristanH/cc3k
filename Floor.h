@@ -24,7 +24,7 @@ class Floor{
 	// cells[i][j] will be NULL if it is outside of a chamber
 	std::vector<std::vector<Cell> > cells;
 	Display *display; //map needs to notify dislpay
-	std::vector<Chamber *> chambers;
+	std::vector<Chamber *> chambers; // TODO: should we maybe make these stack-allocated so they die with the floor?
 
 	// maps the displayChar of an entity to its probability of spawnining.
 	// this allows us to have different spawn probabilities for different floors.
@@ -43,6 +43,7 @@ class Floor{
 	// and the cells notify the map of these updates
 
 	void notifyDisplay();
+	void notifyChambers();
 
 	void generateChambers();
 	void floodCreateChamber(int y, int x, bool **visited, Chamber* chamber);
