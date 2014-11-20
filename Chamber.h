@@ -7,6 +7,7 @@
 #define __CHAMBER_H__
 
 #include "Cell.h"
+#include <vector>
 
 class Enemy;
 

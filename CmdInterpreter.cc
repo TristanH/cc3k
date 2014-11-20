@@ -59,27 +59,43 @@ void CmdInterpreter::printLog(string str) {
 }
 
 void CmdInterpreter::executeCmd(string cmd) {
+
     if(state == 1) {
+        bool validCmd = false;
         if(cmd == "u") {
             string dir;
             cin >> dir;
             //TODO: pickup thing in that dir
+            cer << "This isn't implemented yet :(" << endl; 
+            validCmd = true;
         } else if(cmd == "a") {
             string dir;
             cin >> dir;
             Cell *otherCell = player->cell->getAdjacentCell(dir);
             Entity *otherEntity = otherCell->getEntity();
-            player->fight(otherEntity); // At this point we know     
+            player->fight(otherEntity); // At this point we know    
+            validCmd = true; 
         } else if(cmd == "r") {
             restart();
+            // Don't set validCmd becaues we don't want a game step to happen after we decide to restart
+            cer << "This isn't implemented yet :(" << endl; 
         } else if(Cell::isValidDirection(cmd)) {
             player->move(cmd);
+            validCmd = true;
         }
+
+        if(validCmd) {
+            // Player has done his shit so update everything else.
+            floor->updateGameStep();
+        }
+
     } else {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
-            // generate the first floor
-            // create new player with race corresponding to cmd
+            
+            // we need to generate the player. it can be acessed later by using Player::getInstance again (from any module that includes Player.h)
+            player = Player::getInstance(cmd);
 
+            // generate the first floor
             // generating/populating floor 
             Die spawnDie(18); 
 
@@ -97,9 +113,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             floor->setSpawnRates(mapping);
             floor->populate();
 
-            //creating player
-            player = getInstance(cmd);
+            state = 1; // we should now start reading commands related to the "playing" state
         }
     }
-    floor->updateGameStep();
 }

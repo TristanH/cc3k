@@ -4,6 +4,7 @@
 #include <sstream>
 #include "Display.h"
 #include "Floor.h"
+#include "Player.h"
 using namespace std;
 
 void Floor::generate
@@ -47,6 +48,7 @@ void Floor::updateRooms() {
 Floor::Floor(string fileName) : display(NULL){
     generateCells(filename);
     generateChambers();
+    player = Player::getInstance();
 }
 
 void Floor::updateGameStep() {
@@ -100,6 +102,10 @@ void Floor::generateChambers(){
         }
     }
 
+}
+
+void Floor::populate() {
+    // TODO: add this funcitonality. We just want shit to compiles so we can leave it blank for now.
 }
 
 void Floor::notify(int i, int j, Entity *entity) {

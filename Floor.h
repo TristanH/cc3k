@@ -17,6 +17,8 @@ class Chamber;
 //map used to define the probability of each entity spawning (enemies, potions, etc.)
 #include <map>
 
+#include <string>
+
 class Floor{
 	// fill in proper numbers later, maybe needs to be on heap?
 	// cells[i][j] will be NULL if it is outside of a chamber
@@ -47,9 +49,9 @@ class Floor{
 
 	public:
 		// sets cells, spawns entities
-		Floor(string fileName);
+		Floor(std::string fileName);
 		void setDisplay(Display *display);
-		void setSpawnRates(sed::map<char,float> mapping);
+		void setSpawnRates(std::map<char,float> mapping);
 
 		//updating gamestep should move all the enemies and give them their chances to do combat
 		void updateGameStep();

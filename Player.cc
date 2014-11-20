@@ -12,6 +12,7 @@ void Player::cleanup() {
     delete instance;
 }
 
+// After the player has been initialy created, you can get it by simply calling getInstance (no params).
 Player *Player::getInstance(char cmd = 's') {
     if(!instance) {
         if(cmd == 's') {

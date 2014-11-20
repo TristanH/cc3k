@@ -7,6 +7,9 @@
 class Entity;
 class Map;
 class Player;
+class Floor;
+
+#include <string>
 
 class Cell{
 	// the entity on this cell
@@ -16,24 +19,24 @@ class Cell{
 	// will not change when entity is on it
 	const char type;
 	Floor *floor;
-	static const string directions[8];
+	static const std::string directions[8];
 
 	void notifyFloor();
 
 	public:
 		// If the cell being created doesn't have an entity on it, the entity
 		// field is just NULL
-		Cell(int y, int x, char type, Entity *entity = NULL);
-		void setEntity(const Entity *newEntity);
+		Cell(int r, int c, char type, Floor *floor, Entity *entity = NULL);
+		void setEntity(Entity *newEntity);
 		Entity *getEntity();
 		bool isWalkable();
 		char getType();
 		// gets the cell from eg no, nw, sw used for enemy attacking, potions, moving
-		Cell *getAdjacentCell(string direction);
+		Cell *getAdjacentCell(std::string direction);
 
 		Player *findPlayerInBounds();
 		static std::string getRandomDirection();
-		static bool isValidDirection(string direction);
+		static bool isValidDirection(std::string direction);
 
 };
 

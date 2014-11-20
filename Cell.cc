@@ -1,22 +1,24 @@
 #include "Cell.h"
-#include "Map.h"
+#include "Floor.h"
 #include "PRNG.h"
 
+#include <iostream>
 #include <ctime>
+#include <string>
 
 using namespace std;
 
-Cell::Cell(int r, int c, char type, Floor *floor, Entity *entity = NULL): 
-	(r), c(c), type(type), floor(floor), entity(entity) {}
+Cell::Cell(int r, int c, char type, Floor *floor, Entity *entity): 
+	r(r), c(c), type(type), floor(floor), entity(entity) {}
 
 //make this const?
-Cell::directions[] = {"no", "ne", "ea", "se", "so", "sw", "we", "nw"};
+const string Cell::directions[] = {"no", "ne", "ea", "se", "so", "sw", "we", "nw"};
 
 void Cell::notifyFloor(){
-	floor->notify(i,j,entity);
+	floor->notify(r,c,entity);
 }
 
-void Cell::setEntity(const Entity *newEntity){
+void Cell::setEntity(Entity *newEntity){
 	entity = newEntity;
 	notifyFloor();
 }
@@ -38,21 +40,21 @@ char Cell::getType(){
 
 Cell* Cell::getAdjacentCell(string direction){
 	if(direction == "no")
-		return Floor.getCell(y-1,x);
+		return floor->getCell(r-1,c);
 	else if(direction == "ne")
-		return Floor.getCell(y-1, x+1);
+		return floor->getCell(r-1, c+1);
 	else if(direction == "ea")
-		return Floor.getCell(y, x+1);
+		return floor->getCell(r, c+1);
 	else if(direction == "se")
-		return Floor.getCell(y+1, x+1);
+		return floor->getCell(r+1, c+1);
 	else if(direction == "so")
-		return Floor.getCell(y+1, x);
+		return floor->getCell(r+1, c);
 	else if(direction == "sw")
-		return Floor.getCell(y+1, x-1);
+		return floor->getCell(r+1, c-1);
 	else if(direction == "we")
-		return Floor.getCell(y, x-1);
+		return floor->getCell(r, c-1);
 	else if(direction == "nw")
-		return Floor.getCell(y-1, x-1);
+		return floor->getCell(r-1, c-1);
 
 	cerr << "ERROR: Invalid direciton given to getAdjacentCell" << endl;
 	return NULL;
@@ -61,8 +63,8 @@ Cell* Cell::getAdjacentCell(string direction){
 Player* Cell::findPlayerInBounds(){
 	for(int i=0;i<7;i++){
 		Cell *checkCell = getAdjacentCell(directions[i]);
-		if(*checkCell.getEntity() == Player.getInstance())
-			return checkCell.getEntity();
+		if(checkCell->getEntity() == Player.getInstance())
+			return checkCell->getEntity();
 	}
 	// return NULL if the player's not in a block radius
 	return NULL;
