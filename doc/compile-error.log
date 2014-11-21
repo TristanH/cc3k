@@ -1,0 +1,11 @@
+src/Chamber.cc:31:12: error: member reference base type 'Cell *' is not a structure or union
+                if(r < it->getR() || (r == it->getR() && c < it->getC())){
+                       ~~^ ~~~~
+src/Chamber.cc:31:32: error: member reference base type 'Cell *' is not a structure or union
+                if(r < it->getR() || (r == it->getR() && c < it->getC())){
+                                           ~~^ ~~~~
+src/Chamber.cc:31:50: error: member reference base type 'Cell *' is not a structure or union
+                if(r < it->getR() || (r == it->getR() && c < it->getC())){
+                                                             ~~^ ~~~~
+3 errors generated.
+make: *** [build/Chamber.o] Error 1
