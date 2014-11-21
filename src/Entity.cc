@@ -13,3 +13,6 @@ Entity * Entity::getNewEntity(char type) {
         return new Merchant();
     }
 }
+
+int Entity::getR() { return cell->getR(); }
+int Entity::getC() { return cell->getC(); }

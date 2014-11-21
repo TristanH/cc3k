@@ -25,7 +25,7 @@ void Chamber::addCell(Cell *newCell){
 	// we want to insert cells in the order they should be updated, eg starting at top then left to right
 	int r = newCell->getR();
 	int c = newCell->getC();
-    vector<Cell *>::iterator it;
+	vector<Cell *>::iterator it;
 	for(it = cells.begin(); it != cells.end(); it++){
 		// if we've found the right place to insert this cell
 		if(r < it->getR() || (r == it->getR() && c < it->getC())){

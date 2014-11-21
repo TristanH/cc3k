@@ -23,6 +23,8 @@ class Entity{
     static Entity *getNewEntity(char type);
 
 	public:
+        int getR();
+        int getC();
 		virtual void notify() = 0;
 		virtual ~Entity(){};
 

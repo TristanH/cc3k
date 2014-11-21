@@ -11,7 +11,7 @@ class Enemy: public Character{
     public:
     	// this is only for the step of enemies attacking the player
     	// this will be concrete, then enemies with special attack effects can overwrite it
-    	void fight(Character *against);
+    	virtual void fight(Character *against);
 
     	void updateMove();
 };
