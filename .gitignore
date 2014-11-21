@@ -1,2 +1,8 @@
-*.d
-*.o
+# Ignore the build dir (includes .o and .d files)
+build
+
+# Ignore executables
+build/*
+
+# Ignore Mac specific files
+.DS_Store
