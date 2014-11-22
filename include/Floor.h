@@ -29,7 +29,7 @@ class Floor{
 
 	// maps the displayChar of an entity to its probability of spawnining.
 	// this allows us to have different spawn probabilities for different floors.
-	Die spawnRates;
+	Die *spawnRates;
 
 	// keeps track of floor dimensions
 	const int WIDTH;
@@ -56,7 +56,7 @@ class Floor{
 		// Since the floor owns its cells and chambers, it will delete all cells and chambers
 		~Floor();
 		void setDisplay(Display *display);
-		void setSpawnRates(Die sr);
+		void setSpawnRates(Die *sr);
 
 		//updating gamestep should move all the enemies and give them their chances to do combat
 		void updateGameStep();
@@ -67,7 +67,7 @@ class Floor{
 		void populate();
 
 		// simply tells the floor that this entity has just occupied it's space and the display should be updated
-		void notify(int i, int j, Entity *entity);
+		void notify(int i, int j, Cell *cell);
 
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };

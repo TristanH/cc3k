@@ -75,14 +75,14 @@ void Floor::setDisplay(Display *d) {
     display = d;
 }
 
-void Floor::setSpawnRates(Die sr) {
+void Floor::setSpawnRates(Die *sr) {
     spawnRates = sr;
 }
 
 void Floor::floodCreateChamber(int y, int x, bool** visited, Chamber *chamber){
-    if(visited[y][x] || cells[y][x].getType() != '.')
+    if(visited[y][x] || cells[y][x]->getType() != '.')
         return;
-    chamber.addCell(cells[y][x]);
+    chamber->addCell(cells[y][x]);
     visited[y][x] = true;
     floodCreateChamber(y+1,x,visited, chamber);
     floodCreateChamber(y,x+1,visited, chamber);
@@ -93,9 +93,9 @@ void Floor::floodCreateChamber(int y, int x, bool** visited, Chamber *chamber){
 void Floor::generateChambers(){
     bool **visited;
 
-    visted = new int*[HEIGHT];
+    visited = new bool*[HEIGHT];
     for(int y=0; y < HEIGHT; y++){
-        visited[y][x] = new int[WIDTH];
+        visited[y] = new bool[WIDTH];
         for(int x=0; x < WIDTH; x++){
             visited[y][x] = false;
         }
@@ -103,10 +103,10 @@ void Floor::generateChambers(){
 
     for(int y =0; y < 25; y++){
         for(int x=0; x<79; x++){
-            if(!visited[y][x] && cells[y][x].getType() == '.'){
+            if(!visited[y][x] && cells[y][x]->getType() == '.'){
                 Chamber* newChamber = new Chamber();
                 floodCreateChamber(y, x, visited, newChamber);
-                chambers.push(newChamber);
+                chambers.push_back(newChamber);
             }
         }
     }
@@ -127,7 +127,7 @@ ostream &operator<<(ostream &out, Floor &f) {
 
 Cell* Floor::getCell(int y, int x){
     if(y < 0 || y >= HEIGHT || x < 0 || x>= WIDTH){
-        cerr << "Invalid coordinates sent to floor.getCell"
+        cerr << "Invalid coordinates sent to floor.getCell";
         return NULL;
     }
     else

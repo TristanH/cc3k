@@ -1,4 +1,4 @@
 #include "Human.h"
 
 Human::Human(Cell *cell):
-	displayChar('H'), cell(cell), attack(20), defence(20), HP(140){}
+	Enemy(cell, 'H', 20, 20, 140){}

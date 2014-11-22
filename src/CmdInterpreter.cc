@@ -1,4 +1,4 @@
-#include "CmdInterpreter.h"
+ #include "CmdInterpreter.h"
 #include "Die.h"
 #include "Player.h"
 #include "Cell.h"
@@ -100,15 +100,15 @@ void CmdInterpreter::executeCmd(string cmd) {
             player = Player::getInstance(cmd[0]);
 
             // Die has 18 sides because the lcd of the spawning probabilities is 18
-            Die spawnDie(18); 
+            Die *spawnDie = new Die(18); 
 
             // add sides to the die
-            spawnDie.addSides(4, 'H');
-            spawnDie.addSides(3, 'D');
-            spawnDie.addSides(5, 'L');
-            spawnDie.addSides(2, 'E');
-            spawnDie.addSides(2, 'O');
-            spawnDie.addSides(2, 'M');
+            spawnDie->addSides(4, 'H');
+            spawnDie->addSides(3, 'D');
+            spawnDie->addSides(5, 'L');
+            spawnDie->addSides(2, 'E');
+            spawnDie->addSides(2, 'O');
+            spawnDie->addSides(2, 'M');
 
             // get the name of the file to generate map from
             // TODO: remove temporary fix and actually use cmd line args
