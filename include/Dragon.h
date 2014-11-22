@@ -2,7 +2,7 @@
 #define __DRAGON_H__
 
 #include "Enemy.h"
-Class cell;
+class cell;
 
 class Dragon : public Enemy {
     
