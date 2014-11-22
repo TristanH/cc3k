@@ -3,10 +3,13 @@
 
 #include "Enemy.h"
 
+class Cell;
+
 class Elf : public Enemy {
 
     public:
+    	Elf(Cell* cell);
 
 };
 
-#define
+#endif

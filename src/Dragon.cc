@@ -1,8 +1,7 @@
 #include "Dragon.h"
 
 Dragon::Dragon(Cell *cell):
-	displayChar('D'), cell(cell), attack(20),
-	defence(20), HP(150){}
+	Enemy(cell, 'D', 20, 20, 150){}
 
 void Dragon::updateMove(){
 	;//do nothing
