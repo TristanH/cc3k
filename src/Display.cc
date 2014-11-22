@@ -11,9 +11,9 @@ char Display::getState(int i, int j) {
 }
 
 ostream &operator<<(ostream &out, Display &d) {
-    for(int i=0; i < theDisplay.size(); i++) {
-        for(int j=0; j < theDisplay[i].size(); j++) {
-            out << theDisplay[i][j];
+    for(int i=0; i < d.theDisplay.size(); i++) {
+        for(int j=0; j < d.theDisplay[i].size(); j++) {
+            out << d.theDisplay[i][j];
         }
         out << endl;
     }

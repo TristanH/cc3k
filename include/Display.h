@@ -1,6 +1,7 @@
 #ifndef __DISPLAY_H__
 #define __DISPLAY_H__
 #include <iostream>
+#include <vector>
 
 class Display {
 

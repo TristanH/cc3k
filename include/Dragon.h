@@ -4,11 +4,9 @@
 #include "Enemy.h"
 
 class Dragon : public Enemy {
-
-	DragonTreasure *treasure;
     
     public:
-    	Dragon(DragonTreasure* dt);
+    	Dragon(Cell *cell);
     	// needs a specific implementation to not be aggresive
     	void updateMove();
     	
