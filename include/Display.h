@@ -12,6 +12,7 @@ class Display {
 		// notifys theDisplay at (i,j) with new state
 		void notify(int i, int j, char newState);
 		char getState(int i, int j);
+		void addColumn(std::vector<char> col);
 
 	friend std::ostream &operator<<(std::ostream &out, Display &d);
 

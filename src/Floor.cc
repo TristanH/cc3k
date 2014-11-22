@@ -2,13 +2,17 @@
 #include <map>
 #include <fstream>
 #include <sstream>
+
 #include "Display.h"
 #include "Floor.h"
+#include "Chamber.h"
 #include "Player.h"
 #include "Die.h"
+#include "Cell.h"
+
 using namespace std;
 
-void Floor::generateCells(string filename) {
+void Floor::generateCells(string fileName) {
     // generate the walls and shit.
     // initialize display->theDisplay simultaneously
     ifstream f(fileName.c_str());
@@ -19,17 +23,18 @@ void Floor::generateCells(string filename) {
         if(f.fail()) break; //reached EOF
         istringstream ss(line);
         char curr;
-        vector<Cell> column; //column vector to be pushed into cells (the vector of vectors of Cells)
+        vector<Cell*> column; //column vector to be pushed into cells (the vector of vectors of Cells)
         vector<char> theDisplay_column; //column vector to be pused into display->theDisplay
-        while(ss.getchar(curr)) {
-            Cell cell = new Cell(r, c, curr);
+        while(ss.get(curr)) {
+            Cell *cell = new Cell(r, c, curr, this);
             Entity *entity = Entity::getNewEntity(curr, cell);
+            cell->setEntity(entity);
             column.push_back(cell);
             theDisplay_column.push_back(curr);
             c++;
         }
         cells.push_back(column);
-        display->theDisplay.push_back(theDisplay_column);
+        display->addColumn(theDisplay_column);
         c = 0;
         r++;
     }
@@ -38,34 +43,27 @@ void Floor::generateCells(string filename) {
 
 void Floor::notifyChambers() {
     //iterate through the vector of rooms and update them
-    vector<Chamber>::iterator it; //define iterator
-    for(it = v.begin(); it != v.end(); ++i) { // iterators look weird but the are just glorified pointers
-        it->update(); //update the current chamber in the vector of chambers
+    vector<Chamber*>::iterator it; //define iterator
+    for(it = chambers.begin(); it != chambers.end(); ++it) { // iterators look weird but the are just glorified pointers
+        (*it)->update(); //update the current chamber in the vector of chambers
     }
 }
 
-Floor::Floor(string fileName) : display(NULL){
-    generateCells(filename);
+Floor::Floor(string fileName) :
+    display(NULL), WIDTH(79), HEIGHT(25){
+    generateCells(fileName);
     generateChambers();
-    player = Player::getInstance();
 }
 
 Floor::~Floor() {
-
-    // delete enemies
-    for(int i=0; i < enemies.size(); i++)
-        for(int j=0; j < enemies[i].size(); j++)
-            delete enemies[i][j];
-
     // delete chambers
-    for(int i=0; i < chambers.size(); j++)
+    for(int i=0; i < chambers.size(); i++)
         delete chambers[i];
 }
 
 void Floor::updateGameStep() {
     // TODO: is the player implicitly updated before this????? I DUNNOOOOO BRAH
-    updateRooms();
-    notifyDisplay();
+    notifyChambers();
 }
 
 void Floor::notifyDisplay(int i, int j, char newState) {
@@ -119,8 +117,8 @@ void Floor::populate() {
     // TODO: add this funcitonality. We just want shit to compiles so we can leave it blank for now.
 }
 
-void Floor::notify(int i, int j, Entity *entity) {
-    display->notify(i,j,entity->displayChar);
+void Floor::notify(int i, int j, Cell *cell) {
+    notifyDisplay(i,j,cell->getDisplayChar());
 }
 
 ostream &operator<<(ostream &out, Floor &f) {

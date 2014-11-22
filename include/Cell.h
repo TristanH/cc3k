@@ -33,6 +33,7 @@ class Cell{
 		int getR();
 		int getC();
 		char getType();
+		char getDisplayChar();
 		// gets the cell from eg no, nw, sw used for enemy attacking, potions, moving
 		Cell *getAdjacentCell(std::string direction);
 

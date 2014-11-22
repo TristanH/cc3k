@@ -9,7 +9,8 @@ void Chamber::updateEnemies() {
 	//iterate through the vector of enemies and update them
     int enemiesSize = enemies.size();
     for(int i=0; i < enemiesSize; i++) { // was using an iterator here before but fuck that shit
-    	enemies[i]->updateMove();
+    	// notify the enemy that its time to update
+    	enemies[i]->notify();
     }
 }
 
@@ -37,4 +38,9 @@ void Chamber::addCell(Cell *newCell){
 	// if we get here aka we haven't found a spot for the new Cell yet, put it at the back of the list
 	// this covers the empty list case too
 	cells.push_back(newCell);
+}
+
+Chamber::~Chamber(){
+	for(int i=0;i<enemies.size();i++)
+		delete enemies[i];
 }

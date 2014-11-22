@@ -29,7 +29,7 @@ class Floor{
 
 	// maps the displayChar of an entity to its probability of spawnining.
 	// this allows us to have different spawn probabilities for different floors.
-	std::map<char, float> spawnRates;
+	Die spawnRates;
 
 	// keeps track of floor dimensions
 	const int WIDTH;
@@ -43,7 +43,7 @@ class Floor{
 	// the idea is that updateEnemies makes the enemies move their shit, then the enemies update their respective cells
 	// and the cells notify the map of these updates
 
-	void notifyDisplay();
+	void notifyDisplay(int i, int j, char newState);
 	void notifyChambers();
 
 	void generateChambers();

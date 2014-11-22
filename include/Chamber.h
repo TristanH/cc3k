@@ -24,6 +24,7 @@ class Chamber {
 
     public:
     	Chamber();
+        ~Chamber();
         void update();
         void addEnemy(Enemy *);
         void addCell(Cell *cell);

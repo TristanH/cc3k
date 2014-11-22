@@ -47,6 +47,13 @@ int Cell::getC() {
 	return c;
 }
 
+char Cell::getDisplayChar(){
+	if(entity==NULL)
+		return type;
+	else
+		return entity->getDisplayChar();
+}
+
 Cell* Cell::getAdjacentCell(string direction){
 	if(direction == "no")
 		return floor->getCell(r-1,c);

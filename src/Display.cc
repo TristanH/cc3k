@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Display.h"
 using namespace std;
 
@@ -8,6 +9,10 @@ void Display::notify(int i, int j, char newState) {
 
 char Display::getState(int i, int j) {
     return theDisplay[i][j];
+}
+
+void Display::addColumn(vector<char> col){
+	theDisplay.push_back(col);
 }
 
 ostream &operator<<(ostream &out, Display &d) {

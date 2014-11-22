@@ -11,9 +11,6 @@ class Cell;
 
 class Entity{
 
-    // This creates and returns a pointer to a new Entity of the corresponding type of "type".
-    static Entity *getNewEntity(char type, Cell* cell);
-
     protected:
         //all entities are aware of the cell they occupy and they must be able to
         //notify the cells they move to of their presence
@@ -29,8 +26,12 @@ class Entity{
         int getR();
         int getC();
         Cell *getCell();
+        char getDisplayChar();
 		virtual void notify() = 0;
 		virtual ~Entity(){};
+        
+        // This creates and returns a pointer to a new Entity of the corresponding type of "type".
+        static Entity *getNewEntity(char type, Cell* cell);
 
 };
 
