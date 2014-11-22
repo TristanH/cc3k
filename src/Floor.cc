@@ -22,8 +22,8 @@ void Floor::generateCells(string filename) {
         vector<Cell> column; //column vector to be pushed into cells (the vector of vectors of Cells)
         vector<char> theDisplay_column; //column vector to be pused into display->theDisplay
         while(ss.getchar(curr)) {
-            Entity *entity = Entity::getNewEntity(curr);
-            Cell cell = new Cell(r, c, curr, entity);
+            Cell cell = new Cell(r, c, curr);
+            Entity *entity = Entity::getNewEntity(curr, cell);
             column.push_back(cell);
             theDisplay_column.push_back(curr);
             c++;

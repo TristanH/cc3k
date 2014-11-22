@@ -10,6 +10,8 @@ class Merchant : public Enemy {
     static bool hostile;
 
     public:
+    	Merchant(Cell *cell);
+    	void notify();
 
 };
 

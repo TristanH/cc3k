@@ -10,6 +10,9 @@ class Character: public Entity{
 	int defence;
 	int HP;
 
+	protected:
+		Character(Cell *cell, char dc, int atk, int def, int hp);
+
 	public:
 		// fight can be called by players on enemies and enemies on players
 		virtual void fight(Entity *against) = 0;

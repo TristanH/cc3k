@@ -3,9 +3,12 @@
 
 #include "Enemy.h"
 
+class Cell;
+
 class Orc : public Enemy {
 
     public:
+    	Orc(Cell *cell);
 
 };
 

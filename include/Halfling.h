@@ -3,9 +3,12 @@
 
 #include "Enemy.h"
 
+class Cell;
+
 class Halfling : public Enemy {
 
     public:
+    	Halfling(Cell *cell);
 
 };
 
