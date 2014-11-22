@@ -1,4 +1,5 @@
 #include "Dragon.h"
+#include "Cell.h"
 
 Dragon::Dragon(Cell *cell):
 	displayChar('D'), cell(cell), attack(20),
