@@ -5,6 +5,7 @@
 #include "Display.h"
 #include "Floor.h"
 #include "Player.h"
+#include "Die.h"
 using namespace std;
 
 void Floor::generateCells(string filename) {
@@ -76,7 +77,7 @@ void Floor::setDisplay(Display *d) {
     display = d;
 }
 
-void Floor::setSpawnRates(map<char,float> sr) {
+void Floor::setSpawnRates(Die sr) {
     spawnRates = sr;
 }
 

@@ -25,7 +25,7 @@ class CmdInterpreter{
 
     Player *player;
     
-    CmdInterpreter(int argc = 0, char* argv[] = NULL);
+    CmdInterpreter(std::vector<std::string> args = std::vector<std::string>());
     ~CmdInterpreter();
 
     void executeCmd(std::string cmd);
@@ -42,14 +42,13 @@ class CmdInterpreter{
     void printLog(std::string str);
 
     // Command line argument stuff
-    int argc;
-    char* argv[];
+    std::vector<std::string> args;
 
 
     public:
 
         // The use of optional params means we can still just call CmdInterpreter::getInstance()
-        static CmdInterpreter* getInstance(int argc = 0, char* argv[] = NULL);
+        static CmdInterpreter* getInstance(std::vector<std::string> args = std::vector<std::string>());
         
         //contains main game loop
         void start();

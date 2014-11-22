@@ -8,6 +8,7 @@ class Display;
 class Cell;
 class Chamber;
 class Entity;
+class Die;
 
 //ifstream needed to generate maps from file
 #include <fstream>
@@ -55,7 +56,7 @@ class Floor{
 		// Since the floor owns its cells and chambers, it will delete all cells and chambers
 		~Floor();
 		void setDisplay(Display *display);
-		void setSpawnRates(std::map<char,float> mapping);
+		void setSpawnRates(Die sr);
 
 		//updating gamestep should move all the enemies and give them their chances to do combat
 		void updateGameStep();

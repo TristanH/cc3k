@@ -13,9 +13,9 @@ void CmdInterpreter::cleanup() {
     delete instance;
 }
 
-CmdInterpreter *CmdInterpreter::getInstance(int argc, char* argv[]) {
+CmdInterpreter *CmdInterpreter::getInstance(vector<string> args) {
     if(!instance) {
-        instance = new CmdInterpreter(argc, argv);
+        instance = new CmdInterpreter(args);
         atexit(cleanup);
     }
     return instance;
@@ -23,14 +23,13 @@ CmdInterpreter *CmdInterpreter::getInstance(int argc, char* argv[]) {
 
 
 // Methods
-CmdInterpreter::CmdInterpreter(int argc, char* argv[]) :
+CmdInterpreter::CmdInterpreter(vector<string> args) :
     isFinished(false),
     shouldRestart(false),
     floor(NULL),
     player(NULL),
-    state(0),
-    argc(argc) {
-        this->argv = argv;
+    state(0){
+        this->args = args;
     }
 
 
@@ -116,7 +115,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             string filename = "maps/map1.data";
 
             floor = new Floor(filename);
-            floor->setSpawnRates(mapping);
+            floor->setSpawnRates(spawnDie);
             floor->populate();
 
             state = 1; // we should now start reading commands related to the "playing" state
