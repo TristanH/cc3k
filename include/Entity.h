@@ -25,6 +25,7 @@ class Entity{
 	public:
         int getR();
         int getC();
+        Cell *getCell();
 		virtual void notify() = 0;
 		virtual ~Entity(){};
 

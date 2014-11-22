@@ -27,8 +27,9 @@ void Chamber::addCell(Cell *newCell){
 	int c = newCell->getC();
 	vector<Cell *>::iterator it;
 	for(it = cells.begin(); it != cells.end(); it++){
+		Cell *curr = *it;
 		// if we've found the right place to insert this cell
-		if(r < it->getR() || (r == it->getR() && c < it->getC())){
+		if(r < curr->getR() || (r == curr->getR() && c < curr->getC())){
 			cells.insert(it, newCell);
 			return;
 		}

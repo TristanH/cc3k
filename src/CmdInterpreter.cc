@@ -1,6 +1,8 @@
 #include "CmdInterpreter.h"
 #include "Die.h"
-#include <iostream> //for NULL
+#include "Player.h"
+#include "Cell.h"
+#include <iostream> //for NULL and cerr
 #include <string>
 using namespace std;
 
@@ -11,9 +13,9 @@ void CmdInterpreter::cleanup() {
     delete instance;
 }
 
-void CmdInterpreter::getInstance() {
+CmdInterpreter *CmdInterpreter::getInstance(int argc, char* argv[]) {
     if(!instance) {
-        instance = new CmdInterpreter();
+        instance = new CmdInterpreter(argc, argv);
         atexit(cleanup);
     }
     return instance;
@@ -21,12 +23,15 @@ void CmdInterpreter::getInstance() {
 
 
 // Methods
-CmdInterpreter::CmdInterpreter() :
+CmdInterpreter::CmdInterpreter(int argc, char* argv[]) :
     isFinished(false),
     shouldRestart(false),
     floor(NULL),
     player(NULL),
-    state(0) {}
+    state(0),
+    argc(argc) {
+        this->argv = argv;
+    }
 
 
 CmdInterpreter::~CmdInterpreter() {
@@ -66,19 +71,19 @@ void CmdInterpreter::executeCmd(string cmd) {
             string dir;
             cin >> dir;
             //TODO: pickup thing in that dir
-            cer << "This isn't implemented yet :(" << endl; 
+            cerr << "This isn't implemented yet :(" << endl; 
             validCmd = true;
         } else if(cmd == "a") {
             string dir;
             cin >> dir;
-            Cell *otherCell = player->cell->getAdjacentCell(dir);
+            Cell *otherCell = (player->getCell())->getAdjacentCell(dir);
             Entity *otherEntity = otherCell->getEntity();
             player->fight(otherEntity); // At this point we know    
             validCmd = true; 
         } else if(cmd == "r") {
             restart();
             // Don't set validCmd becaues we don't want a game step to happen after we decide to restart
-            cer << "This isn't implemented yet :(" << endl; 
+            cerr << "This isn't implemented yet :(" << endl; 
         } else if(Cell::isValidDirection(cmd)) {
             player->move(cmd);
             validCmd = true;
@@ -93,14 +98,12 @@ void CmdInterpreter::executeCmd(string cmd) {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
             
             // we need to generate the player. it can be acessed later by using Player::getInstance again (from any module that includes Player.h)
-            player = Player::getInstance(cmd);
+            player = Player::getInstance(cmd[0]);
 
-            // generate the first floor
-            // generating/populating floor 
+            // Die has 18 sides because the lcd of the spawning probabilities is 18
             Die spawnDie(18); 
 
-            // Initialize the probability mapping. mapping[X][0]->numerator, mapping[X][1]->denominator
-            // TODO: read in cmd line argument for file to override the mapping if
+            // add sides to the die
             spawnDie.addSides(4, 'H');
             spawnDie.addSides(3, 'D');
             spawnDie.addSides(5, 'L');
@@ -108,8 +111,11 @@ void CmdInterpreter::executeCmd(string cmd) {
             spawnDie.addSides(2, 'O');
             spawnDie.addSides(2, 'M');
 
+            // get the name of the file to generate map from
+            // TODO: remove temporary fix and actually use cmd line args
+            string filename = "maps/map1.data";
 
-            floor = new Floor();
+            floor = new Floor(filename);
             floor->setSpawnRates(mapping);
             floor->populate();
 

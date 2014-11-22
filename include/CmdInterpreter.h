@@ -1,10 +1,7 @@
 #ifndef __CMD_INTERPRETER_H__
 #define __CMD_INTERPRETER_H__
 
-//We do not have any stack allocated instances of Floor or Player
-//so we don't need to include them. This reduces the chance of accidental
-//circuluar dependencies
-class Floor;
+#include "Floor.h" // I have to include this or the compiler keeps giving warnings (cause I delete floor)
 class Player;
 
 #include <iostream>
@@ -28,7 +25,8 @@ class CmdInterpreter{
 
     Player *player;
     
-    CmdInterpreter();
+    CmdInterpreter(int argc = 0, char* argv[] = NULL);
+    ~CmdInterpreter();
 
     void executeCmd(std::string cmd);
 
@@ -43,9 +41,15 @@ class CmdInterpreter{
 
     void printLog(std::string str);
 
+    // Command line argument stuff
+    int argc;
+    char* argv[];
+
 
     public:
-        static CmdInterpreter *getInstance();
+
+        // The use of optional params means we can still just call CmdInterpreter::getInstance()
+        static CmdInterpreter* getInstance(int argc = 0, char* argv[] = NULL);
         
         //contains main game loop
         void start();

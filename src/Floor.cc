@@ -7,8 +7,6 @@
 #include "Player.h"
 using namespace std;
 
-void Floor::generate
-
 void Floor::generateCells(string filename) {
     // generate the walls and shit.
     // initialize display->theDisplay simultaneously
@@ -24,7 +22,7 @@ void Floor::generateCells(string filename) {
         vector<char> theDisplay_column; //column vector to be pused into display->theDisplay
         while(ss.getchar(curr)) {
             Entity *entity = Entity::getNewEntity(curr);
-            Cell cell(r, c, curr, entity);
+            Cell cell = new Cell(r, c, curr, entity);
             column.push_back(cell);
             theDisplay_column.push_back(curr);
             c++;
@@ -49,6 +47,18 @@ Floor::Floor(string fileName) : display(NULL){
     generateCells(filename);
     generateChambers();
     player = Player::getInstance();
+}
+
+Floor::~Floor() {
+
+    // delete enemies
+    for(int i=0; i < enemies.size(); i++)
+        for(int j=0; j < enemies[i].size(); j++)
+            delete enemies[i][j];
+
+    // delete chambers
+    for(int i=0; i < chambers.size(); j++)
+        delete chambers[i];
 }
 
 void Floor::updateGameStep() {

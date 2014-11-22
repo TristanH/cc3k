@@ -16,3 +16,4 @@ Entity * Entity::getNewEntity(char type) {
 
 int Entity::getR() { return cell->getR(); }
 int Entity::getC() { return cell->getC(); }
+Cell *Entity::getCell() { return cell; }

@@ -2,7 +2,7 @@
 #define __DIE_H__
 
 // used for probabilities of enemies spawning
-class DIE{
+class Die {
 
 	//number of sides on the die
 	int numSides;

@@ -5,8 +5,9 @@
 //so we don't need to include it. This reduces the chance of accidental
 //circuluar dependencies
 class Display;
-
+class Cell;
 class Chamber;
+class Entity;
 
 //ifstream needed to generate maps from file
 #include <fstream>
@@ -20,10 +21,9 @@ class Chamber;
 #include <string>
 
 class Floor{
-	// fill in proper numbers later, maybe needs to be on heap?
 	// cells[i][j] will be NULL if it is outside of a chamber
-	std::vector<std::vector<Cell> > cells;
-	Display *display; //map needs to notify dislpay
+	std::vector<std::vector<Cell *> > cells;
+	Display *display; //map needs to notify dislpay - TODO: where do we delete this??
 	std::vector<Chamber *> chambers; // TODO: should we maybe make these stack-allocated so they die with the floor?
 
 	// maps the displayChar of an entity to its probability of spawnining.
@@ -51,6 +51,9 @@ class Floor{
 	public:
 		// sets cells, spawns entities
 		Floor(std::string fileName);
+
+		// Since the floor owns its cells and chambers, it will delete all cells and chambers
+		~Floor();
 		void setDisplay(Display *display);
 		void setSpawnRates(std::map<char,float> mapping);
 

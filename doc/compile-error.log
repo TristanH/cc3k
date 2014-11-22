@@ -1,11 +1,11 @@
-src/Chamber.cc:31:12: error: member reference base type 'Cell *' is not a structure or union
-                if(r < it->getR() || (r == it->getR() && c < it->getC())){
-                       ~~^ ~~~~
-src/Chamber.cc:31:32: error: member reference base type 'Cell *' is not a structure or union
-                if(r < it->getR() || (r == it->getR() && c < it->getC())){
-                                           ~~^ ~~~~
-src/Chamber.cc:31:50: error: member reference base type 'Cell *' is not a structure or union
-                if(r < it->getR() || (r == it->getR() && c < it->getC())){
-                                                             ~~^ ~~~~
-3 errors generated.
-make: *** [build/Chamber.o] Error 1
+src/CmdInterpreter.cc:30:5: warning: field 'player' will be initialized after field 'state' [-Wreorder]
+    player(NULL),
+    ^
+src/CmdInterpreter.cc:33:20: error: array type 'char *[]' is not assignable
+        this->argv = argv;
+        ~~~~~~~~~~ ^
+src/CmdInterpreter.cc:119:34: error: use of undeclared identifier 'mapping'
+            floor->setSpawnRates(mapping);
+                                 ^
+1 warning and 2 errors generated.
+make: *** [build/CmdInterpreter.o] Error 1

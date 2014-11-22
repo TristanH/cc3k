@@ -1,11 +1,13 @@
 #include "Character.h"
+#include "Cell.h"
 
 using namespace std;
 
 bool Character::tryMove(string direction){
-	Cell *goTo = cell->getAdjacentCell(direction);
-	if (cell->isWalkable()){
-		cell->setEntity(NULL);
+	Cell *theCell = getCell();
+	Cell *goTo = theCell->getAdjacentCell(direction);
+	if (theCell->isWalkable()){
+		theCell->setEntity(NULL);
 		goTo->setEntity(this);
 		return true;
 	}
