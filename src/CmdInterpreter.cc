@@ -113,7 +113,6 @@ void CmdInterpreter::executeCmd(string cmd) {
             // get the name of the file to generate map from
             // TODO: remove temporary fix and actually use cmd line args
             string filename = "maps/map1.data";
-
             floor = new Floor(filename);
             floor->setSpawnRates(spawnDie);
             floor->populate();
