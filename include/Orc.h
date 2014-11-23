@@ -11,7 +11,7 @@ class Orc : public Enemy {
     	Orc(Cell *cell);
     	~Orc();
     	void fight(Entity *against);
-
+    	void notify();
 };
 
 #endif

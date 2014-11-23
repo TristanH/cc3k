@@ -4,12 +4,15 @@
 #include "Enemy.h"
 
 class Cell;
+class Entity;
 
 class Dwarf : public Enemy {
 
     public:
     	Dwarf(Cell *cell);
-
+    	~Dwarf();
+    	void fight(Entity *against);
+    	void notify();
 };
 
 #endif

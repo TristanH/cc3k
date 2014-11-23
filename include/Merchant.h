@@ -3,6 +3,9 @@
 
 #include "Enemy.h"
 
+class Cell;
+class Entity;
+
 class Merchant : public Enemy {
     
     // True if the player previously attacked any merchant.
@@ -11,6 +14,8 @@ class Merchant : public Enemy {
 
     public:
     	Merchant(Cell *cell);
+    	~Merchant();
+    	void fight(Entity *against);
     	void notify();
 
 };
