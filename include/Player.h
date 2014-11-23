@@ -3,6 +3,7 @@
 
 #include "Character.h"
 #include <string>
+#include <iostream> // for NULL
 
 class Cell;
 class Entity;

@@ -85,7 +85,7 @@ Player* Cell::findPlayerInBounds(){
 			if(thePlayer) {
 				return thePlayer;
 			} else {
-				cerr << "Error in dynamic_cast from Entity * to Player * in Cell::findPlayerInBounds" << endl;
+				cerr << "Error in dynamic_cast from Entity* to Player* in Cell::findPlayerInBounds" << endl;
 			}
 		}
 	}

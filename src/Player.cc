@@ -5,7 +5,6 @@
 #include "Goblin.h"
 #include "Troll.h"
 #include "Cell.h"
-
 #include "Character.h"
 
 #include <math.h>

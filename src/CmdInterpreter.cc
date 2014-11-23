@@ -46,6 +46,9 @@ void CmdInterpreter::start() {
     if(shouldRestart) {
         //TODO: restart shit
     }
+    #ifdef DEBUG
+    cout << "CmdInterpreter.cc: game loop terminated" << endl;
+    #endif
 }
 
 void CmdInterpreter::end() {
@@ -64,6 +67,9 @@ void CmdInterpreter::printLog(string str) {
 
 void CmdInterpreter::executeCmd(string cmd) {
 
+    #ifdef DEBUG
+    cout << "CmdInterpreter.cc: program state = " << state << "; cmd = " << cmd << endl;
+    #endif
     if(state == 1) {
         bool validCmd = false;
         if(cmd == "u") {
@@ -90,6 +96,9 @@ void CmdInterpreter::executeCmd(string cmd) {
 
         if(validCmd) {
             // Player has done his shit so update everything else.
+            #ifdef DEBUG
+            cout << "CmdInterpreter.cc: updating game step..." << endl;
+            #endif
             floor->updateGameStep();
         }
 
