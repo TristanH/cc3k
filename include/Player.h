@@ -5,7 +5,7 @@
 #include <string>
 
 class Player: public Character{
-	Player *instance;
+	static Player *instance;
     static void cleanup(); //passed into atexit()
     int gold; //keeps track of how much gold the player has
 

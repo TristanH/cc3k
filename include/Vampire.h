@@ -1,8 +1,8 @@
 #ifndef __VAMPIRE_H__
 #define __VAMPIRE_H__
-#include "Enemy.h"
+#include "Player.h"
 
-class Vampire : public Enemy {
+class Vampire : public Player {
 
 };
 

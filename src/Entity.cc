@@ -25,6 +25,7 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
     } else if(type == 'M') {
         return new Merchant(cell);
     }
+    return NULL; // Not provided with valid type
 }
 
 int Entity::getR() { return cell->getR(); }

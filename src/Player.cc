@@ -1,12 +1,13 @@
 #include "Player.h"
+#include "Shade.h"
+#include "Drow.h"
+#include "Vampire.h"
+#include "Goblin.h"
+#include "Troll.h"
 
-class Shade;
-class Drow;
-class Vampire;
-class Goblin;
-class Troll;
+using namespace std;
 
-using namesapce std;
+Player *Player::instance = NULL;
 
 // We declared the dtor to be pure virtual because we need Player to not be instantiated. This causes issues though because all subclasses
 // will implicitly called Player::~Player() when being destroyed but it doesn't have an implementation when it is pure virtual. This is why

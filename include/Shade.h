@@ -1,8 +1,11 @@
 #ifndef __SHADE_H__
 #define __SHADE_H__
-#include "Enemy.h"
+#include "Player.h"
 
-class Shade : Enemy {
+class Shade : public Player {
+
+	public:
+		Shade();
 
 };
 

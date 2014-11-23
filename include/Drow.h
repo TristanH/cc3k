@@ -2,9 +2,10 @@
 #define __DROW_H__
 #include "Player.h"
 
-class Drow {
+class Drow : public Player {
 
     public:
+    	Drow();
 
 };
 

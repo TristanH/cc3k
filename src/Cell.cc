@@ -16,7 +16,7 @@ Cell::Cell(int r, int c, char type, Floor *floor, Entity *entity):
 const string Cell::directions[] = {"no", "ne", "ea", "se", "so", "sw", "we", "nw"};
 
 void Cell::notifyFloor(){
-	floor->notify(r,c,entity);
+	floor->notify(r,c,this);
 }
 
 void Cell::setEntity(Entity *newEntity){
