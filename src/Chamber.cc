@@ -5,6 +5,8 @@
 #include <iterator>
 using namespace std;
 
+Chamber::Chamber(){}
+
 void Chamber::updateEnemies() {
 	//iterate through the vector of enemies and update them
     int enemiesSize = enemies.size();

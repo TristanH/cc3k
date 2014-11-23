@@ -6,6 +6,10 @@
 #include "Troll.h"
 #include "Cell.h"
 
+#include "Character.h"
+
+#include <math.h>
+
 using namespace std;
 
 Player *Player::instance = NULL;
@@ -21,7 +25,6 @@ Player::Player(Cell *cell, int atk, int def, int HP):
 void Player::cleanup() {
     delete instance;
 }
-
 
 // After the player has been initialy created, you can get it by simply calling getInstance (no params).
 // cmd defaults to 's' (see Player.h)
@@ -56,7 +59,21 @@ bool Player::move(string direction){
 }
 
 void Player::fight(Entity *against) {
-    // TODO: implement fighting. Maybe it can call a takeDamage function on against which can be overriden
-    //       such that if a player attacks a potion then it inidcates to the player that they can't attack
-    //       a potion.
+    //TODO: item check
+    //if Item
+    //   return;
+    
+    //if we check to make sure the entity's not an item, we can safely cast to a character
+    // we need this to get access to the Character specific functions
+    Character *cAgainst = static_cast<Character*>(against);
+    
+    int damage = ceil((100/(100 + cAgainst->getDefence()))*attack);
+    cAgainst->changeHP(-damage);
+    //specialFightEffect is used so subclasses can have their special powers in combat
+    specialFightEffect(cAgainst, damage);
+}
+
+void Player::specialFightEffect(Character *against, int damage){
+    // do nothing for standard player, subclasses CAN but don't have to overwrite
+    ;
 }

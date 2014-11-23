@@ -27,3 +27,12 @@ void Enemy::notify() {
 		numChecks++;
 	}while(!tryMove(tryDirection) && numChecks <= 1000);
 }
+
+void Enemy::fight(Entity *against){
+	;//TODO: fill in this fight function
+}
+
+//TODO: fill in all these for the special subclasses
+void Enemy::specialFightEffect(Character *against, int damageDone){
+	;
+}

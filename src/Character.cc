@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "Cell.h"
+#include "Entity.h"
 
 using namespace std;
 
@@ -18,4 +19,16 @@ bool Character::tryMove(string direction){
 	else
 		return false;
 
+}
+
+int Character::getDefence(){
+	return defence;
+}
+
+int Character::getHP(){
+	return HP;
+}
+
+void Character::changeHP(int amount){
+	HP+=amount;
 }
