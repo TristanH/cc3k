@@ -4,6 +4,7 @@
 #include "Vampire.h"
 #include "Goblin.h"
 #include "Troll.h"
+#include "Cell.h"
 
 using namespace std;
 
@@ -14,6 +15,9 @@ Player *Player::instance = NULL;
 // we simply implement it as an empty function here. It is pure virtual but also has a concrete (empty) implementation. Black magic brah.
 Player::~Player(){}
 
+Player::Player(Cell *cell, int atk, int def, int HP):
+    Character(cell, '@', atk, def, HP){}
+
 void Player::cleanup() {
     delete instance;
 }
@@ -21,18 +25,18 @@ void Player::cleanup() {
 
 // After the player has been initialy created, you can get it by simply calling getInstance (no params).
 // cmd defaults to 's' (see Player.h)
-Player *Player::getInstance(char cmd) {
+Player *Player::getInstance(char cmd, Cell *cell) {
     if(!instance) {
         if(cmd == 's') {
-            instance = new Shade();
+            instance = new Shade(cell);
         } else if(cmd == 'd') {
-            instance = new Drow();
+            instance = new Drow(cell);
         } else if(cmd == 'v') {
-            instance = new Vampire();
+            instance = new Vampire(cell);
         } else if(cmd == 'g') {
-            instance = new Goblin();
+            instance = new Goblin(cell);
         } else if(cmd == 't') {
-            instance = new Troll();
+            instance = new Troll(cell);
         }
         atexit(cleanup);
     }

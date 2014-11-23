@@ -2,10 +2,16 @@
 #define __TROLL_H__
 #include "Player.h"
 
+class Cell;
+class Entity;
+
 class Troll : public Player {
 
 	public:
-		Troll();
+		Troll(Cell *cell);
+		~Troll();
+		void fight(Entity *against);
+		void notify();
 
 };
 

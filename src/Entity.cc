@@ -1,6 +1,5 @@
 #include "Entity.h"
 #include "Cell.h"
-
 #include "Human.h"
 #include "Dwarf.h"
 #include "Halfling.h"
@@ -24,7 +23,7 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
         return new Orc(cell);
     } else if(type == 'M') {
         return new Merchant(cell);
-    }
+    } // TODO: add case for Dragon once we decide what character will represent it
     return NULL; // Not provided with valid type
 }
 

@@ -3,6 +3,8 @@
 
 #include "Enemy.h"
 
+class Cell;
+
 class Human : public Enemy {
 
     public:

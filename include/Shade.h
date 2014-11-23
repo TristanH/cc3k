@@ -2,10 +2,15 @@
 #define __SHADE_H__
 #include "Player.h"
 
+class Cell;
+
 class Shade : public Player {
 
 	public:
-		Shade();
+		Shade(Cell *cell);
+		~Shade();
+		void fight(Entity *against);
+		void notify();
 
 };
 
