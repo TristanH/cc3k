@@ -5,12 +5,12 @@
 
 using namespace std;
 
-Die::Die(int numSides): numSides(numSides), sidesWithResult(){
+Die::Die(int numSides): numSides(numSides), sidesWithResult(0){
 	sides = new int[numSides];
 }
 
 void Die::addSides(int number, char result){
-	if(number + sidesWithResult >= numSides){
+	if(number + sidesWithResult > numSides){
 		cerr << "Error: tried to add more sides to result than it has, returning" << endl;
 		return;
 	}
@@ -18,6 +18,9 @@ void Die::addSides(int number, char result){
 		sides[sidesWithResult] = result;
 		sidesWithResult++;
 	}
+	#ifdef DEBUG
+		cout << "Sides of die covered: " << sidesWithResult << endl;
+	#endif
 }
 
 char Die::rollDie(){
@@ -31,5 +34,5 @@ char Die::rollDie(){
 }
 
 Die::~Die(){
-	delete sides;
+	delete[] sides;
 }
