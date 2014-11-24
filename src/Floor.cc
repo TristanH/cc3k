@@ -27,7 +27,7 @@ void Floor::generateCells(string fileName) {
         vector<char> theDisplay_column; //column vector to be pused into display->theDisplay
         while(ss.get(curr)) {
             Cell *cell = new Cell(r, c, curr, this);
-            Entity *entity = Entity::getNewEntity(curr, cell);
+            Entity *entity = Entity::getNewEntity(curr, cell); // TODO: we should move this before the cell ctor and just include it as a parameter as defined in the cell ctor
             cell->setEntity(entity);
             column.push_back(cell);
             theDisplay_column.push_back(curr);
