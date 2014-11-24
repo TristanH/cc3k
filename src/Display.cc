@@ -3,6 +3,20 @@
 #include "Display.h"
 using namespace std;
 
+Display* Display::instance = NULL;
+
+void Display::cleanup() {
+    delete instance;
+}
+
+Display* Display::getInstance(){
+    if(!instance){
+        instance = new Display;
+        atexit(cleanup);
+    }
+    return instance;
+}
+
 void Display::notify(int i, int j, char newState) {
     theDisplay[i][j] = newState; //TODO: maybe we should use .get() because [] syntax doesn't have range check.
 }

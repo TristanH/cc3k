@@ -15,29 +15,44 @@ using namespace std;
 void Floor::generateCells(string fileName) {
     // generate the walls and shit.
     // initialize display->theDisplay simultaneously
+    #ifdef DEBUG
+    cout << "Generating floor cells from file " << fileName << endl;
+    #endif
     ifstream f(fileName.c_str());
     string line;
     int r = 0;
     int c = 0;
     while(getline(f,line)) {
+        #ifdef DEBUG
+        cout << "Reading line " << r << endl;
+        //cout << line;
+        #endif
         if(f.fail()) break; //reached EOF
         istringstream ss(line);
+
+        // create this line of the display first so cells
+        // can interact with it later when they are created
+        vector<char> theDisplay_column(line.begin(), line.end()); //column vector to be pused into display->theDisplay
+        display->addColumn(theDisplay_column);
+        
+        // now parse the individual Cells
         char curr;
         vector<Cell*> column; //column vector to be pushed into cells (the vector of vectors of Cells)
-        vector<char> theDisplay_column; //column vector to be pused into display->theDisplay
         while(ss.get(curr)) {
             Cell *cell = new Cell(r, c, curr, this);
             Entity *entity = Entity::getNewEntity(curr, cell); // TODO: we should move this before the cell ctor and just include it as a parameter as defined in the cell ctor
             cell->setEntity(entity);
             column.push_back(cell);
-            theDisplay_column.push_back(curr);
             c++;
         }
         cells.push_back(column);
-        display->addColumn(theDisplay_column);
         c = 0;
         r++;
     }
+    #ifdef DEBUG
+    cout << "Map read! Here's display: " << endl;
+    cout << *display;
+    #endif
     // At this point, both the cells and display->theDisplay should be initialized
 }
 
@@ -50,9 +65,10 @@ void Floor::notifyChambers() {
 }
 
 Floor::Floor(string fileName) :
-    display(NULL), WIDTH(79), HEIGHT(25){
+    WIDTH(79), HEIGHT(25){
+    display = Display::getInstance();
     generateCells(fileName);
-    generateChambers();
+    //generateChambers();
 }
 
 Floor::~Floor() {
