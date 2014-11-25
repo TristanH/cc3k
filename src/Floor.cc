@@ -68,7 +68,7 @@ Floor::Floor(string fileName) :
     WIDTH(79), HEIGHT(25){
     display = Display::getInstance();
     generateCells(fileName);
-    //generateChambers();
+    generateChambers();
 }
 
 Floor::~Floor() {
@@ -117,8 +117,8 @@ void Floor::generateChambers(){
         }
     }  
 
-    for(int y =0; y < 25; y++){
-        for(int x=0; x<79; x++){
+    for(int y =0; y < HEIGHT; y++){
+        for(int x=0; x < WIDTH; x++){
             if(!visited[y][x] && cells[y][x]->getType() == '.'){
                 Chamber* newChamber = new Chamber();
                 floodCreateChamber(y, x, visited, newChamber);
