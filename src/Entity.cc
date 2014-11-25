@@ -7,8 +7,19 @@
 #include "Orc.h"
 #include "Merchant.h"
 
+#include <iostream>
+
+using namespace std;
+
 Entity::Entity(Cell* cell, char displayChar):
-    cell(cell), displayChar(displayChar){}
+    cell(cell), displayChar(displayChar){
+        if(cell != NULL){
+            cell->setEntity(this);
+        }
+        else{
+            cerr << "Warning: entity constructed with NULL cell";
+        }
+    }
 
 Entity * Entity::getNewEntity(char type, Cell *cell) {
     if(type == 'H') {

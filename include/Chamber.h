@@ -28,6 +28,7 @@ class Chamber {
         void update();
         void addEnemy(Enemy *);
         void addCell(Cell *cell);
+        Cell* getRandomCell();
 
 };
 #endif

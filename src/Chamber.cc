@@ -1,6 +1,7 @@
 #include "Chamber.h"
 #include "Enemy.h"
 #include "Cell.h"
+#include "PRNG.h"
 #include <vector>
 #include <iterator>
 using namespace std;
@@ -40,6 +41,11 @@ void Chamber::addCell(Cell *newCell){
 	// if we get here aka we haven't found a spot for the new Cell yet, put it at the back of the list
 	// this covers the empty list case too
 	cells.push_back(newCell);
+}
+
+Cell* Chamber::getRandomCell(){
+	PRNG random(time(NULL));
+	return cells[random(cells.size() - 1)];
 }
 
 Chamber::~Chamber(){

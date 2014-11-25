@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Die.h"
 #include "Cell.h"
+#include "PRNG.h"
 
 using namespace std;
 
@@ -66,6 +67,7 @@ void Floor::notifyChambers() {
 
 Floor::Floor(string fileName) :
     WIDTH(79), HEIGHT(25){
+    playerSpawnChamber = -1;
     display = Display::getInstance();
     generateCells(fileName);
     generateChambers();
@@ -123,6 +125,9 @@ void Floor::generateChambers(){
                 Chamber* newChamber = new Chamber();
                 floodCreateChamber(y, x, visited, newChamber);
                 chambers.push_back(newChamber);
+                #ifdef DEBUG
+                cout << "chamber #" << chambers.size() - 1 << " created!" << endl;
+                #endif
             }
         }
     }
@@ -131,6 +136,24 @@ void Floor::generateChambers(){
 
 void Floor::populate() {
     // TODO: add this funcitonality. We just want shit to compiles so we can leave it blank for now.
+    // The player should already be placed from CmdInterpreter
+    // First put stairs, then potions, then gold then finally enemies (as per spec)
+
+    #ifdef DEBUG
+    cout << "Floor populated: " << endl;
+    cout << *display;
+    #endif
+}
+
+Cell* Floor::findUniqueSpot() {
+    PRNG random(time(NULL));
+    int chamberNum;
+    do{
+        chamberNum = random(chambers.size() - 1);
+        // we dont want to put down stairs in the same chamber as the player
+    }while(chamberNum == playerSpawnChamber);
+
+    return chambers[chamberNum]->getRandomCell();
 }
 
 void Floor::notify(int i, int j, Cell *cell) {

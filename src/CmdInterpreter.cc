@@ -104,9 +104,6 @@ void CmdInterpreter::executeCmd(string cmd) {
 
     } else {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
-            
-            // we need to generate the player. it can be acessed later by using Player::getInstance again (from any module that includes Player.h)
-            player = Player::getInstance(cmd[0]);
 
             // Die has 18 sides because the lcd of the spawning probabilities is 18
             Die *spawnDie = new Die(18); 
@@ -123,6 +120,13 @@ void CmdInterpreter::executeCmd(string cmd) {
             // TODO: remove temporary fix and actually use cmd line args
             string filename = "maps/normal_format.data";
             floor = new Floor(filename);
+
+            // we need to generate the player. it can be acessed later by using Player::getInstance again (from any module that includes Player.h)
+            // make a floor function to first find a random chamber, then a random spot in that chamber for the player
+            // maybe reuse it for stairs?
+            Cell* playerCell = floor->findUniqueSpot();
+            player = Player::getInstance(cmd[0], playerCell);
+
             floor->setSpawnRates(spawnDie);
             floor->populate();
 
