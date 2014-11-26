@@ -24,7 +24,7 @@ void Cell::notifyFloor(){
 void Cell::setEntity(Entity *newEntity){
 	// TODO: if there is an entity here and we wanna move to it for some reason, we should delete that existing entity
 	entity = newEntity;
-	if(newEntity) entity->setCell(this); // The entity is not NULL (i.e. contains a non floor/wall)
+	if(newEntity) entity->setCell(this); // The entity is not NULL (i.e. contains a non floor/wallcl)
 	#ifdef DEBUG
 	cout << "Cell: notifying floor" << endl;
 	#endif

@@ -131,7 +131,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             Cell* playerCell = floor->findUniqueCell();
             player = Player::getInstance(cmd[0], playerCell);
 
-            floor->setSpawnRates(spawnDie);
+            floor->setEnemyDie(spawnDie);
             floor->populate();
 
             state = 1; // we should now start reading commands related to the "playing" state

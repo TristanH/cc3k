@@ -98,8 +98,8 @@ void Floor::setDisplay(Display *d) {
     display = d;
 }
 
-void Floor::setSpawnRates(Die *sr) {
-    spawnRates = sr;
+void Floor::setEnemyDie(Die *sr) {
+    enemyDie = sr;
 }
 
 void Floor::floodCreateChamber(int y, int x, bool** visited, Chamber *chamber){
@@ -140,8 +140,17 @@ void Floor::generateChambers(){
 }
 
 void Floor::populate() {
+
+    /*************************
+     * ORDER OF SPAWNING:    *
+     *  1) Player            *
+     *  2) Stairs            *
+     *  3) Potions           *
+     *  4) Gold              *
+     *  5) Enemies           *
+     ************************/
+
     // The player should already be placed from CmdInterpreter
-    
     // First put stairway somewhere on the map
     Cell *stairCell;
 
@@ -156,12 +165,28 @@ void Floor::populate() {
     for(int i=0; i < 10; i++){
         Cell *cell = findUniqueCell();
         // make potion here, add to cell
+    }
 
+    // TODO: SPAWN GOD HERE
+
+    // spawn enemies
+    // every floor needs exactly 20 of them
+    for(int i=0; i < 20; i++) {
+        // TODO: There is an issue with this. We need to know what chamber the cell was found in so that we can
+        //       add the new enemy to that chamber's enemy vector. We will need to split up the findUniqueCell
+        //       function into a findUniqueChamber fucntion which will find a chamber in the floor, and then we
+        //       we need a findUniqueCell function which will find a unique cell in a give chamber.
+        Cell *cell = findUniqueCell();
+        int r = cell->getR(); // row of the located cell
+        int c = cell->getC(); // column of the located cell
+        char type = enemyDie->rollDie();
+        Entity *enemy = Entity::getNewEntity(type,cell);
+        cell->setEntity(enemy);
     }
 
 
     #ifdef DEBUG
-    cout << "Floor populated: " << endl;
+    cout << "Floor: Floor populated" << endl;
     cout << *display;
     #endif
 }
