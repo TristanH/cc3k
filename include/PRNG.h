@@ -23,6 +23,8 @@ public:
   uint32_t operator()( uint32_t l, uint32_t u ) { // [l,u]
     return operator()( u - l ) + l; // call operator()( uint32_t )
   }
+
+  static PRNG random;
 };
 
 #endif

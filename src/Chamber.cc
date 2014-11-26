@@ -44,8 +44,23 @@ void Chamber::addCell(Cell *newCell){
 }
 
 Cell* Chamber::getRandomCell(){
-	PRNG random(time(NULL));
-	return cells[random(cells.size() - 1)];
+	return cells[PRNG::random(cells.size() - 1)];
+}
+
+bool Chamber::isFull(){
+	for(int i=0; i < cells.size(); i++){
+		if(cells[i]->getEntity() == NULL)
+			return false;
+	}
+	return true;
+}
+
+bool Chamber::hasCell(Cell* cell){
+	for(int i=0; i < cells.size(); i++){
+		if(cells[i] == cell)
+			return true;
+	}
+	return false;
 }
 
 Chamber::~Chamber(){

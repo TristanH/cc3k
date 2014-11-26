@@ -17,9 +17,11 @@ class Cell{
 	int r, c; // row, column
 	// Can be floor, wall, passage, stairway
 	// will not change when entity is on it
-	const char type;
+	// will stay what it is at construction UNLESS it is set as stairway
+	char type;
 	Floor *floor;
 	static const std::string directions[8];
+	static bool stairwayExists;
 
 	void notifyFloor();
 
@@ -34,6 +36,7 @@ class Cell{
 		int getC();
 		char getType();
 		char getDisplayChar();
+		void makeStairway();
 		// gets the cell from eg no, nw, sw used for enemy attacking, potions, moving
 		Cell *getAdjacentCell(std::string direction);
 
