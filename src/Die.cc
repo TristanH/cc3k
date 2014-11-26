@@ -28,8 +28,7 @@ char Die::rollDie(){
 		cerr << "Error: tried to roll die without filling all the sides" << endl;
 		return 0;
 	}
-	PRNG random(time(NULL));
-	int sideChosen = random(numSides);
+	int sideChosen = PRNG::random(numSides);
 	return sides[sideChosen];
 }
 

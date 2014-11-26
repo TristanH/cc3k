@@ -35,8 +35,6 @@ class Floor{
 	const int WIDTH;
 	const int HEIGHT;
 
-	int playerSpawnChamber;
-
 	void generateCells(std::string filename);
 
 	// --Following 2 methods called by updateGameStep--
@@ -50,6 +48,8 @@ class Floor{
 
 	void generateChambers();
 	void floodCreateChamber(int y, int x, bool **visited, Chamber* chamber);
+
+	bool sameChamber(Cell *a, Cell *b);
 
 	public:
 		// sets cells, spawns entities
@@ -71,7 +71,7 @@ class Floor{
 		// simply tells the floor that this entity has just occupied it's space and the display should be updated
 		void notify(int i, int j, Cell *cell);
 
-		Cell* findUniqueSpot();
+		Cell* findUniqueCell();
 
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };

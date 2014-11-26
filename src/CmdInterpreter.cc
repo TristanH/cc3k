@@ -124,7 +124,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             // we need to generate the player. it can be acessed later by using Player::getInstance again (from any module that includes Player.h)
             // make a floor function to first find a random chamber, then a random spot in that chamber for the player
             // maybe reuse it for stairs?
-            Cell* playerCell = floor->findUniqueSpot();
+            Cell* playerCell = floor->findUniqueCell();
             player = Player::getInstance(cmd[0], playerCell);
 
             floor->setSpawnRates(spawnDie);

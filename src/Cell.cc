@@ -15,6 +15,8 @@ Cell::Cell(int r, int c, char type, Floor *floor, Entity *entity):
 //make this const?
 const string Cell::directions[] = {"no", "ne", "ea", "se", "so", "sw", "we", "nw"};
 
+bool Cell::stairwayExists = false;
+
 void Cell::notifyFloor(){
 	floor->notify(r,c,this);
 }
@@ -48,10 +50,23 @@ int Cell::getC() {
 }
 
 char Cell::getDisplayChar(){
+	cout << " here!" << type << entity << " " << r <<", " << c << endl;
 	if(entity==NULL)
 		return type;
 	else
 		return entity->getDisplayChar();
+}
+
+// only called once to make this cell the stairway
+void Cell::makeStairway(){
+	if(Cell::stairwayExists){
+		cerr << "Tried to make a cell a stairway when the stairway already exists!! " << endl;
+		return;
+	}
+	type = '\\';
+	Cell::stairwayExists = true;
+	floor->notify(r,c,this);
+
 }
 
 Cell* Cell::getAdjacentCell(string direction){
@@ -94,8 +109,7 @@ Player* Cell::findPlayerInBounds(){
 }
 
 string Cell::getRandomDirection(){
-	PRNG random(time(NULL));
-	return directions[random(7)];
+	return directions[PRNG::random(7)];
 }
 
 bool Cell::isValidDirection(string direction){

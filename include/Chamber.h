@@ -29,6 +29,8 @@ class Chamber {
         void addEnemy(Enemy *);
         void addCell(Cell *cell);
         Cell* getRandomCell();
+        bool hasCell(Cell *cell);
+        bool isFull();
 
 };
 #endif

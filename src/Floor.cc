@@ -10,6 +10,7 @@
 #include "Die.h"
 #include "Cell.h"
 #include "PRNG.h"
+#include "Potion.h"
 
 using namespace std;
 
@@ -67,7 +68,6 @@ void Floor::notifyChambers() {
 
 Floor::Floor(string fileName) :
     WIDTH(79), HEIGHT(25){
-    playerSpawnChamber = -1;
     display = Display::getInstance();
     generateCells(fileName);
     generateChambers();
@@ -135,9 +135,25 @@ void Floor::generateChambers(){
 }
 
 void Floor::populate() {
-    // TODO: add this funcitonality. We just want shit to compiles so we can leave it blank for now.
     // The player should already be placed from CmdInterpreter
-    // First put stairs, then potions, then gold then finally enemies (as per spec)
+    
+    // First put stairway somewhere on the map
+    Cell *stairCell;
+
+    do{
+        stairCell = findUniqueCell();
+    }while(sameChamber(Player::getInstance()->getCell(), stairCell));
+    // avoid putting stairway in same chamber as player as per spec
+    stairCell->makeStairway();
+
+    // spawn potions
+    // every floor needs exactly 10 of them
+    for(int i=0; i < 10; i++){
+        Cell *cell = findUniqueCell();
+        // make potion here, add to cell
+
+    }
+
 
     #ifdef DEBUG
     cout << "Floor populated: " << endl;
@@ -145,15 +161,28 @@ void Floor::populate() {
     #endif
 }
 
-Cell* Floor::findUniqueSpot() {
-    PRNG random(time(NULL));
-    int chamberNum;
+Cell* Floor::findUniqueCell() {
+    Chamber *chamber;
     do{
-        chamberNum = random(chambers.size() - 1);
-        // we dont want to put down stairs in the same chamber as the player
-    }while(chamberNum == playerSpawnChamber);
+        chamber = chambers[PRNG::random(chambers.size() - 1)];
+        // dont try to spawn in a chamber thats already full
+    }while(chamber->isFull());  
 
-    return chambers[chamberNum]->getRandomCell();
+    Cell *cell;
+    do{
+        cell = chamber->getRandomCell();
+        // dont spawn on a cell that already has an entity
+    }while(cell->getEntity() != NULL);
+    
+    return cell;
+}
+
+bool Floor::sameChamber(Cell *a, Cell *b){
+    for(int i=0;i<chambers.size();i++){
+        if(chambers[i]->hasCell(a) && chambers[i]->hasCell(b))
+            return true;
+    }
+    return false;
 }
 
 void Floor::notify(int i, int j, Cell *cell) {
