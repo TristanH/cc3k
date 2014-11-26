@@ -22,7 +22,12 @@ void Cell::notifyFloor(){
 }
 
 void Cell::setEntity(Entity *newEntity){
+	// TODO: if there is an entity here and we wanna move to it for some reason, we should delete that existing entity
 	entity = newEntity;
+	if(newEntity) entity->setCell(this); // The entity is not NULL (i.e. contains a non floor/wall)
+	#ifdef DEBUG
+	cout << "Cell: notifying floor" << endl;
+	#endif
 	notifyFloor();
 }
 
@@ -50,7 +55,7 @@ int Cell::getC() {
 }
 
 char Cell::getDisplayChar(){
-	cout << " here!" << type << entity << " " << r <<", " << c << endl;
+	//cout << " here!" << type << entity << " " << r <<", " << c << endl; TODO: remove this when no longer needed
 	if(entity==NULL)
 		return type;
 	else

@@ -42,3 +42,6 @@ int Entity::getR() { return cell->getR(); }
 int Entity::getC() { return cell->getC(); }
 Cell *Entity::getCell() { return cell; }
 char Entity::getDisplayChar(){ return displayChar; }
+void Entity::setCell(Cell *newCell) {
+    cell = newCell;
+}

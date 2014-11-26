@@ -35,7 +35,7 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
 
 CmdInterpreter::~CmdInterpreter() {
     delete floor;
-    delete player;
+    //delete player; TODO: do we explicitly delete singleton or does atexit do this??
 }
 
 void CmdInterpreter::start() {
@@ -88,8 +88,11 @@ void CmdInterpreter::executeCmd(string cmd) {
         } else if(cmd == "r") {
             restart();
             // Don't set validCmd becaues we don't want a game step to happen after we decide to restart
-            cerr << "This isn't implemented yet :(" << endl; 
+            cerr << "This isn't implemented yet :(" << endl; //TODO: remove this line when this is implemented
         } else if(Cell::isValidDirection(cmd)) {
+            #ifdef DEBUG
+            cout << "Cmd:Interpreter: moving to " << cmd << endl;
+            #endif
             player->move(cmd);
             validCmd = true;
         }
@@ -100,6 +103,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             cout << "CmdInterpreter.cc: updating game step..." << endl;
             #endif
             floor->updateGameStep();
+            cout << *floor << endl;
         }
 
     } else {

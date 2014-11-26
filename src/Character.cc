@@ -11,13 +11,24 @@ Character::Character(Cell *cell, char dc, int atk, int def, int hp):
 bool Character::tryMove(string direction){
 	Cell *theCell = getCell();
 	Cell *goTo = theCell->getAdjacentCell(direction);
-	if (theCell->isWalkable()){
+	#ifdef DEBUG
+	cout << "Character: player currently at cells[" << theCell->getR() << "," << theCell->getC() << "]" << endl;
+	cout << "Character: player wants to move to cells[" << goTo->getR() << "," << goTo->getC() << "]" << endl;
+	#endif
+	if (goTo->isWalkable()){
 		theCell->setEntity(NULL);
 		goTo->setEntity(this);
+		#ifdef DEBUG
+		cout << "Character: able to move to that cell" << endl;
+		#endif
 		return true;
 	}
-	else
+	else {
+		#ifdef DEBUG
+		cout << "Character: unable to move to that cell" << endl;
+		#endif
 		return false;
+	}
 
 }
 

@@ -16,7 +16,11 @@ Player *Player::instance = NULL;
 // We declared the dtor to be pure virtual because we need Player to not be instantiated. This causes issues though because all subclasses
 // will implicitly called Player::~Player() when being destroyed but it doesn't have an implementation when it is pure virtual. This is why
 // we simply implement it as an empty function here. It is pure virtual but also has a concrete (empty) implementation. Black magic brah.
-Player::~Player(){}
+Player::~Player(){
+    #ifdef DEBUG
+    cout << "Player: Player destroyed" << endl;
+    #endif
+}
 
 Player::Player(Cell *cell, int atk, int def, int HP):
     Character(cell, '@', atk, def, HP){}
@@ -50,8 +54,12 @@ void Player::addGold(int amount) {
 }
 
 bool Player::move(string direction){
-    if(tryMove(direction))
+    if(tryMove(direction)) { // Implemented in Character.h
+        #ifdef DEBUG
+        cout << "Player: tryMove returned true" << endl;
+        #endif
         return true;
+    }
 
     // TODO: check gold collecting here
     return false;

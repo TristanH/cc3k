@@ -52,8 +52,7 @@ void Floor::generateCells(string fileName) {
         r++;
     }
     #ifdef DEBUG
-    cout << "Map read! Here's display: " << endl;
-    cout << *display;
+    cout << "Map read generated" << endl;
     #endif
     // At this point, both the cells and display->theDisplay should be initialized
 }
@@ -77,6 +76,12 @@ Floor::~Floor() {
     // delete chambers
     for(int i=0; i < chambers.size(); i++)
         delete chambers[i];
+    for(int i = 0; i < cells.size(); i++)
+        for(int j=0; j < cells[i].size(); j++)
+            delete cells[i][j];
+    #ifdef DEBUG
+    cout << "Floor: Floor, chambers, and cells deleted" << endl;
+    #endif
 }
 
 void Floor::updateGameStep() {
@@ -190,7 +195,7 @@ void Floor::notify(int i, int j, Cell *cell) {
 }
 
 ostream &operator<<(ostream &out, Floor &f) {
-    return out << f.display;
+    return out << *f.display;
 }
 
 Cell* Floor::getCell(int y, int x){
