@@ -11,6 +11,7 @@
 #include "Cell.h"
 #include "PRNG.h"
 #include "Potion.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -163,25 +164,29 @@ void Floor::populate() {
     // spawn potions
     // every floor needs exactly 10 of them
     for(int i=0; i < 10; i++){
-        Cell *cell = findUniqueCell();
+        // Cell *cell = findUniqueCell(); TODO: implement this shit yo
         // make potion here, add to cell
     }
 
-    // TODO: SPAWN GOD HERE
+    // TODO: SPAWN GOLD HERE
 
     // spawn enemies
     // every floor needs exactly 20 of them
     for(int i=0; i < 20; i++) {
-        // TODO: There is an issue with this. We need to know what chamber the cell was found in so that we can
-        //       add the new enemy to that chamber's enemy vector. We will need to split up the findUniqueCell
-        //       function into a findUniqueChamber fucntion which will find a chamber in the floor, and then we
-        //       we need a findUniqueCell function which will find a unique cell in a give chamber.
-        Cell *cell = findUniqueCell();
-        int r = cell->getR(); // row of the located cell
-        int c = cell->getC(); // column of the located cell
-        char type = enemyDie->rollDie();
-        Entity *enemy = Entity::getNewEntity(type,cell);
-        cell->setEntity(enemy);
+        Chamber *randChamber = getRandChamber();
+        Cell *cell = findUniqueCell(randChamber);
+        char type = enemyDie->rollDie(); // Garunteed to return a type of enemy 
+        #ifdef DEBUG
+        cout << "Adding enemy of type " << type << endl;
+        #endif
+        Entity *entity = Entity::getNewEntity(type,cell); // TODO: we may need to cast this shit...
+        cell->setEntity(entity); // make the cell point at the entity
+        Enemy *enemy = dynamic_cast<Enemy *>(entity); // entity is known to be an enemy
+        if(enemy) {
+            randChamber->addEnemy(enemy); // finally, let the chamber know of the new enemy
+        } else {
+            cerr << "Floor: invalid cast from Entity* to Enemy*" << endl; 
+        }
     }
 
 
@@ -191,13 +196,20 @@ void Floor::populate() {
     #endif
 }
 
-Cell* Floor::findUniqueCell() {
+
+Chamber* Floor::getRandChamber() {
     Chamber *chamber;
     do{
         chamber = chambers[PRNG::random(chambers.size() - 1)];
         // dont try to spawn in a chamber thats already full
     }while(chamber->isFull());  
+    return chamber;
+}
 
+Cell* Floor::findUniqueCell(Chamber *chamber) {
+    if(!chamber) {
+        chamber = getRandChamber();
+    }
     Cell *cell;
     do{
         cell = chamber->getRandomCell();

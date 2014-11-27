@@ -73,7 +73,10 @@ class Floor{
 		// simply tells the floor that this entity has just occupied it's space and the display should be updated
 		void notify(int i, int j, Cell *cell);
 
-		Cell* findUniqueCell();
+		Chamber *getRandChamber();
+		// If no chamber is given, this function will operate the same as before and just get a random cell on the
+		// floor. I needed to add a (optional) intermediate step so that enemies can be added to a chambers enemy vector
+		Cell* findUniqueCell(Chamber *chamber = NULL);
 
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };

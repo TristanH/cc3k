@@ -35,7 +35,10 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
     } else if(type == 'M') {
         return new Merchant(cell);
     } // TODO: add case for Dragon once we decide what character will represent it
-    return NULL; // Not provided with valid type
+    #ifdef DEBUG
+    cout << "Entity: returning NULL enemy!!" << endl;
+    #endif
+    return NULL; // Not provided with valid enemy type
 }
 
 int Entity::getR() { return cell->getR(); }

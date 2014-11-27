@@ -17,7 +17,18 @@ void Chamber::updateEnemies() {
     }
 }
 
+// Uses the same logic as the below addCell funciton 
 void Chamber::addEnemy(Enemy *e) {
+    int r = e->getR();
+    int c = e->getC();
+    vector<Enemy *>::iterator it;
+    for(it = enemies.begin(); it != enemies.end(); it++) {
+    	Enemy *curr = *it;
+    	if(r < curr->getR() || (r == curr->getR() && c < curr->getC())) {
+    		enemies.insert(it, e);
+    		return;
+    	}
+    }
     enemies.push_back(e);
 }
 

@@ -31,7 +31,7 @@ class Entity{
 		virtual void notify() = 0;
 		virtual ~Entity(){};
         
-        // This creates and returns a pointer to a new Entity of the corresponding type of "type".
+        // This creates and returns a pointer to a new Enemy of the corresponding type of "type".
         static Entity *getNewEntity(char type, Cell* cell);
 
 };
