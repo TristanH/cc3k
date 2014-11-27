@@ -6,6 +6,7 @@
 #include "Elf.h"
 #include "Orc.h"
 #include "Merchant.h"
+#include "Dragon.h"
 
 #include <iostream>
 
@@ -24,7 +25,7 @@ Entity::Entity(Cell* cell, char displayChar):
 Entity * Entity::getNewEntity(char type, Cell *cell) {
     if(type == 'H') {
         return new Human(cell);
-    } else if(type == 'D') {
+    } else if(type == 'd') {
         return new Dwarf(cell);
     } else if(type == 'L') {
         return new Halfling(cell);
@@ -34,7 +35,9 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
         return new Orc(cell);
     } else if(type == 'M') {
         return new Merchant(cell);
-    } // TODO: add case for Dragon once we decide what character will represent it
+    } else if(type == 'D') {
+        return new Dragon(cell);
+    }
     #ifdef DEBUG
     cout << "Entity: returning NULL enemy!!" << endl;
     #endif
