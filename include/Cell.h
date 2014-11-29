@@ -37,6 +37,7 @@ class Cell{
 		char getType();
 		char getDisplayChar();
 		void makeStairway();
+		Cell *findNearbyEmpty();
 		// gets the cell from eg no, nw, sw used for enemy attacking, potions, moving
 		Cell *getAdjacentCell(std::string direction);
 

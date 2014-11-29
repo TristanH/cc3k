@@ -12,6 +12,9 @@
 #include "AttackPotion.h"
 #include "DefencePotion.h"
 
+#include "DragonTreasure.h"
+#include "NormalTreasure.h"
+
 #include <iostream>
 
 using namespace std;
@@ -53,9 +56,18 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
         return new AttackPotion(cell, -10); 
     } else if(type == '5') {
         return new DefencePotion(cell, -10); 
+    } else if(type == '6') {
+        return new NormalTreasure(cell, 2); 
+    } else if(type == '7') {
+        return new NormalTreasure(cell, 1); 
+    } else if(type == '8') {
+        // we are guaranteed to find a nearby empty cell since
+        // we checked for it in Floor
+        Dragon* dragon = new Dragon(cell->findNearbyEmpty());
+        return new DragonTreasure(cell, 6, dragon); 
     }
     #ifdef DEBUG
-    cout << "Entity: returning NULL enemy!!" << endl;
+    cout << "Entity: returning NULL entity!!" << endl;
     #endif
     return NULL; // Not provided with valid enemy type
 }

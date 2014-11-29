@@ -12,6 +12,8 @@
 #include "PRNG.h"
 #include "Potion.h"
 #include "Enemy.h"
+#include "Dragon.h"
+#include "DragonTreasure.h"
 
 using namespace std;
 
@@ -67,6 +69,7 @@ void Floor::notifyChambers() {
 }
 
 Floor::Floor(string fileName) :
+    enemySpawnCount(0),
     WIDTH(79), HEIGHT(25){
     display = Display::getInstance();
     generateCells(fileName);
@@ -195,17 +198,42 @@ void Floor::populate() {
         Cell *cell = findUniqueCell(); 
         char type = potionDie->rollDie();
         #ifdef DEBUG
-        cout<< "Adding potion: " << type << endl;
+        cout << "Adding potion: " << type << endl;
         #endif
         Entity *potion = Entity::getNewEntity(type, cell);
         cell->setEntity(potion);
     }
 
-    // TODO: SPAWN GOLD HERE
+    // spawn gold.... gettin rich bitches
+    for(int i=0; i < 10; i++){
+        Cell *cell = findUniqueCell(); 
+        char type = goldDie->rollDie();
+        #ifdef DEBUG
+        cout << "Adding gold: " << type << endl;
+        #endif
+
+        //do special shit for dragons
+        if(type == '8'){
+            // we need a cell where a dragon can be in the gold's block radius
+            while(cell->findNearbyEmpty() == NULL)
+                cell = findUniqueCell();
+
+            Entity *gold = Entity::getNewEntity(type, cell);
+            cell->setEntity(gold);
+            // we need to cast to get the treasure's dragon
+            DragonTreasure *dt = dynamic_cast<DragonTreasure *>(gold);
+            Dragon *dragon = dt->getDragon();
+            dragon->getCell()->setEntity(dragon);
+        }
+        else{
+            Entity *gold = Entity::getNewEntity(type, cell);
+            cell->setEntity(gold);
+        }
+    }
 
     // spawn enemies
     // every floor needs exactly 20 of them
-    for(int i=0; i < 20; i++) {
+    for(int i=enemySpawnCount; i < 20; i++) {
         Chamber *randChamber = getRandChamber();
         Cell *cell = findUniqueCell(randChamber);
         char type = enemyDie->rollDie(); // Garunteed to return a type of enemy 
