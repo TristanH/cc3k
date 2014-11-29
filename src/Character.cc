@@ -38,6 +38,10 @@ int Character::getDefence(){
 	return defence;
 }
 
+int Character::getAttack() {
+	return attack;
+}
+
 int Character::getHP(){
 	return HP;
 }

@@ -22,6 +22,8 @@ class Player: public Character{
         static  Player *getInstance(char race = 's', Cell *cell = NULL);
         void addGold(int amount); //just adds amount to current gold
         bool move(std::string direction);
+        virtual std::string raceStr() = 0;
+        int getGold();
     protected:
     	Player(Cell *cell, int atk, int def, int HP);
 };

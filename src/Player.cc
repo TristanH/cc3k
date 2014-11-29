@@ -53,6 +53,10 @@ void Player::addGold(int amount) {
     gold += amount;
 }
 
+void Player::getGold() {
+    return gold;
+}
+
 bool Player::move(string direction){
     if(tryMove(direction)) { // Implemented in Character.h
         #ifdef DEBUG

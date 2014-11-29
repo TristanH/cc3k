@@ -22,6 +22,7 @@ class CmdInterpreter{
 
     // this is an observer of the cmd interpreter
     Floor *floor;
+    int floorNum;
 
     Player *player;
     
@@ -39,7 +40,8 @@ class CmdInterpreter{
     void updateFloor();
     // we have to update the player first, because the enemies won't move if he goes near them
 
-    void printLog(std::string str);
+    // Print stuff that is supposed to go underneath the map
+    void printInfo();
 
     // Command line argument stuff
     std::vector<std::string> args;

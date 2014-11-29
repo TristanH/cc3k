@@ -24,6 +24,7 @@ class Character: public Entity{
 		bool tryMove(std::string direction);
 
 		int getDefence();
+		int getAttack();
 		int getHP();
 		void changeHP(int amount);
 

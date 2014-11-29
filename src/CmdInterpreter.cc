@@ -4,6 +4,7 @@
 #include "Cell.h"
 #include <iostream> //for NULL and cerr
 #include <string>
+#include <iomanip>
 using namespace std;
 
 // Static stuff
@@ -28,7 +29,8 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
     shouldRestart(false),
     floor(NULL),
     player(NULL),
-    state(0){
+    state(0),
+    floorNum(0){
         this->args = args;
     }
 
@@ -60,9 +62,14 @@ void CmdInterpreter::restart() {
     end();
 }
 
-void CmdInterpreter::printLog(string str) {
-    // TODO: we should figure out how to make this always print in a designated area underneath the game display
-    cout << str << endl; 
+void CmdInterpreter::printInfo() {
+    Player *p = Player::getInstance();
+    cout << setw(20) << left << "Race: " << p->raceStr() << " Gold: " << p->getGold() << endl;
+    cout << right << "Floor: " << floorNum << right << endl;
+    cout << "HP: " << p->getHP() << endl;
+    cout << "Atk: " << p->getAttack() << endl;
+    cout << "Def: " << p->getDefence() << endl;
+    cout << "Action: blank for now :(" << endl;
 }
 
 void CmdInterpreter::executeCmd(string cmd) {
@@ -104,6 +111,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             #endif
             floor->updateGameStep();
             cout << *floor << endl;
+            printInfo();
         }
 
     } else {
@@ -134,6 +142,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             floor->setEnemyDie(spawnDie);
             floor->populate();
 
+            floorNum++; // should increment any time a new floor is traveled to (using stairs)
             state = 1; // we should now start reading commands related to the "playing" state
         }
     }
