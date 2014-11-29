@@ -10,9 +10,9 @@ Halfling::~Halfling() {
 }
 
 void Halfling::fight(Entity *against) {
-	
+	Enemy::fight(against);
 }
 
 void Halfling::notify() {
-
+    Enemy::notify();
 }

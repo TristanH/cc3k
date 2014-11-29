@@ -10,9 +10,9 @@ Dwarf::~Dwarf() {
 }
 
 void Dwarf::fight(Entity *against) {
-
+    Enemy::fight(against);
 }
 
 void Dwarf::notify() {
-	
+	Enemy::notify();
 }

@@ -13,6 +13,9 @@ void Chamber::updateEnemies() {
     int enemiesSize = enemies.size();
     for(int i=0; i < enemiesSize; i++) { // was using an iterator here before but fuck that shit
     	// notify the enemy that its time to update
+        #ifdef DEBUG
+        cout << "updating " << *enemies[i] << endl;
+        #endif
     	enemies[i]->notify();
     }
 }
@@ -33,6 +36,9 @@ void Chamber::addEnemy(Enemy *e) {
 }
 
 void Chamber::update() {
+    #ifdef DEBUG
+    cout << "Chamber: update called" << endl;
+    #endif
     updateEnemies();
 }
 

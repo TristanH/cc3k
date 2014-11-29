@@ -32,11 +32,12 @@ Entity* Cell::getEntity(){
 	return entity;
 }
 
-bool Cell::isWalkable(){
+bool Cell::isWalkable(bool allowPassages){
 	// what about the case where the entity is gold?
 	// technically you are supposed to walk onto gold to pick it up but we can fake this.
 	// same goes for potions.
-	return (type == '.' || type == '#' || type == '+') && entity == NULL;
+	if(allowPassages) return (type == '.' || type == '#' || type == '+') && entity == NULL;
+	else return (type == '.' && entity == NULL);
 }
 
 char Cell::getType(){

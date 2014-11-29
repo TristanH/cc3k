@@ -5,7 +5,7 @@
 
 // this should be abstract, with the diff enemy types extending it
 class Enemy: public Character{
-
+    void move();
 	protected:	
 		Enemy(Cell *cell, char dc, int atk, int def, int hp);
     public:
@@ -15,5 +15,6 @@ class Enemy: public Character{
     	void specialFightEffect(Character *against, int damageDone);
     	void notify();
 };
+
 
 #endif

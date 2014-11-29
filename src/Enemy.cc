@@ -4,19 +4,7 @@
 
 using namespace std;
 
-Enemy::Enemy(Cell *cell, char dc, int atk, int def, int hp):
-	Character(cell, dc, atk, def, hp){}
-
-void Enemy::notify() {
-
-	//check block radius for player to fight
-	Player *player = cell->findPlayerInBounds();
-	if(player != NULL){
-		// combat here
-		//fight(player);
-		return;
-	}
-
+void Enemy::move() {
 	// choose random directions until we find one 
 	// that we can move to
 	string tryDirection;
@@ -26,6 +14,25 @@ void Enemy::notify() {
 		tryDirection = Cell::getRandomDirection();
 		numChecks++;
 	}while(!tryMove(tryDirection) && numChecks <= 1000);
+	#ifdef DEBUG
+	cout << "Enemy: " << *this << ": " << tryDirection << endl;
+	#endif
+}
+
+Enemy::Enemy(Cell *cell, char dc, int atk, int def, int hp):
+	Character(cell, dc, atk, def, hp){}
+
+void Enemy::notify() {
+	#ifdef DEBUG
+	cout << "Enemy: notify called" << endl; 
+	#endif
+	//check block radius for player to fight
+	Player *player = cell->findPlayerInBounds();
+	if(player != NULL){
+		fight(player);
+		return;
+	}
+	move();
 }
 
 void Enemy::fight(Entity *against){
