@@ -64,12 +64,12 @@ void CmdInterpreter::restart() {
 
 void CmdInterpreter::printInfo() {
     Player *p = Player::getInstance();
-    cout << setw(20) << left << "Race: " << p->raceStr() << " Gold: " << p->getGold() << endl;
-    cout << right << "Floor: " << floorNum << right << endl;
+    cout << "Race: " << p->raceStr() << " Gold: " << p->getGold();
+    cout << setw(56) << right << "Floor: " << floorNum << left << endl;
     cout << "HP: " << p->getHP() << endl;
     cout << "Atk: " << p->getAttack() << endl;
     cout << "Def: " << p->getDefence() << endl;
-    cout << "Action: blank for now :(" << endl;
+    cout << "Action: " << p->getAction() << endl; // TODO: add action shit!
 }
 
 void CmdInterpreter::executeCmd(string cmd) {
@@ -110,7 +110,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             cout << "CmdInterpreter.cc: updating game step..." << endl;
             #endif
             floor->updateGameStep();
-            cout << *floor << endl;
+            cout << *floor;
             printInfo();
         }
 

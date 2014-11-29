@@ -23,6 +23,8 @@ Player::~Player(){
 }
 
 Player::Player(Cell *cell, int atk, int def, int HP):
+    gold(0),
+    action("Player character has spawned."),
     Character(cell, '@', atk, def, HP){}
 
 void Player::cleanup() {
@@ -53,8 +55,12 @@ void Player::addGold(int amount) {
     gold += amount;
 }
 
-void Player::getGold() {
+int Player::getGold() {
     return gold;
+}
+
+string Player::getAction() {
+    return action;
 }
 
 bool Player::move(string direction){
@@ -62,10 +68,12 @@ bool Player::move(string direction){
         #ifdef DEBUG
         cout << "Player: tryMove returned true" << endl;
         #endif
+        action = "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
         return true;
     }
 
     // TODO: check gold collecting here
+    action = "PC can't move " + Character::dirFull(direction);
     return false;
 }
 

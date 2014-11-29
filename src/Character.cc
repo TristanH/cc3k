@@ -5,6 +5,26 @@
 
 using namespace std;
 
+string Character::dirFull(string shortDir) {
+	if(shortDir == "no") {
+		return "North";
+	} else if(shortDir == "ea") {
+		return "East";
+	} else if(shortDir == "so") {
+		return "South";
+	} else if(shortDir == "we") {
+		return "West";
+	} else if(shortDir == "ne") {
+		return "North-East";
+	} else if(shortDir == "nw") {
+		return "North-West";
+	} else if(shortDir == "se") {
+		return "South-East";
+	} else if(shortDir == "sw") {
+		return "South-West";
+	}
+}
+
 Character::Character(Cell *cell, char dc, int atk, int def, int hp):
 	Entity(cell, dc),
 	attack(atk), defence(def), HP(hp){}

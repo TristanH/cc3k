@@ -12,6 +12,7 @@ class Player: public Character{
 	static Player *instance;
     static void cleanup(); //passed into atexit()
     int gold; //keeps track of how much gold the player has
+    std::string action; // keeps track of players last action so it can be printed to screen
 
 	//combat logic lives here
 	public:
@@ -24,6 +25,7 @@ class Player: public Character{
         bool move(std::string direction);
         virtual std::string raceStr() = 0;
         int getGold();
+        std::string getAction();
     protected:
     	Player(Cell *cell, int atk, int def, int HP);
 };

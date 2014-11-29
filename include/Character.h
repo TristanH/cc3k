@@ -28,6 +28,8 @@ class Character: public Entity{
 		int getHP();
 		void changeHP(int amount);
 
+		static std::string dirFull(std::string shortDir);
+
 };
 
 #endif

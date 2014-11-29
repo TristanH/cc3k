@@ -2,6 +2,7 @@
 #include "Cell.h"
 #include "Entity.h"
 #include <string>
+using namespace std;
 
 Troll::Troll(Cell *cell) : 
 	Player(cell,25,15,120) {}
