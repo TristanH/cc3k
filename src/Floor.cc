@@ -164,7 +164,7 @@ void Floor::populate() {
     // spawn potions
     // every floor needs exactly 10 of them
     for(int i=0; i < 10; i++){
-        // Cell *cell = findUniqueCell(); TODO: implement this shit yo
+        //Cell *cell = findUniqueCell(); TODO: implement this shit yo
         // make potion here, add to cell
     }
 

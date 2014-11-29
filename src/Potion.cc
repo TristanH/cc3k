@@ -1,4 +1,4 @@
 #include "Potion.h"
 
-Potion::Potion(Cell *cell, int amount):
-	Item(cell, 'P'), amount(amount){}
+Potion::Potion(Cell *cell, char displayChar, int amount):
+	Item(cell, displayChar), amount(amount){}

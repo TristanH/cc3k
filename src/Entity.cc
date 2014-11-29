@@ -37,7 +37,20 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
         return new Merchant(cell);
     } else if(type == 'D') {
         return new Dragon(cell);
+    } else if(type == '0') {
+        return new HealthPotion(cell, 10);
+    } else if(type == '1') {
+        return new AttackPotion(cell, 10); 
+    } else if(type == '2') {
+        return new DefencePotion(cell, 10); 
+    } else if(type == '3') {
+        return new HealthPotion(cell, -10); 
+    } else if(type == '4') {
+        return new AttackPotion(cell, -10); 
+    } else if(type == '5') {
+        return new DefencePotion(cell, -10); 
     }
+}
     #ifdef DEBUG
     cout << "Entity: returning NULL enemy!!" << endl;
     #endif
