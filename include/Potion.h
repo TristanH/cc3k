@@ -7,7 +7,7 @@ class Potion: public Item{
 	int amount;
 
 	public:
-		Potion(Cell *cell, int amount);
+		Potion(Cell *cell, char displayChar int amount);
 
 };
 
