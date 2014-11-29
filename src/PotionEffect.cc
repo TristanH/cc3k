@@ -11,7 +11,7 @@ PotionEffect::~PotionEffect() { delete base; }
 
 Player *PotionEffect::unpack() {
     #ifdef DEBUG
-    cout << "PotionEffect: returning " << base->unpack() << endl;
+    cout << "PotionEffect: unpacking..." << endl;
     #endif
     return base->unpack();
 }

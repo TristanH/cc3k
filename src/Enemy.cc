@@ -20,9 +20,6 @@ Enemy::Enemy(Cell *cell, char dc, int atk, int def, int hp):
 	Character(cell, dc, atk, def, hp){}
 
 void Enemy::notify() {
-	#ifdef DEBUG
-	cout << "Enemy: notify called" << endl; 
-	#endif
 	//check block radius for player to fight
 	Player *player = cell->findPlayerInBounds();
 	if(player != NULL){

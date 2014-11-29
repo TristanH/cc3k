@@ -74,13 +74,17 @@ void Player::addPotion(char type, int amount) {
     }
 }
 
-Player *Player::unpack() { return this; }
+Player *Player::unpack() { 
+    #ifdef DEBUG
+    cout << "Player: reached decorator base-case" << endl;
+    #endif
+    return this; 
+}
 
 void Player::removePotions() {
     if(instance) {
-        // TODO: figure this out
         #ifdef DEBUG
-        cout << "Player: unpacking..." << endl;
+        cout << "Player: removing potions" << endl;
         #endif
         instance = instance->unpack();
     } else {
@@ -102,9 +106,6 @@ int Player::getFloorNum() {
 
 bool Player::move(string direction){
     if(tryMove(direction)) { // Implemented in Character.h
-        #ifdef DEBUG
-        cout << "Player: tryMove returned true" << endl;
-        #endif
         Display::statusMessage += "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
         return true;
     }

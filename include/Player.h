@@ -28,7 +28,7 @@ class Player: public Character{
         virtual std::string raceStr() = 0;
         int getGold();
         int getFloorNum();
-        Player *unpack();
+        virtual Player *unpack();
     protected:
     	Player(Cell *cell, int atk, int def, int HP);
 };
