@@ -111,6 +111,23 @@ Player* Cell::findPlayerInBounds(){
 	return NULL;
 }
 
+Cell* Cell::findNearbyEmpty(){
+	// start at a random direction so we dont always spawn dragons north of their treasures
+	int startI = PRNG::random(7);
+	int atI = startI;
+	do{
+		Cell *cell = getAdjacentCell(directions[atI]);
+		if(cell->isWalkable())
+			return cell;
+		atI++;
+		if(atI == 8)
+			atI = 0;
+
+	} while(startI != atI);
+
+	return NULL;
+}
+
 string Cell::getRandomDirection(){
 	return directions[PRNG::random(7)];
 }

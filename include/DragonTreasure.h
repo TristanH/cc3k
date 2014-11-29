@@ -11,9 +11,10 @@ class DragonTreasure: public Treasure{
 	Dragon* dragon;
 
 	public:
-		DragonTreasure(int value, Dragon *dragon);
+		DragonTreasure(Cell *cell, int value, Dragon *dragon);
 		// only returns true if the dragon is dead eg NULL
 		bool collect(Player* player);
+		Dragon *getDragon();
 };
 
 #endif

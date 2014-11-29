@@ -19,7 +19,7 @@ void Die::addSides(int number, char result){
 		sidesWithResult++;
 	}
 	#ifdef DEBUG
-		cout << "Sides of die covered: " << sidesWithResult << endl;
+		cout << "Sides of die covered: " << sidesWithResult << " of " <<numSides << endl;
 	#endif
 }
 
@@ -28,7 +28,7 @@ char Die::rollDie(){
 		cerr << "Error: tried to roll die without filling all the sides" << endl;
 		return 0;
 	}
-	int sideChosen = PRNG::random(numSides);
+	int sideChosen = PRNG::random(numSides - 1);
 	return sides[sideChosen];
 }
 

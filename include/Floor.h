@@ -34,6 +34,8 @@ class Floor{
 	Die *goldDie;
 	// TODO: add dice for potions and gold piles (if needed)
 
+	int enemySpawnCount = 0;
+
 	// keeps track of floor dimensions
 	const int WIDTH;
 	const int HEIGHT;
