@@ -4,10 +4,12 @@
 #include "Item.h"
 
 class Potion: public Item{
-	int amount;
+	protected:
+		int amount;
 
 	public:
-		Potion(Cell *cell, char displayChar int amount);
+		Potion(Cell *cell, char displayChar, int amount);
+		virtual bool collect(Player* player) = 0;
 
 };
 

@@ -11,6 +11,7 @@ class Item: public Entity{
 		Item(Cell *cell, char displayChar);
 		// returns true if it was able to be collected
 		virtual bool collect(Player* player) = 0;
+		void notify();
 };
 
 #endif

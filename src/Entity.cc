@@ -8,6 +8,10 @@
 #include "Merchant.h"
 #include "Dragon.h"
 
+#include "HealthPotion.h"
+#include "AttackPotion.h"
+#include "DefencePotion.h"
+
 #include <iostream>
 
 using namespace std;
@@ -50,7 +54,6 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
     } else if(type == '5') {
         return new DefencePotion(cell, -10); 
     }
-}
     #ifdef DEBUG
     cout << "Entity: returning NULL enemy!!" << endl;
     #endif
