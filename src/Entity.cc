@@ -51,3 +51,8 @@ char Entity::getDisplayChar(){ return displayChar; }
 void Entity::setCell(Cell *newCell) {
     cell = newCell;
 }
+
+ostream &operator<<(ostream &out, Entity &e) {
+    cout << "[" << e.getR() << "," << e.getC() << "]";
+    return out;
+}

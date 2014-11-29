@@ -15,7 +15,7 @@ class Character: public Entity{
 		// fight can be called by players on enemies and enemies on players
 		virtual void fight(Entity *against) = 0;
 		virtual void specialFightEffect(Character *against, int damageDone) = 0;
-		virtual void notify() = 0;
+		//virtual void notify() = 0;
 		virtual ~Character(){}
 
 		// character tries to move in this direction, returns true if they did, false if they couldn't

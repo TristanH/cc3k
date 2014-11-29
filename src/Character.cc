@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "Cell.h"
 #include "Entity.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -15,7 +16,8 @@ bool Character::tryMove(string direction){
 	cout << "Character: player currently at cells[" << theCell->getR() << "," << theCell->getC() << "]" << endl;
 	cout << "Character: player wants to move to cells[" << goTo->getR() << "," << goTo->getC() << "]" << endl;
 	#endif
-	if (goTo->isWalkable()){
+	bool isPlayer = this == Player::getInstance();
+	if (goTo->isWalkable(isPlayer)){
 		theCell->setEntity(NULL);
 		goTo->setEntity(this);
 		#ifdef DEBUG

@@ -31,7 +31,7 @@ class Cell{
 		Cell(int r, int c, char type, Floor *floor, Entity *entity = NULL);
 		void setEntity(Entity *newEntity);
 		Entity *getEntity();
-		bool isWalkable();
+		bool isWalkable(bool allowPassages = false);
 		int getR();
 		int getC();
 		char getType();

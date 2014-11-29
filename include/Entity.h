@@ -1,5 +1,6 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
+#include <iostream>
 
 //We do not have any stack allocated instances of Cell
 //so we don't need to include it. This reduces the chance of accidental
@@ -34,6 +35,10 @@ class Entity{
         // This creates and returns a pointer to a new Enemy of the corresponding type of "type".
         static Entity *getNewEntity(char type, Cell* cell);
 
+        friend std::ostream &operator<<(std::ostream &out, Entity &e);
+
 };
+
+
 
 #endif

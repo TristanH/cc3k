@@ -12,9 +12,9 @@ Merchant::~Merchant() {
 }
 
 void Merchant::fight(Entity *against) {
-
+    Enemy::fight(against);
 }
 
 void Merchant::notify() {
-	
+	Enemy::notify();
 }
