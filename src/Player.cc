@@ -7,6 +7,8 @@
 #include "Cell.h"
 #include "Character.h"
 #include "Display.h"
+#include "AttackPotionEffect.h"
+#include "DefencePotionEffect.h"
 
 #include <math.h>
 
@@ -26,9 +28,7 @@ Player::~Player(){
 Player::Player(Cell *cell, int atk, int def, int HP):
     gold(0),
     floorNum(1), // TODO: increment when going to another floor
-    Character(cell, '@', atk, def, HP){
-        Display::statusMessage = "Player character has spawned.";
-    }
+    Character(cell, '@', atk, def, HP){}
 
 void Player::cleanup() {
     delete instance;
@@ -54,6 +54,40 @@ Player *Player::getInstance(char cmd, Cell *cell) {
     return instance;
 }
 
+void Player::addPotion(char type, int amount) {
+    if(instance) {
+        if(type == '1' || type == '4') {
+            instance = new AttackPotionEffect(instance,amount);
+        } else if(type == '2' || type == '5') { 
+            #ifdef DEBUG
+            cout << "Player: defence potion" << endl;
+            #endif
+            instance = new DefencePotionEffect(instance,amount);
+            #ifdef DEBUG
+            cout << "Player: instance decorated" << endl;
+            #endif
+        } else if(type == '0' || type == '3') { // health potions
+            instance->changeHP(amount);
+        } // else, don't modify instance
+    } else {
+        cerr << "Player: no instance of Player to decorate" << endl;
+    }
+}
+
+Player *Player::unpack() { return this; }
+
+void Player::removePotions() {
+    if(instance) {
+        // TODO: figure this out
+        #ifdef DEBUG
+        cout << "Player: unpacking..." << endl;
+        #endif
+        instance = instance->unpack();
+    } else {
+        cerr << "Player: no instance of Player to remove decorations from" << endl;
+    }
+}
+
 void Player::addGold(int amount) {
     gold += amount;
 }
@@ -71,12 +105,12 @@ bool Player::move(string direction){
         #ifdef DEBUG
         cout << "Player: tryMove returned true" << endl;
         #endif
-        Display::statusMessage = "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
+        Display::statusMessage += "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
         return true;
     }
 
     // TODO: check gold collecting here
-    Display::statusMessage = "PC can't move " + Character::dirFull(direction);
+    Display::statusMessage += "PC can't move " + Character::dirFull(direction);
     return false;
 }
 

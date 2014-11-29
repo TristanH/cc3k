@@ -2,6 +2,7 @@
 #include "Die.h"
 #include "Player.h"
 #include "Cell.h"
+#include "Display.h"
 #include <iostream> //for NULL and cerr
 #include <string>
 using namespace std;
@@ -62,10 +63,8 @@ void CmdInterpreter::restart() {
 
 void CmdInterpreter::executeCmd(string cmd) {
 
-    #ifdef DEBUG
-    cout << "CmdInterpreter.cc: program state = " << state << "; cmd = " << cmd << endl;
-    #endif
     if(state == 1) {
+        Display::statusMessage = ""; // So messages can be appended.
         bool validCmd = false;
         if(cmd == "u") {
             string dir;
@@ -84,6 +83,8 @@ void CmdInterpreter::executeCmd(string cmd) {
             restart();
             // Don't set validCmd becaues we don't want a game step to happen after we decide to restart
             cerr << "This isn't implemented yet :(" << endl; //TODO: remove this line when this is implemented
+        } else if(cmd == "e") {
+            end();
         } else if(Cell::isValidDirection(cmd)) {
             #ifdef DEBUG
             cout << "Cmd:Interpreter: moving to " << cmd << endl;
@@ -91,6 +92,17 @@ void CmdInterpreter::executeCmd(string cmd) {
             player->move(cmd);
             validCmd = true;
         }
+        #ifdef DEBUG
+        else if(cmd == "add") {
+            char type = '5';
+            int amount = -10;
+            Player::addPotion(type, amount);
+            validCmd = true;
+        } else if(cmd == "remove") {
+            Player::removePotions();
+            validCmd = true;
+        }
+        #endif
 
         if(validCmd) {
             // Player has done his shit so update everything else.
@@ -114,6 +126,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             // maybe reuse it for stairs?
             Cell* playerCell = floor->findUniqueCell();
             player = Player::getInstance(cmd[0], playerCell);
+            Display::statusMessage += "Player character has spawned.";
 
             floor->populate();
             cout << *floor;

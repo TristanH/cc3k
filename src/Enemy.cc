@@ -14,9 +14,6 @@ void Enemy::move() {
 		tryDirection = Cell::getRandomDirection();
 		numChecks++;
 	}while(!tryMove(tryDirection) && numChecks <= 1000);
-	#ifdef DEBUG
-	cout << "Enemy: " << *this << ": " << tryDirection << endl;
-	#endif
 }
 
 Enemy::Enemy(Cell *cell, char dc, int atk, int def, int hp):
