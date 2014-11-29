@@ -6,6 +6,7 @@
 #include "Troll.h"
 #include "Cell.h"
 #include "Character.h"
+#include "Display.h"
 
 #include <math.h>
 
@@ -24,8 +25,10 @@ Player::~Player(){
 
 Player::Player(Cell *cell, int atk, int def, int HP):
     gold(0),
-    action("Player character has spawned."),
-    Character(cell, '@', atk, def, HP){}
+    floorNum(1), // TODO: increment when going to another floor
+    Character(cell, '@', atk, def, HP){
+        Display::statusMessage = "Player character has spawned.";
+    }
 
 void Player::cleanup() {
     delete instance;
@@ -59,8 +62,8 @@ int Player::getGold() {
     return gold;
 }
 
-string Player::getAction() {
-    return action;
+int Player::getFloorNum() {
+    return floorNum;
 }
 
 bool Player::move(string direction){
@@ -68,12 +71,12 @@ bool Player::move(string direction){
         #ifdef DEBUG
         cout << "Player: tryMove returned true" << endl;
         #endif
-        action = "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
+        Display::statusMessage = "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
         return true;
     }
 
     // TODO: check gold collecting here
-    action = "PC can't move " + Character::dirFull(direction);
+    Display::statusMessage = "PC can't move " + Character::dirFull(direction);
     return false;
 }
 

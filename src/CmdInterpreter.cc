@@ -4,7 +4,6 @@
 #include "Cell.h"
 #include <iostream> //for NULL and cerr
 #include <string>
-#include <iomanip>
 using namespace std;
 
 // Static stuff
@@ -29,8 +28,7 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
     shouldRestart(false),
     floor(NULL),
     player(NULL),
-    state(0),
-    floorNum(0){
+    state(0){
         this->args = args;
     }
 
@@ -60,16 +58,6 @@ void CmdInterpreter::end() {
 void CmdInterpreter::restart() {
     shouldRestart = true;
     end();
-}
-
-void CmdInterpreter::printInfo() {
-    Player *p = Player::getInstance();
-    cout << "Race: " << p->raceStr() << " Gold: " << p->getGold();
-    cout << setw(56) << right << "Floor: " << floorNum << left << endl;
-    cout << "HP: " << p->getHP() << endl;
-    cout << "Atk: " << p->getAttack() << endl;
-    cout << "Def: " << p->getDefence() << endl;
-    cout << "Action: " << p->getAction() << endl; // TODO: add action shit!
 }
 
 void CmdInterpreter::executeCmd(string cmd) {
@@ -111,7 +99,6 @@ void CmdInterpreter::executeCmd(string cmd) {
             #endif
             floor->updateGameStep();
             cout << *floor;
-            printInfo();
         }
 
     } else {
@@ -129,8 +116,8 @@ void CmdInterpreter::executeCmd(string cmd) {
             player = Player::getInstance(cmd[0], playerCell);
 
             floor->populate();
+            cout << *floor;
 
-            floorNum++; // should increment any time a new floor is traveled to (using stairs)
             state = 1; // we should now start reading commands related to the "playing" state
         }
     }

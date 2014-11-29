@@ -225,7 +225,6 @@ void Floor::populate() {
 
     #ifdef DEBUG
     cout << "Floor: Floor populated" << endl;
-    cout << *display;
     #endif
 }
 
