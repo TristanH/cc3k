@@ -30,6 +30,8 @@ class Floor{
 	// maps the displayChar of an entity to its probability of spawnining.
 	// this allows us to have different spawn probabilities for different floors.
 	Die *enemyDie;
+	Die *potionDie;
+	Die *goldDie;
 	// TODO: add dice for potions and gold piles (if needed)
 
 	// keeps track of floor dimensions
@@ -52,6 +54,8 @@ class Floor{
 
 	bool sameChamber(Cell *a, Cell *b);
 
+	void createDies();
+
 	public:
 		// sets cells, spawns entities
 		Floor(std::string fileName);
@@ -59,8 +63,6 @@ class Floor{
 		// Since the floor owns its cells and chambers, it will delete all cells and chambers
 		~Floor();
 		void setDisplay(Display *display);
-		void setEnemyDie(Die *sr);
-		// TODO: add other setters for other dice if needed (potions, gold, random events, etc.)
 
 		//updating gamestep should move all the enemies and give them their chances to do combat
 		void updateGameStep();

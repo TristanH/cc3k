@@ -1,14 +1,10 @@
-#ifndef __HP_POTION_H__
-#define __HP_POTION_H__
+#include "HealthPotion.h"
 
-#include "Potion.h"
+HealthPotion::HealthPotion(Cell *cell, int amount):
+	Potion(cell,
+		   amount > 0 ? '0' : '3',
+		   amount){}
 
-class HealthPotion: public Potion{
-
-	public:
-		HealthPotion(Cell *cell, int amount);
-		bool collect(Player* player);
-
-};
-
-#endif
+bool HealthPotion::collect(Player *player){
+	;//add decorator to player here, fuck if i know how
+}

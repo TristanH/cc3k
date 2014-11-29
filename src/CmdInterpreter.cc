@@ -117,17 +117,6 @@ void CmdInterpreter::executeCmd(string cmd) {
     } else {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
 
-            // Die has 18 sides because the lcd of the spawning probabilities is 18
-            Die *spawnDie = new Die(18); 
-
-            // add sides to the die
-            spawnDie->addSides(4, 'H');
-            spawnDie->addSides(3, 'D');
-            spawnDie->addSides(5, 'L');
-            spawnDie->addSides(2, 'E');
-            spawnDie->addSides(2, 'O');
-            spawnDie->addSides(2, 'M');
-
             // get the name of the file to generate map from
             // TODO: remove temporary fix and actually use cmd line args
             string filename = "maps/normal_format.data";
@@ -139,7 +128,6 @@ void CmdInterpreter::executeCmd(string cmd) {
             Cell* playerCell = floor->findUniqueCell();
             player = Player::getInstance(cmd[0], playerCell);
 
-            floor->setEnemyDie(spawnDie);
             floor->populate();
 
             floorNum++; // should increment any time a new floor is traveled to (using stairs)

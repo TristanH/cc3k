@@ -71,6 +71,7 @@ Floor::Floor(string fileName) :
     display = Display::getInstance();
     generateCells(fileName);
     generateChambers();
+    createDies();
 }
 
 Floor::~Floor() {
@@ -80,8 +81,13 @@ Floor::~Floor() {
     for(int i = 0; i < cells.size(); i++)
         for(int j=0; j < cells[i].size(); j++)
             delete cells[i][j];
+
+    delete enemyDie;
+    delete goldDie;
+    delete potionDie;
+
     #ifdef DEBUG
-    cout << "Floor: Floor, chambers, and cells deleted" << endl;
+    cout << "Floor: Floor, chambers, dies and cells deleted" << endl;
     #endif
 }
 
@@ -99,8 +105,30 @@ void Floor::setDisplay(Display *d) {
     display = d;
 }
 
-void Floor::setEnemyDie(Die *sr) {
-    enemyDie = sr;
+void Floor::createDies() {
+    // Enemy die has 18 sides because the lcd of the spawning probabilities is 18
+    enemyDie = new Die(18); 
+    // add sides to the die
+    enemyDie->addSides(4, 'H');
+    enemyDie->addSides(3, 'd');
+    enemyDie->addSides(5, 'L');
+    enemyDie->addSides(2, 'E');
+    enemyDie->addSides(2, 'O');
+    enemyDie->addSides(2, 'M');
+
+    potionDie = new Die(6);
+    potionDie->addSides(1, '0');
+    potionDie->addSides(1, '1');
+    potionDie->addSides(1, '2');
+    potionDie->addSides(1, '3');
+    potionDie->addSides(1, '4');
+    potionDie->addSides(1, '5');
+
+    goldDie = new Die(8);
+    goldDie->addSides(5, '6');
+    goldDie->addSides(2, '7');
+    goldDie->addSides(1, '8');
+
 }
 
 void Floor::floodCreateChamber(int y, int x, bool** visited, Chamber *chamber){
@@ -164,8 +192,13 @@ void Floor::populate() {
     // spawn potions
     // every floor needs exactly 10 of them
     for(int i=0; i < 10; i++){
-        //Cell *cell = findUniqueCell(); TODO: implement this shit yo
-        // make potion here, add to cell
+        Cell *cell = findUniqueCell(); 
+        char type = potionDie->rollDie();
+        #ifdef DEBUG
+        cout<< "Adding potion: " << type << endl;
+        #endif
+        Entity *potion = Entity::getNewEntity(type, cell);
+        cell->setEntity(potion);
     }
 
     // TODO: SPAWN GOLD HERE
