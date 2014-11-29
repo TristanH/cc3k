@@ -12,6 +12,7 @@ class Player: public Character{
 	static Player *instance;
     static void cleanup(); //passed into atexit()
     int gold; //keeps track of how much gold the player has
+    int floorNum;
 
 	//combat logic lives here
 	public:
@@ -22,6 +23,9 @@ class Player: public Character{
         static  Player *getInstance(char race = 's', Cell *cell = NULL);
         void addGold(int amount); //just adds amount to current gold
         bool move(std::string direction);
+        virtual std::string raceStr() = 0;
+        int getGold();
+        int getFloorNum();
     protected:
     	Player(Cell *cell, int atk, int def, int HP);
 };

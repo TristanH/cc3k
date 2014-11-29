@@ -39,8 +39,6 @@ class CmdInterpreter{
     void updateFloor();
     // we have to update the player first, because the enemies won't move if he goes near them
 
-    void printLog(std::string str);
-
     // Command line argument stuff
     std::vector<std::string> args;
 
@@ -49,7 +47,7 @@ class CmdInterpreter{
 
         // The use of optional params means we can still just call CmdInterpreter::getInstance()
         static CmdInterpreter* getInstance(std::vector<std::string> args = std::vector<std::string>());
-        
+
         //contains main game loop
         void start();
 

@@ -1,9 +1,12 @@
 #include <iostream>
 #include <vector>
 #include "Display.h"
+#include "Player.h"
+#include <iomanip>
 using namespace std;
 
 Display* Display::instance = NULL;
+string Display::statusMessage = "";
 
 void Display::cleanup() {
     delete instance;
@@ -36,5 +39,12 @@ ostream &operator<<(ostream &out, Display &d) {
         }
         out << endl;
     }
+    Player *p = Player::getInstance();
+    cout << "Race: " << p->raceStr() << " Gold: " << p->getGold();
+    cout << setw(56) << right << "Floor: " << p->getFloorNum() << left << endl;
+    cout << "HP: " << p->getHP() << endl;
+    cout << "Atk: " << p->getAttack() << endl;
+    cout << "Def: " << p->getDefence() << endl;
+    cout << "Action: " << Display::statusMessage << endl; // TODO: add action shit!
     return out;
 }

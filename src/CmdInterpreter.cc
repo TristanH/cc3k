@@ -60,11 +60,6 @@ void CmdInterpreter::restart() {
     end();
 }
 
-void CmdInterpreter::printLog(string str) {
-    // TODO: we should figure out how to make this always print in a designated area underneath the game display
-    cout << str << endl; 
-}
-
 void CmdInterpreter::executeCmd(string cmd) {
 
     #ifdef DEBUG
@@ -103,7 +98,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             cout << "CmdInterpreter.cc: updating game step..." << endl;
             #endif
             floor->updateGameStep();
-            cout << *floor << endl;
+            cout << *floor;
         }
 
     } else {
@@ -121,6 +116,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             player = Player::getInstance(cmd[0], playerCell);
 
             floor->populate();
+            cout << *floor;
 
             state = 1; // we should now start reading commands related to the "playing" state
         }
