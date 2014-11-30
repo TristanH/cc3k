@@ -133,7 +133,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             // maybe reuse it for stairs?
             Cell* playerCell = floor->findUniqueCell();
             player = Player::getInstance(cmd[0], playerCell);
-            Display::statusMessage += "Player character has spawned.";
+            Display::statusMessage += "Player character has spawned. ";
 
             floor->populate();
             cout << *floor;

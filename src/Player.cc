@@ -106,12 +106,12 @@ int Player::getFloorNum() {
 
 bool Player::move(string direction){
     if(tryMove(direction)) { // Implemented in Character.h
-        Display::statusMessage += "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
+        Display::statusMessage += "PC moved " + Character::dirFull(direction) + ". "; // TODO: have to add the "and sees a..." portion
         return true;
     }
 
     // TODO: check gold collecting here
-    Display::statusMessage += "PC can't move " + Character::dirFull(direction);
+    Display::statusMessage += "PC can't move " + Character::dirFull(direction) + ". ";
     return false;
 }
 
@@ -121,9 +121,9 @@ void Player::fight(Entity *against) {
     Character *cAgainst = dynamic_cast<Character*>(against);
 
     if(!cAgainst){
-        #ifdef DEBUG
-        cout << "Tried to fight non-character!! returning" << endl;
         //TODO: Display.statusMessage this
+        #ifdef DEBUG
+        cout << "Player tried to fight non-character!! returning" << endl;
         #endif
         return;
     }
@@ -137,7 +137,7 @@ void Player::fight(Entity *against) {
     //specialFightEffect is used so subclasses can have their special powers in combat
     specialFightEffect(cAgainst, damage);
 
-    // we will deal with enemy onDeatha and such when we update it from chamber
+    // we will deal with enemy onDeath and such when we update it from chamber
 }
 
 void Player::specialFightEffect(Character *against, int damage){
