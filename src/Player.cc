@@ -9,6 +9,7 @@
 #include "Display.h"
 #include "AttackPotionEffect.h"
 #include "DefencePotionEffect.h"
+#include "Treasure.h"
 #include "Merchant.h"
 #include "Dragon.h"
 
@@ -102,12 +103,17 @@ void Player::addGold(int amount) {
     gold += amount;
 }
 
+
 int Player::getGold() {
     return gold;
 }
 
 int Player::getFloorNum() {
     return floorNum;
+}
+
+void Player::nextFloor() {
+    floorNum++;
 }
 
 bool Player::move(string direction){

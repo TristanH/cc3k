@@ -3,8 +3,10 @@
 #include "Player.h"
 #include "Cell.h"
 #include "Display.h"
+#include "Item.h"
 #include <iostream> //for NULL and cerr
 #include <string>
+#include <sstream>
 using namespace std;
 
 // Static stuff
@@ -29,7 +31,9 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
     shouldRestart(false),
     floor(NULL),
     player(NULL),
-    state(0){
+    state(0),
+    mapFile(""),
+    FLOORS_TO_WIN(5) { //TODO: make cmd line arg to alter this
         this->args = args;
     }
 
@@ -37,6 +41,10 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
 CmdInterpreter::~CmdInterpreter() {
     delete floor;
     //delete player; TODO: do we explicitly delete singleton or does atexit do this??
+}
+
+void CmdInterpreter::setMapFile(string filename) {
+    mapFile = filename;
 }
 
 void CmdInterpreter::start() {
@@ -61,6 +69,23 @@ void CmdInterpreter::restart() {
     end();
 }
 
+void CmdInterpreter::nextFloor() {
+    Player *player = Player::getInstance();
+    if(player->getFloorNum() == FLOORS_TO_WIN) {
+
+    } else {
+        // Player::removePotions(); // remove temp potion decorators
+        // player = Player::getInstance(); // replace player with undecorated instance
+        // player->nextFloor(); // increment floor count
+        // delete floor;
+        // floor = new Floor(mapFile);
+        // ostringstream ss;
+        // ss << "Welcome to floor " << player->getFloorNum();   
+        // Display::statusMessage += ss.str();
+        // cout << *floor;
+    }
+}
+
 void CmdInterpreter::executeCmd(string cmd) {
 
     if(state == 1) {
@@ -70,9 +95,22 @@ void CmdInterpreter::executeCmd(string cmd) {
             string dir;
             cin >> dir;
             if(Cell::isValidDirection(dir)){
-                //TODO: pickup thing in that dir
-                cerr << "This isn't implemented yet :(" << endl; 
-                validCmd = true;
+                Entity *entity = player->getCell()->getAdjacentCell(dir)->getEntity();
+                if(entity) {
+                    Item *item = dynamic_cast<Item *>(entity);
+                    if(item) {
+                        item->collect(player);
+                        Cell *cell = item->getCell();
+                        cell->setEntity(NULL);
+                        // TODO: set entity to '.'
+                        delete item;
+                        validCmd = true;
+                    } else {
+                        Display::statusMessage += "That isn't a usable item";
+                    }
+                } else {
+                    Display::statusMessage += "Nothing to use!";
+                }
             }
         } else if(cmd == "a") {
             string dir;
@@ -96,8 +134,13 @@ void CmdInterpreter::executeCmd(string cmd) {
             #ifdef DEBUG
             cout << "Cmd:Interpreter: moving to " << cmd << endl;
             #endif
-            player->move(cmd);
-            validCmd = true;
+            Cell *goTo = player->getCell()->getAdjacentCell(cmd);
+            if(cmd == "ea" && goTo->getDisplayChar() == '\\') {
+                nextFloor();
+            } else {
+                player->move(cmd);
+                validCmd = true;
+            }
         }
         #ifdef DEBUG
         else if(cmd == "add") {

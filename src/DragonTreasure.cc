@@ -10,13 +10,14 @@ DragonTreasure::DragonTreasure(Cell *cell, int value, Dragon *dragon):
 
 bool DragonTreasure::collect(Player *player){
 	if(dragon){
+		//TODO: dragon->makeAggresive
+		Display::statusMessage += "PC has angered the dragon";
 		dragon->makeHostile();
 		return false;
 	}
 	else{
 		Display::statusMessage+= "Collected dragon hoard! ";
 		player->addGold(value);
-		// TODO: delete gold from map here
 		return true;
 	}
 }

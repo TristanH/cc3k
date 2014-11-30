@@ -13,6 +13,8 @@ class CmdInterpreter{
     static void cleanup();
     bool isFinished;
     bool shouldRestart;
+    const int FLOORS_TO_WIN;
+    std::string mapFile;
 
     // keeps track of current state of the game:
     // 0 -> race selection
@@ -37,6 +39,7 @@ class CmdInterpreter{
     // it should also be responsible for doing all the updates for
     // enemies, environment and such
     void updateFloor();
+    void nextFloor();
     // we have to update the player first, because the enemies won't move if he goes near them
 
     // Command line argument stuff
@@ -56,6 +59,8 @@ class CmdInterpreter{
 
         //finishes game, deletes everything and quits
         void end();
+
+        void setMapFile(std::string filename);
 
 };
 
