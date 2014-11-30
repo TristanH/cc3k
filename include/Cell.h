@@ -41,6 +41,7 @@ class Cell{
 		// gets the cell from eg no, nw, sw used for enemy attacking, potions, moving
 		Cell *getAdjacentCell(std::string direction);
 
+		Entity *findEntityInBounds(char type);
 		Player *findPlayerInBounds();
 		static std::string getRandomDirection();
 		static bool isValidDirection(std::string direction);

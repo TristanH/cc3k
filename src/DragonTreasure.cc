@@ -30,3 +30,7 @@ void DragonTreasure::dragonDead(){
 	// also now let this treasure be collected
 	dragon = NULL;
 }
+
+void DragonTreasure::setDragon(Dragon *d){
+	dragon = d;
+}
