@@ -6,6 +6,7 @@
 #include "Item.h"
 #include <iostream> //for NULL and cerr
 #include <string>
+#include <sstream>
 using namespace std;
 
 // Static stuff
@@ -30,7 +31,9 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
     shouldRestart(false),
     floor(NULL),
     player(NULL),
-    state(0){
+    state(0),
+    mapFile(""),
+    FLOORS_TO_WIN(5) { //TODO: make cmd line arg to alter this
         this->args = args;
     }
 
@@ -38,6 +41,10 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
 CmdInterpreter::~CmdInterpreter() {
     delete floor;
     //delete player; TODO: do we explicitly delete singleton or does atexit do this??
+}
+
+void CmdInterpreter::setMapFile(string filename) {
+    mapFile = filename;
 }
 
 void CmdInterpreter::start() {
@@ -60,6 +67,24 @@ void CmdInterpreter::end() {
 void CmdInterpreter::restart() {
     shouldRestart = true;
     end();
+}
+
+void CmdInterpreter::nextFloor() {
+    Player *player = Player::getInstance();
+    if(player->getFloorNum() == FLOORS_TO_WIN) {
+
+    } else {
+        Player::removePotions(); // remove temp potion decorators
+        player = Player::getInstance(); // replace player with undecorated instance
+        player->nextFloor(); // increment floor count
+        delete floor;
+        floor = new Floor(mapFile);
+        floor->populate();
+        ostringstream ss;
+        ss << "Welcome to floor " << player->getFloorNum();   
+        Display::statusMessage += ss.str();
+        cout << *floor;
+    }
 }
 
 void CmdInterpreter::executeCmd(string cmd) {
@@ -110,8 +135,13 @@ void CmdInterpreter::executeCmd(string cmd) {
             #ifdef DEBUG
             cout << "Cmd:Interpreter: moving to " << cmd << endl;
             #endif
-            player->move(cmd);
-            validCmd = true;
+            Cell *goTo = player->getCell()->getAdjacentCell(cmd);
+            if(cmd == "ea" && goTo->getDisplayChar() == '\\') {
+                nextFloor();
+            } else {
+                player->move(cmd);
+                validCmd = true;
+            }
         }
         #ifdef DEBUG
         else if(cmd == "add") {
@@ -139,8 +169,7 @@ void CmdInterpreter::executeCmd(string cmd) {
 
             // get the name of the file to generate map from
             // TODO: remove temporary fix and actually use cmd line args
-            string filename = "maps/partially-full.data";
-            floor = new Floor(filename);
+            floor = new Floor(mapFile);
 
             // we need to generate the player. it can be acessed later by using Player::getInstance again (from any module that includes Player.h)
             // make a floor function to first find a random chamber, then a random spot in that chamber for the player

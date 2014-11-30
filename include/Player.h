@@ -29,6 +29,7 @@ class Player: public Character{
         virtual std::string raceStr() = 0;
         int getGold();
         int getFloorNum();
+        void nextFloor();
         void onDeath();
         bool notify();
         virtual Player *unpack();

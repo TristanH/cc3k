@@ -108,6 +108,10 @@ int Player::getFloorNum() {
     return floorNum;
 }
 
+void Player::nextFloor() {
+    floorNum++;
+}
+
 bool Player::move(string direction){
     if(tryMove(direction)) { // Implemented in Character.h
         Display::statusMessage += "PC moved " + Character::dirFull(direction) + ". "; // TODO: have to add the "and sees a..." portion
