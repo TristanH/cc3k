@@ -14,7 +14,6 @@ void Potion::setPotionsVisible(char displayChar){
 }
 
 char Potion::getDisplayChar(){
-	cout << "hit potion::getdisplaychar";
 	if(visible[this->getMapChar() - '0'])
 		return this->getMapChar();
 	else

@@ -91,7 +91,7 @@ Player *Player::unpack() {
 void Player::removePotions() {
     if(instance) {
         #ifdef DEBUG
-        cout << "Player: removing potions" << endl;
+        cerr << "Player: removing potions" << endl;
         #endif
         instance = instance->unpack();
     } else {

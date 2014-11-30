@@ -69,6 +69,9 @@ void Floor::generateCells(string fileName, char playerType) {
                 }
                 //otherwise weve just created the dragon and we wait till we find the hoard
                 enemySpawnCount++;
+                //TODO: make dragons get put in chambers properly.. they dont atm
+                partialSpawn.push_back(dragon);
+                display->notify(cell->getR(), cell->getC(), '.');
             }
             else if(curr == '8'){
                 DragonTreasure *dt = new DragonTreasure(cell, 6, NULL);
@@ -142,18 +145,28 @@ Floor::Floor(string fileName, char playerSpawnType) :
 
 Floor::~Floor() {
     // delete chambers
-    for(int i=0; i < chambers.size(); i++)
-        delete chambers[i];
+    chambers.erase(chambers.begin(), chambers.end());
+    //TODO: make sure this isnt leaking memory
+    // for(int i=0; i < chambers.size(); i++)
+    //     delete chambers[i];
+
+    #ifdef DEBUG
+    cerr << "deleted chambers";
+    #endif
+
     for(int i = 0; i < cells.size(); i++)
         for(int j=0; j < cells[i].size(); j++)
             delete cells[i][j];
+    #ifdef DEBUG
+    cerr << "deleted cells";
+    #endif
 
     delete enemyDie;
     delete goldDie;
     delete potionDie;
 
     #ifdef DEBUG
-    cout << "Floor: Floor, chambers, dies and cells deleted" << endl;
+    cerr << "Floor: Floor, chambers, dies and cells deleted" << endl;
     #endif
 }
 
@@ -288,6 +301,7 @@ void Floor::populate(char playerType) {
         // TODO: not sure if there is anything else we need to do to add items that wasn't done in generateCells
         Enemy *curr = dynamic_cast<Enemy *>(partialSpawn[i]);
         if(curr) {
+            cout << "Adding " << curr->getDisplayChar() << " to chamber" << endl;
             Chamber *chamber = locateChamber(curr->getCell());
             chamber->addEnemy(curr);
             display->notify(curr->getR(), curr->getC(), curr->getDisplayChar());

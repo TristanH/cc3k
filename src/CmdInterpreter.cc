@@ -72,17 +72,18 @@ void CmdInterpreter::restart() {
 void CmdInterpreter::nextFloor() {
     Player *player = Player::getInstance();
     if(player->getFloorNum() == FLOORS_TO_WIN) {
-
+        //TODO: winning stuff
     } else {
-        // Player::removePotions(); // remove temp potion decorators
-        // player = Player::getInstance(); // replace player with undecorated instance
-        // player->nextFloor(); // increment floor count
-        // delete floor;
-        // floor = new Floor(mapFile);
-        // ostringstream ss;
-        // ss << "Welcome to floor " << player->getFloorNum();   
-        // Display::statusMessage += ss.str();
-        // cout << *floor;
+        //Player::removePotions(); // remove temp potion decorators
+        player = Player::getInstance(); // replace player with undecorated instance
+        player->nextFloor(); // increment floor count
+        delete floor;
+        // doesn't matter what playerSpawn char is, it already exists
+        floor = new Floor(mapFile, '!');
+        ostringstream ss;
+        ss << "Welcome to floor " << player->getFloorNum();   
+        Display::statusMessage += ss.str();
+        cout << *floor;
     }
 }
 
@@ -168,8 +169,7 @@ void CmdInterpreter::executeCmd(string cmd) {
 
             // get the name of the file to generate map from
             // TODO: remove temporary fix and actually use cmd line args
-            string filename = "maps/full_map.data";
-            floor = new Floor(filename, cmd[0]);
+            floor = new Floor(mapFile, cmd[0]);
             player = Player::getInstance();
             cout << *floor;
             state = 1; // we should now start reading commands related to the "playing" state
