@@ -10,6 +10,8 @@
 #include "AttackPotionEffect.h"
 #include "DefencePotionEffect.h"
 #include "Treasure.h"
+#include "Merchant.h"
+#include "Dragon.h"
 
 #include <math.h>
 
@@ -123,7 +125,7 @@ void Player::fight(Entity *against) {
     Character *cAgainst = dynamic_cast<Character*>(against);
 
     if(!cAgainst){
-        //TODO: Display.statusMessage this
+        Display::statusMessage+= "Player tried to attack non-enemy, nothing happens! ";
         #ifdef DEBUG
         cout << "Player tried to fight non-character!! returning" << endl;
         #endif
@@ -139,6 +141,13 @@ void Player::fight(Entity *against) {
     //specialFightEffect is used so subclasses can have their special powers in combat
     specialFightEffect(cAgainst, damage);
 
+    // cover special merchant and dragon aggression case
+    if(against->getDisplayChar() == 'M')
+        Merchant::makeHostile();
+    else if(against->getDisplayChar() == 'D'){
+        Dragon *dragon = dynamic_cast<Dragon*>(cAgainst);
+        dragon->makeHostile();
+    }
     // we will deal with enemy onDeath and such when we update it from chamber
 }
 

@@ -12,9 +12,11 @@ bool DragonTreasure::collect(Player *player){
 	if(dragon){
 		//TODO: dragon->makeAggresive
 		Display::statusMessage += "PC has angered the dragon";
+		dragon->makeHostile();
 		return false;
 	}
 	else{
+		Display::statusMessage+= "Collected dragon hoard! ";
 		player->addGold(value);
 		return true;
 	}
@@ -22,4 +24,10 @@ bool DragonTreasure::collect(Player *player){
 
 Dragon* DragonTreasure::getDragon(){
 	return dragon;
+}
+
+void DragonTreasure::dragonDead(){
+	// don't point at soon to be deallocated memory
+	// also now let this treasure be collected
+	dragon = NULL;
 }

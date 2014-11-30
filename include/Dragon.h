@@ -4,18 +4,18 @@
 
 class Cell;
 class Entity;
+class DragonTreasure;
 
 class Dragon : public Enemy {
-    
+    bool hostile;
+    DragonTreasure *treasure;
     public:
     	Dragon(Cell *cell);
     	~Dragon();
     	void fight(Entity *against);
     	bool notify();
-
-    	// needs a specific implementation to not be aggresive
-    	void updateMove();
-
+    	void makeHostile();
+    	void setTreasure(DragonTreasure *dt);
 };
 
 #endif

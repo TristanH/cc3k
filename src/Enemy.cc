@@ -5,6 +5,7 @@
 #include "Display.h"
 
 #include <math.h>
+#include <sstream>
 
 using namespace std;
 
@@ -59,10 +60,9 @@ void Enemy::fight(Entity *against){
     
     int damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
     cAgainst->changeHP(-damage);
-    #ifdef DEBUG
-    cout << "Enemy dealt " << damage << " damage. " << endl;
-    // TODO: status message here
-    #endif
+    stringstream ss;
+    ss << displayChar << " dealt " << damage << " to Player! ";
+    Display::statusMessage+= ss.str();
     //specialFightEffect is used so subclasses can have their special powers in combat
     specialFightEffect(cAgainst, damage);
 }
@@ -74,13 +74,17 @@ void Enemy::specialFightEffect(Character *against, int damageDone){
 
 //TODO: override this for dragons, merchants, humans to give more gold
 void Enemy::onDeath(){
-	#ifdef DEBUG
-	cout << "Enemy killed, onDeath called" << endl;
-	#endif
+	Display::statusMessage+=displayChar;
+	Display::statusMessage+=" has been killed! ";
+
 	cell->setEntity(NULL);
 	int goldSize = PRNG::random(1);
-	if(goldSize == 0)
+	if(goldSize == 0){
+		Display::statusMessage+="Player gained 1 gold! ";
 		Player::getInstance()->addGold(1);
-	else
+	}
+	else{
+		Display::statusMessage+="Player gained 2 gold! ";
 		Player::getInstance()->addGold(2);
+	}
 }

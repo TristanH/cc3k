@@ -288,6 +288,7 @@ void Floor::populate() {
             DragonTreasure *dt = dynamic_cast<DragonTreasure *>(gold);
             Dragon *dragon = dt->getDragon();
             dragon->getCell()->setEntity(dragon);
+            dragon->setTreasure(dt);
         }
         else{
             Entity *gold = Entity::getNewEntity(type, cell);
