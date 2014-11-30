@@ -108,6 +108,16 @@ Entity* Cell::findEntityInBounds(char type){
 Player* Cell::findPlayerInBounds(){
 	for(int i=0;i<8;i++){
 		Cell *checkCell = getAdjacentCell(directions[i]);
+		#ifdef DEBUG
+		if(checkCell->getEntity()) {
+			char disp = checkCell->getEntity()->getDisplayChar();
+			if(disp == '@') {
+				cout << "ENEMY SEES PLAYER" << endl; 
+				cout << "-> Player = " << Player::getInstance() << endl;
+				cout << "-> Other  = " << checkCell->getEntity() << endl;;
+			}
+		}
+		#endif
 		if(checkCell->getEntity() == Player::getInstance()) {
 			Entity *checkEntity = checkCell->getEntity();
 			Player *thePlayer = dynamic_cast<Player *>(checkEntity);
@@ -156,4 +166,8 @@ void Cell::newFloor(){
 	stairwayExists = false;
 }
 
+ostream &operator<<(ostream &out, Cell &c) {
+	out << "[" << c.getR() << "," << c.getC() << "]";
+	return out;
+}
 
