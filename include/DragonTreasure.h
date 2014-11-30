@@ -15,6 +15,7 @@ class DragonTreasure: public Treasure{
 		// only returns true if the dragon is dead eg NULL
 		bool collect(Player* player);
 		Dragon *getDragon();
+		void dragonDead();
 };
 
 #endif

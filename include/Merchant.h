@@ -16,6 +16,8 @@ class Merchant : public Enemy {
     	Merchant(Cell *cell);
     	~Merchant();
     	void fight(Entity *against);
+    	bool notify();
+    	static void makeHostile();
 
 };
 
