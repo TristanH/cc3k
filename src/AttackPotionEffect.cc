@@ -13,3 +13,11 @@ int AttackPotionEffect::getAttack() {
 int AttackPotionEffect::getDefence() { // Doesn't effect defence
     return base->getDefence();
 }
+
+int AttackPotionEffect::getHP() {
+    return base->getHP();
+}
+
+void AttackPotionEffect::changeHP(int amount) {
+    base->changeHP(amount);
+}

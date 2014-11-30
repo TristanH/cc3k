@@ -9,6 +9,8 @@ public:
     ~PotionEffect();
     virtual int getAttack() = 0;
     virtual int getDefence() = 0;
+    virtual int getHP() = 0;
+    virtual void changeHP(int amount) = 0;
     virtual void gameTick();
 
     Player *unpack();

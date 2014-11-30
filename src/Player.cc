@@ -64,8 +64,8 @@ Player *Player::getInstance(char cmd, Cell *cell) {
 
 void Player::addPotion(char type, int amount) {
     if(instance) {
-        Cell *playerCell = instance->getCell();
-        playerCell->setEntity(NULL);
+        //Cell *playerCell = instance->getCell();
+        //playerCell->setEntity(NULL);
         if(type == '1' || type == '4') {
             instance = new AttackPotionEffect(instance,amount);
         } else if(type == '2' || type == '5') { 
@@ -80,12 +80,7 @@ void Player::addPotion(char type, int amount) {
         } else if(type == '0' || type == '3') { // health potions
             instance->changeHP(amount);
         } // else, don't modify instance
-        playerCell->setEntity(instance); // refresh the cell with new decorated player
-        #ifdef DEBUG
-        cout << "Instance in function = " << instance << endl;
-        cout << "Player::getInstance  = " << Player::getInstance() << endl;
-        cout << "Instance in cell     = " << playerCell->getEntity() << endl;
-        #endif
+        //playerCell->setEntity(instance); // refresh the cell with new decorated player
     } else {
         cerr << "Player: no instance of Player to decorate" << endl;
     }

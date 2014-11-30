@@ -30,3 +30,11 @@ void PotionEffect::gameTick() {
 string PotionEffect::raceStr() {
     return base->raceStr();
 }
+
+int PotionEffect::getHP() {
+    return base->getHP();
+}
+
+void PotionEffect::changeHP(int amount) {
+    base->changeHP(amount);
+}

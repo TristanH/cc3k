@@ -10,6 +10,8 @@ class AttackPotionEffect : public PotionEffect {
         AttackPotionEffect(Player *base, int amount);
         int getAttack();
         int getDefence();
+        int getHP();
+        void changeHP(int amount);
 };
 
 #endif
