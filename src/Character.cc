@@ -28,7 +28,7 @@ string Character::dirFull(string shortDir) {
 
 Character::Character(Cell *cell, char dc, int atk, int def, int hp):
 	Entity(cell, dc),
-	attack(atk), defence(def), HP(hp){}
+	attack(atk), defence(def), HP(hp), maxHP(hp) {}
 
 bool Character::tryMove(string direction){
 	Cell *theCell = getCell();

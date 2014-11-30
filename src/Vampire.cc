@@ -12,7 +12,8 @@ Vampire::~Vampire() {
 }
 
 void Vampire::fight(Entity *against) {
-
+    Player::fight(against);
+    HP += 5;
 }
 
 string Vampire::raceStr() {

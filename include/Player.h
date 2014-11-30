@@ -19,8 +19,9 @@ class Player: public Character{
 	public:
         virtual ~Player() = 0; // Nothing else here is pure virtual so we need this to be or else people can instantiate Player (this means we need to also create an empty implementation of the dtor in Player.cc)
 		// this fight is for the player attacking an enemy
-		void fight(Entity *against); // TODO: we changed this to fight Entity so that we don't have to check if Character. Need to implement properly so attacking an Item just logs something.
+		virtual void fight(Entity *against); // TODO: we changed this to fight Entity so that we don't have to check if Character. Need to implement properly so attacking an Item just logs something.
         void specialFightEffect(Character *against, int damageDone);
+        virtual void gameTick();
         static  Player *getInstance(char race = 's', Cell *cell = NULL);
         static void addPotion(char type, int amount);
         static void removePotions();

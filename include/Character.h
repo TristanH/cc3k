@@ -11,6 +11,7 @@ class Character: public Entity{
 		int attack;
 		int defence;
 		int HP;
+		int maxHP;
 	public:
 		// fight can be called by players on enemies and enemies on players
 		virtual void fight(Entity *against) = 0;
