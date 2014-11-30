@@ -171,3 +171,5 @@ void Player::onDeath(){
 bool Player::notify(){
     return true;
 }
+
+void Player::gameTick() {}

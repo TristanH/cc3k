@@ -11,10 +11,11 @@ Troll::~Troll() {
 
 }
 
-void Troll::fight(Entity *against) {
-
-}
-
 string Troll::raceStr() {
     return "Troll";
+}
+
+void Troll::gameTick() {
+    HP += 5;
+    if(HP > maxHP) HP = maxHP;
 }

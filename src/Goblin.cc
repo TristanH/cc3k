@@ -12,10 +12,6 @@ Goblin::~Goblin() {
 
 }
 
-void Goblin::fight(Entity *against) {
-
-}
-
 string Goblin::raceStr() {
     return "Goblin";
 }
