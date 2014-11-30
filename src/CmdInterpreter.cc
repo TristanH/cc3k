@@ -87,7 +87,7 @@ void CmdInterpreter::restart() {
 
 void CmdInterpreter::won() {
     finalScore = Player::getInstance()->getGold();
-    if(dynamic_cast<Shade *>(Player::getInstance())) finalScore += finalScore * 0.5;
+    if(Player::getInstance()->raceStr() == "Shade") finalScore += finalScore * 0.5;
     isFinished = true;
     didWin = true;
 }

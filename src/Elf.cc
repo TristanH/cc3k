@@ -1,7 +1,7 @@
 #include "Elf.h"
 #include "Cell.h"
 #include "Entity.h"
-#include "Drow.h"
+#include "Player.h"
 #include "Display.h"
 
 #include <math.h>
@@ -24,8 +24,8 @@ void Elf::fight(Entity *against){
         return;
     }
 
-	Drow *drow = dynamic_cast<Drow*>(cAgainst);
-	if(drow){
+	Player *player = dynamic_cast<Player*>(cAgainst);
+	if(player && player->raceStr() == "Drow"){
 		Display::statusMessage+="E attacks the Player once because it's a Drow: ";
 		// elf has no special effects if it's fighting a drow 
 		Enemy::fight(against);

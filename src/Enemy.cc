@@ -86,7 +86,7 @@ void Enemy::onDeath(){
 		Display::statusMessage+="Player gained 2 gold! ";
 		Player::getInstance()->addGold(2);
 	}
-    if(dynamic_cast<Goblin *>(Player::getInstance())) {
+    if(Player::getInstance()->raceStr() == "Goblin") {
         Display::statusMessage+="Player steals additional 5 gold. ";
         Player::getInstance()->addGold(5);
     }

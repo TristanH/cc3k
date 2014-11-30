@@ -2,6 +2,8 @@
 #include "Cell.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Display.h"
+#include "Goblin.h"
 
 bool Merchant::hostile = false;
 
@@ -38,4 +40,17 @@ bool Merchant::notify(){
 		move();
 	return true;
 
+}
+
+void Merchant::onDeath(){
+	Display::statusMessage+="M has been killed! ";
+	cell->setEntity(NULL);
+
+	Display::statusMessage+="Player gained 4 gold! ";
+	Player::getInstance()->addGold(4);
+
+    if(Player::getInstance()->raceStr() == "Goblin") {
+        Display::statusMessage+="Player steals additional 5 gold. ";
+        Player::getInstance()->addGold(5);
+    }
 }
