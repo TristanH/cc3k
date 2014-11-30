@@ -11,6 +11,8 @@ class Treasure: public Item{
 
         // calls player->addGold(value)
 		virtual bool collect(Player* player) = 0;
+
+		char getDisplayChar();
 };
 
 #endif

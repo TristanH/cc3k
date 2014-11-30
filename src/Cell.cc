@@ -94,7 +94,7 @@ Cell* Cell::getAdjacentCell(string direction){
 }
 
 Entity* Cell::findEntityInBounds(char type){
-	for(int i=0;i<7;i++){
+	for(int i=0;i<8;i++){
 		Cell *checkCell = getAdjacentCell(directions[i]);
 		if(checkCell && checkCell->getEntity() && checkCell->getEntity()->getMapChar() == type) {
 			return checkCell->getEntity();
@@ -106,7 +106,7 @@ Entity* Cell::findEntityInBounds(char type){
 
 
 Player* Cell::findPlayerInBounds(){
-	for(int i=0;i<7;i++){
+	for(int i=0;i<8;i++){
 		Cell *checkCell = getAdjacentCell(directions[i]);
 		if(checkCell->getEntity() == Player::getInstance()) {
 			Entity *checkEntity = checkCell->getEntity();
