@@ -142,6 +142,7 @@ Floor::Floor(string fileName, char playerSpawnType) :
     #endif
     createDies();
     populate(playerSpawnType);
+    Potion::setFloor(this);
 }
 
 Floor::~Floor() {
@@ -426,4 +427,13 @@ Cell* Floor::getCell(int y, int x){
     }
     else
         return cells[y][x];
+}
+
+void Floor::updatePotions(){
+    // used potions will now have the right display chars,
+    // we just need to update the display to show them
+    for(int r=0; r<cells.size(); r++){
+        for(int c=0; c<cells[r].size(); c++)
+            notifyDisplay(r,c,cells[r][c]->getDisplayChar());
+    }
 }

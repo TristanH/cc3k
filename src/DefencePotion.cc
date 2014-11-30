@@ -20,5 +20,6 @@ bool DefencePotion::collect(Player *player){
     else
         ss << "negative defence potion (" << amount << " Def). ";
     Display::statusMessage+= ss.str();
+    Potion::setPotionsVisible(this->getMapChar());
     return true;
 }

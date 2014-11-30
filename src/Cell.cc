@@ -68,7 +68,6 @@ void Cell::makeStairway(){
 	type = '\\';
 	Cell::stairwayExists = true;
 	floor->notify(r,c,this);
-
 }
 
 Cell* Cell::getAdjacentCell(string direction){
@@ -152,6 +151,10 @@ bool Cell::isValidDirection(string direction){
 	}
 	return false;
 
+}
+
+void Cell::newFloor(){
+	stairwayExists = false;
 }
 
 

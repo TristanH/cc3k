@@ -91,6 +91,9 @@ void CmdInterpreter::won() {
 }
 
 void CmdInterpreter::nextFloor() {
+    #ifdef DEBUG
+    cerr<< "nextFloor called " <<endl;
+    #endif
     Player *player = Player::getInstance();
     if(player->getFloorNum() == FLOORS_TO_WIN) {
         //TODO: winning stuff
@@ -100,6 +103,7 @@ void CmdInterpreter::nextFloor() {
         player->nextFloor(); // increment floor count
         Display::getInstance()->reset();
         delete floor;
+        Cell::newFloor();
         // doesn't matter what playerSpawn char is, it already exists
         floor = new Floor(mapFile, '!');
         ostringstream ss;
@@ -154,15 +158,14 @@ void CmdInterpreter::executeCmd(string cmd) {
             end();
         } else if(Cell::isValidDirection(cmd)) {
             #ifdef DEBUG
-            cout << "Cmd:Interpreter: moving to " << cmd << endl;
+            cout << "Cmd:Interpreter: moving to " << cmd << " with "<< player->getCell()->getAdjacentCell(cmd)->getDisplayChar() << endl;
             #endif
             Cell *goTo = player->getCell()->getAdjacentCell(cmd);
             if(cmd == "ea" && goTo->getDisplayChar() == '\\') {
                 nextFloor();                
             } else {
                 Treasure *treasure = dynamic_cast<Treasure *>(goTo->getEntity());
-                if(treasure) {
-                    treasure->collect(player);
+                if(treasure && treasure->collect(player)) {
                     goTo->setEntity(NULL);
                     delete treasure;
                 }

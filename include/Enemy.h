@@ -13,7 +13,7 @@ class Enemy: public Character{
     	// this is only for the step of enemies attacking the player
     	// this will be concrete, then enemies with special attack effects can overwrite it
     	void fight(Entity *against);
-    	void specialFightEffect(Character *against, int damageDone);
+    	int specialFightEffect(Character *against, int damageDone);
     	bool notify();
     	void onDeath();
 };
