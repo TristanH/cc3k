@@ -35,10 +35,12 @@ bool Character::tryMove(string direction){
 	Cell *goTo = theCell->getAdjacentCell(direction);
 	Player *p = dynamic_cast<Player *>(this);
 	if (goTo->isWalkable(p != NULL)){
+		/* old gold pickup logic
 		if(p && goTo->getType() == 'G') {
 			Item *item = dynamic_cast<Item *>(goTo->getEntity());
 			item->collect(p);
 		}
+		*/
 		theCell->setEntity(NULL);
 		goTo->setEntity(this);
 		return true;
