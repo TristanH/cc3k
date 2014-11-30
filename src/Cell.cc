@@ -2,7 +2,6 @@
 #include "Floor.h"
 #include "PRNG.h"
 #include "Player.h"
-
 #include <iostream>
 #include <ctime>
 #include <string>
