@@ -36,9 +36,16 @@ bool Character::tryMove(string direction){
 	if (goTo->isWalkable(p != NULL)){
 		theCell->setEntity(NULL);
 		goTo->setEntity(this);
+		#ifdef DEBUG
+		//cout << "Character: able to move to that cell" << endl;
+		#endif
 		return true;
 	}
 	else {
+		#ifdef DEBUG
+		//cout << "Character: unable to move to that cell" << endl;
+		#endif
+
 		return false;
 	}
 

@@ -12,7 +12,6 @@ class Troll : public Player {
 		Troll(Cell *cell);
 		~Troll();
 		void fight(Entity *against);
-		void notify();
         std::string raceStr();
 
 };

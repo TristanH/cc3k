@@ -11,8 +11,6 @@ class Drow : public Player {
     public:
     	Drow(Cell *cell);
     	~Drow();
-    	void fight(Entity *against);
-    	void notify();
         std::string raceStr();
 
 };

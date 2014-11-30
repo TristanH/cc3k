@@ -12,7 +12,7 @@ public:
     Player *unpack();
 
     // Need to give an implementation or I get an error
-    void notify(); 
+    bool notify(); 
     std::string raceStr();
 protected:
     Player *base;

@@ -12,7 +12,6 @@ class Dwarf : public Enemy {
     	Dwarf(Cell *cell);
     	~Dwarf();
     	void fight(Entity *against);
-    	void notify();
 };
 
 #endif

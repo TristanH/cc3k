@@ -14,6 +14,3 @@ void Human::fight(Entity *against) {
     Enemy::fight(against);
 }
 
-void Human::notify() {
-    Enemy::notify();
-}

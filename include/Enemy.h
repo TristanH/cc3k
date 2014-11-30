@@ -13,7 +13,8 @@ class Enemy: public Character{
     	// this will be concrete, then enemies with special attack effects can overwrite it
     	void fight(Entity *against);
     	void specialFightEffect(Character *against, int damageDone);
-    	void notify();
+    	bool notify();
+    	void onDeath();
 };
 
 

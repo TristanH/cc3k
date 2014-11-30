@@ -11,13 +11,6 @@ Drow::~Drow() {
 
 }
 
-void Drow::fight(Entity *against) {
-
-}
-
-void Drow::notify() {
-	// what should we do with dis?
-}
 
 string Drow::raceStr() {
     return "Drow";

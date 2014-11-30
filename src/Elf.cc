@@ -12,7 +12,3 @@ Elf::~Elf() {
 void Elf::fight(Entity *against) {
     Enemy::fight(against);
 }
-
-void Elf::notify() {
-	Enemy::notify();
-}

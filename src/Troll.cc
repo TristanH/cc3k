@@ -15,10 +15,6 @@ void Troll::fight(Entity *against) {
 
 }
 
-void Troll::notify() {
-	// what should we do with dis?
-}
-
 string Troll::raceStr() {
     return "Troll";
 }

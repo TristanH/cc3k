@@ -16,7 +16,7 @@ Player *PotionEffect::unpack() {
     return base->unpack();
 }
 
-void PotionEffect::notify() {
+bool PotionEffect::notify() {
     base->notify();
 }
 

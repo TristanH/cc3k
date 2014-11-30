@@ -11,7 +11,6 @@ class Halfling : public Enemy {
     	Halfling(Cell *cell);
     	~Halfling();
     	void fight(Entity *against);
-    	void notify();
 };
 
 #endif

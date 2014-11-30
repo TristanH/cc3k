@@ -27,6 +27,7 @@ class Character: public Entity{
 		virtual int getAttack();
 		int getHP();
 		void changeHP(int amount);
+		virtual void onDeath() = 0;
 
 		static std::string dirFull(std::string shortDir);
 

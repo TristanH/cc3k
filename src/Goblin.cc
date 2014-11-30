@@ -16,10 +16,6 @@ void Goblin::fight(Entity *against) {
 
 }
 
-void Goblin::notify() {
-	// what should we do with dis?
-}
-
 string Goblin::raceStr() {
     return "Goblin";
 }

@@ -11,7 +11,7 @@ class Dragon : public Enemy {
     	Dragon(Cell *cell);
     	~Dragon();
     	void fight(Entity *against);
-    	void notify();
+    	bool notify();
 
     	// needs a specific implementation to not be aggresive
     	void updateMove();

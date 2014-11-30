@@ -12,7 +12,6 @@ class Goblin : public Player {
     	Goblin(Cell *cell);
     	~Goblin();
     	void fight(Entity *against);
-    	void notify();
         std::string raceStr();
 
 };

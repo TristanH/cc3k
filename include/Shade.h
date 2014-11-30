@@ -10,8 +10,6 @@ class Shade : public Player {
 	public:
 		Shade(Cell *cell);
 		~Shade();
-		void fight(Entity *against);
-		void notify();
         std::string raceStr();
 
 };

@@ -106,31 +106,49 @@ int Player::getFloorNum() {
 
 bool Player::move(string direction){
     if(tryMove(direction)) { // Implemented in Character.h
-        Display::statusMessage += "PC moved " + Character::dirFull(direction); // TODO: have to add the "and sees a..." portion
+        Display::statusMessage += "PC moved " + Character::dirFull(direction) + ". "; // TODO: have to add the "and sees a..." portion
         return true;
     }
 
     // TODO: check gold collecting here
-    Display::statusMessage += "PC can't move " + Character::dirFull(direction);
+    Display::statusMessage += "PC can't move " + Character::dirFull(direction) + ". ";
     return false;
 }
 
 void Player::fight(Entity *against) {
-    //TODO: item check
-    //if Item
-    //   return;
-    
     //if we check to make sure the entity's not an item, we can safely cast to a character
     // we need this to get access to the Character specific functions
-    Character *cAgainst = static_cast<Character*>(against);
+    Character *cAgainst = dynamic_cast<Character*>(against);
+
+    if(!cAgainst){
+        //TODO: Display.statusMessage this
+        #ifdef DEBUG
+        cout << "Player tried to fight non-character!! returning" << endl;
+        #endif
+        return;
+    }
     
-    int damage = ceil((100/(100 + cAgainst->getDefence()))*attack);
+    int damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
     cAgainst->changeHP(-damage);
+    #ifdef DEBUG
+    cout << "Dealt " << damage << " damage. " << endl;
+    cout << "Enemy's HP is now " << cAgainst->getHP() << endl;
+    #endif
     //specialFightEffect is used so subclasses can have their special powers in combat
     specialFightEffect(cAgainst, damage);
+
+    // we will deal with enemy onDeath and such when we update it from chamber
 }
 
 void Player::specialFightEffect(Character *against, int damage){
     // do nothing for standard player, subclasses CAN but don't have to overwrite
     ;
+}
+
+void Player::onDeath(){
+    ; //This doesnt need to be implemented, cmdinterpreter will check for player death
+}
+
+bool Player::notify(){
+    return true;
 }

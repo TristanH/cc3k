@@ -266,8 +266,9 @@ void Floor::populate() {
     }
 
     // spawn gold.... gettin rich bitches
-    for(int i=treasureSpawnCount; i < 10; i++){
-        Cell *cell = findUniqueCell(); 
+    for(int i=0; i < 10; i++){
+        Chamber *randChamber = getRandChamber();
+        Cell *cell = findUniqueCell(randChamber); 
         char type = goldDie->rollDie();
         #ifdef DEBUG
         cout << "Adding gold: " << type << endl;
@@ -276,8 +277,10 @@ void Floor::populate() {
         //do special shit for dragons
         if(type == '8'){
             // we need a cell where a dragon can be in the gold's block radius
-            while(cell->findNearbyEmpty() == NULL)
-                cell = findUniqueCell();
+            while(cell->findNearbyEmpty() == NULL){
+                randChamber = getRandChamber();
+                cell = findUniqueCell(randChamber);
+            }
 
             Entity *gold = Entity::getNewEntity(type, cell);
             cell->setEntity(gold);

@@ -10,10 +10,21 @@ Chamber::Chamber(){}
 
 void Chamber::updateEnemies() {
 	//iterate through the vector of enemies and update them
-    int enemiesSize = enemies.size();
-    for(int i=0; i < enemiesSize; i++) { // was using an iterator here before but fuck that shit
-    	// notify the enemy that its time to update
-    	enemies[i]->notify();
+    for(int i=0; i < enemies.size(); i++) { // was using an iterator here before but fuck that shit
+        // notify the enemy that its time to update
+        #ifdef DEBUG
+        //cout << "updating " << *enemies[i] << endl;
+        #endif
+    	bool isDead = !enemies[i]->notify();
+    	if(isDead){
+            // TODO: make sure memory is not leaked here
+    		//delete enemies[i];
+    		enemies.erase(enemies.begin() + i);
+    		#ifdef DEBUG
+    		cout << "Enemy at index " << i << " deleted, " << enemies.size() << " enemies left in chamber" << endl;
+    		#endif
+    		i--;
+    	}
     }
 }
 
