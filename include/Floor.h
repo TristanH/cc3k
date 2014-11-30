@@ -58,6 +58,7 @@ class Floor{
 	void notifyChambers();
 
 	void generateChambers();
+	void randomMapGeneration(char playerSpawnType);
 	void floodCreateChamber(int y, int x, bool **visited, Chamber* chamber);
 
 	bool sameChamber(Cell *a, Cell *b);
