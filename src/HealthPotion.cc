@@ -11,7 +11,7 @@ HealthPotion::HealthPotion(Cell *cell, int amount):
 
 bool HealthPotion::collect(Player *player){
     if(dynamic_cast<Drow *>(Player::getInstance())) amount *= 1.5;
-	Player::addPotion(getDisplayChar(), amount);
+	Player::addPotion(getMapChar(), amount);
     ostringstream ss;
     ss << "Player used a ";
     if(amount > 0)

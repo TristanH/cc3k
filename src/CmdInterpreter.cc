@@ -5,6 +5,8 @@
 #include "Display.h"
 #include "Item.h"
 #include "Shade.h"
+#include "Potion.h"
+#include "Treasure.h"
 #include <iostream> //for NULL and cerr
 #include <string>
 #include <sstream>
@@ -118,20 +120,19 @@ void CmdInterpreter::executeCmd(string cmd) {
             if(Cell::isValidDirection(dir)){
                 Entity *entity = player->getCell()->getAdjacentCell(dir)->getEntity();
                 if(entity) {
-                    Item *item = dynamic_cast<Item *>(entity);
-                    if(item) {
-                        item->collect(player);
-                        Cell *cell = item->getCell();
+                    Potion *potion = dynamic_cast<Potion *>(entity);
+                    if(potion) {
+                        potion->collect(player);
+                        Cell *cell = potion->getCell();
                         cell->setEntity(NULL);
-                        // TODO: set entity to '.'
-                        delete item;
-                        validCmd = true;
+                        delete potion;
                     } else {
                         Display::statusMessage += "That isn't a usable item";
                     }
                 } else {
                     Display::statusMessage += "Nothing to use!";
                 }
+                validCmd = true;
             }
         } else if(cmd == "a") {
             string dir;
@@ -157,8 +158,14 @@ void CmdInterpreter::executeCmd(string cmd) {
             #endif
             Cell *goTo = player->getCell()->getAdjacentCell(cmd);
             if(cmd == "ea" && goTo->getDisplayChar() == '\\') {
-                nextFloor();
+                nextFloor();                
             } else {
+                Treasure *treasure = dynamic_cast<Treasure *>(goTo->getEntity());
+                if(treasure) {
+                    treasure->collect(player);
+                    goTo->setEntity(NULL);
+                    delete treasure;
+                }
                 player->move(cmd);
                 validCmd = true;
             }
@@ -181,8 +188,8 @@ void CmdInterpreter::executeCmd(string cmd) {
             cout << "CmdInterpreter.cc: updating game step..." << endl;
             #endif
             floor->updateGameStep();
-            cout << *floor;
-        }
+        } 
+        cout << *floor;
 
     } else {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
