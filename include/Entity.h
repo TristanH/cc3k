@@ -28,7 +28,7 @@ class Entity{
         int getC();
         Cell *getCell();
         void setCell(Cell *newCell);
-        char getDisplayChar();
+        virtual char getDisplayChar();
         char getMapChar();
 		virtual bool notify() = 0;
 		virtual ~Entity(){};
