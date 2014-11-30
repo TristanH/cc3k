@@ -4,6 +4,7 @@
 #include "Cell.h"
 #include "Display.h"
 #include "Item.h"
+#include "Shade.h"
 #include <iostream> //for NULL and cerr
 #include <string>
 #include <sstream>
@@ -33,6 +34,8 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
     player(NULL),
     state(0),
     mapFile(""),
+    didWin(false),
+    finalScore(0),
     FLOORS_TO_WIN(5) { //TODO: make cmd line arg to alter this
         this->args = args;
     }
@@ -54,6 +57,15 @@ void CmdInterpreter::start() {
     }
     if(shouldRestart) {
         //TODO: restart shit
+    } else {
+        if(didWin) {
+            cout << "Congratulations! You beat the final floor!" << endl;
+        } else {
+            cout << "Game over." << endl;
+        }
+        ostringstream ss;
+        ss << "Final Score: " << finalScore;
+        cout << ss.str() << endl;
     }
     #ifdef DEBUG
     cout << "CmdInterpreter.cc: game loop terminated" << endl;
@@ -69,6 +81,13 @@ void CmdInterpreter::restart() {
     end();
 }
 
+void CmdInterpreter::won() {
+    finalScore = Player::getInstance()->getGold();
+    if(dynamic_cast<Shade *>(Player::getInstance())) finalScore += finalScore * 0.5;
+    isFinished = true;
+    didWin = true;
+}
+
 void CmdInterpreter::nextFloor() {
     Player *player = Player::getInstance();
     if(player->getFloorNum() == FLOORS_TO_WIN) {
@@ -81,7 +100,7 @@ void CmdInterpreter::nextFloor() {
         // floor = new Floor(mapFile);
         // ostringstream ss;
         // ss << "Welcome to floor " << player->getFloorNum();   
-        // Display::statusMessage += ss.str();
+        // Display::statusMessage += ss.str() + ". ";
         // cout << *floor;
     }
 }

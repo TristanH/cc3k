@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "PRNG.h"
 #include "Display.h"
-
+#include "Goblin.h"
 #include <math.h>
 #include <sstream>
 
@@ -87,4 +87,8 @@ void Enemy::onDeath(){
 		Display::statusMessage+="Player gained 2 gold! ";
 		Player::getInstance()->addGold(2);
 	}
+    if(dynamic_cast<Goblin *>(Player::getInstance())) {
+        Display::statusMessage+="Player steals additional 5 gold. ";
+        Player::getInstance()->addGold(5);
+    }
 }

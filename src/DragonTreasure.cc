@@ -11,7 +11,7 @@ DragonTreasure::DragonTreasure(Cell *cell, int value, Dragon *dragon):
 bool DragonTreasure::collect(Player *player){
 	if(dragon){
 		//TODO: dragon->makeAggresive
-		Display::statusMessage += "PC has angered the dragon";
+		Display::statusMessage += "Player has angered the dragon! ";
 		dragon->makeHostile();
 		return false;
 	}

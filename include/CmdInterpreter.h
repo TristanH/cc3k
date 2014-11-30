@@ -22,6 +22,9 @@ class CmdInterpreter{
     //TODO: instead of using a int to represent a state we should have a state object and have a stack of states in the CmdInterpreter class
     int state;
 
+    bool didWin;
+    int finalScore;
+
     // this is an observer of the cmd interpreter
     Floor *floor;
 
@@ -40,6 +43,7 @@ class CmdInterpreter{
     // enemies, environment and such
     void updateFloor();
     void nextFloor();
+    void won();
     // we have to update the player first, because the enemies won't move if he goes near them
 
     // Command line argument stuff
