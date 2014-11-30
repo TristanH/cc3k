@@ -1,6 +1,6 @@
 #include "Potion.h"
+#include "Drow.h"
 #include "Floor.h"
-
 #include <iostream>
 
 using namespace std;
@@ -27,8 +27,11 @@ char Potion::getDisplayChar(){
 		return 'P';
 }
 
+bool Potion::collect(Player *player) {
+    if(dynamic_cast<Drow *>(Player::getInstance())) amount *= 1.5;
+    Player::addPotion(getMapChar(), amount);
+}
+
 void Potion::setFloor(Floor *f){
 	Potion::floor = f;
 }
-
-

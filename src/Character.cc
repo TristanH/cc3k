@@ -26,9 +26,23 @@ string Character::dirFull(string shortDir) {
 	}
 }
 
-Character::Character(Cell *cell, char dc, int atk, int def, int hp):
+Character::Character(Cell *cell, char dc, int atk, int def, int hp, int maxHP):
 	Entity(cell, dc),
-	attack(atk), defence(def), HP(hp), maxHP(hp) {}
+	attack(atk), defence(def), HP(hp) {
+		// this is so we can force set maxHP when decorating a player, otherwise it defaults to -1 and just becomes HP
+		if(maxHP < 0) {
+			#ifdef DEBUG
+			cout << "maxHP not defined. Defining to be HP" << endl;
+			cout << maxHP;
+			#endif
+			this->maxHP = hp;
+		} else {
+			#ifdef DEBUG
+			cout << "maxHP defined: " << maxHP << endl;
+			#endif
+			this->maxHP = maxHP;
+		}
+	}
 
 bool Character::tryMove(string direction){
 	Cell *theCell = getCell();
@@ -61,6 +75,10 @@ int Character::getAttack() {
 
 int Character::getHP(){
 	return HP;
+}
+
+int Character::getMaxHP() {
+	return maxHP;
 }
 
 void Character::changeHP(int amount){

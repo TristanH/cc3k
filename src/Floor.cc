@@ -303,7 +303,6 @@ void Floor::populate(char playerType) {
         // TODO: not sure if there is anything else we need to do to add items that wasn't done in generateCells
         Enemy *curr = dynamic_cast<Enemy *>(partialSpawn[i]);
         if(curr) {
-            cerr << "Adding " << curr->getDisplayChar() << " to chamber" << endl;
             Chamber *chamber = locateChamber(curr->getCell());
             chamber->addEnemy(curr);
             display->notify(curr->getR(), curr->getC(), curr->getDisplayChar());

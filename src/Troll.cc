@@ -16,6 +16,14 @@ string Troll::raceStr() {
 }
 
 void Troll::gameTick() {
+    #ifdef DEBUG
+    cout << "Troll: adding health bonus" << endl;
+    #endif
     HP += 5;
-    if(HP > maxHP) HP = maxHP;
+    if(HP > maxHP) {
+        #ifdef DEBUG
+        cout << "HP > maxHP" << endl;
+        #endif
+        HP = maxHP;
+    }
 }

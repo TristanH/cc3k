@@ -13,7 +13,7 @@ class Potion: public Item{
 
 	public:
 		Potion(Cell *cell, char displayChar, int amount);
-		virtual bool collect(Player* player) = 0;
+		virtual bool collect(Player* player);
 		static void setPotionsVisible(char displayChar);
 		char getDisplayChar();
 		static void setFloor(Floor *f);

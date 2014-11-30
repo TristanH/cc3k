@@ -35,7 +35,7 @@ class Player: public Character{
         bool notify();
         virtual Player *unpack();
     protected:
-    	Player(Cell *cell, int atk, int def, int HP, int gold = 0, int floorNum = 1);
+    	Player(Cell *cell, int atk, int def, int HP, int gold = 0, int floorNum = 1, int maxHP = -1);
 };
 
 #endif

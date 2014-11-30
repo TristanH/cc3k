@@ -11,6 +11,4 @@ int main(int argc, char* argv[]) {
     cout << "cc3k.cc: instance of CmdInterpreter created; starting game..." << endl;
     #endif
     ci->start(); //terminates when game is done
-    // TODO: do we need to delete a singleton or does atexit() cover that??
-    cout << "Game exited: thanks for playing!" << endl;
 }

@@ -1,6 +1,5 @@
 #include "DefencePotion.h"
 #include "Player.h"
-#include "Drow.h"
 #include "Display.h"
 #include <sstream>
 using namespace std;
@@ -11,8 +10,7 @@ DefencePotion::DefencePotion(Cell *cell, int amount):
 		   amount){}
 
 bool DefencePotion::collect(Player *player){
-    if(dynamic_cast<Drow *>(Player::getInstance())) amount *= 1.5;
-    Player::addPotion(getMapChar(), amount);
+    Potion::collect(player);
     ostringstream ss;
     ss << "Player used a ";
     if(amount > 0)
