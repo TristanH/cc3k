@@ -87,7 +87,7 @@ void CmdInterpreter::restart() {
 
 void CmdInterpreter::won() {
     finalScore = Player::getInstance()->getGold();
-    if(dynamic_cast<Shade *>(Player::getInstance())) finalScore += finalScore * 0.5;
+    if(Player::getInstance()->raceStr() == "Shade") finalScore += finalScore * 0.5;
     isFinished = true;
     didWin = true;
 }
@@ -98,7 +98,8 @@ void CmdInterpreter::nextFloor() {
     #endif
     Player *player = Player::getInstance();
     if(player->getFloorNum() == FLOORS_TO_WIN) {
-        //TODO: winning stuff
+        cout << "CONGRATS, you've won Chamber Crawler 3k! Your score is " << player->getGold() << endl;
+        cout << "Exiting the game.." << endl;
     } else {
         Player::removePotions(); // remove temp potion decorators
         player = Player::getInstance(); // replace player with undecorated instance

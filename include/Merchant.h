@@ -17,6 +17,7 @@ class Merchant : public Enemy {
     	~Merchant();
     	void fight(Entity *against);
     	bool notify();
+    	void onDeath();
     	static void makeHostile();
 
 };

@@ -41,30 +41,29 @@ bool Enemy::notify() {
 }
 
 void Enemy::fight(Entity *against){
-	bool missAttack = PRNG::random(1) == 1;
-	if(missAttack){
-		Display::statusMessage+= displayChar;
-		Display::statusMessage+= " missed its attack on Player! ";
-		return;
-	}
-
 	Character *cAgainst = dynamic_cast<Character*>(against);
 
     if(!cAgainst){
-    	// should never get here since fight is always called with player
-        #ifdef DEBUG
-        cout << "Bug: Enemy tried to fight non-character!! returning" << endl;
-        #endif
+        cerr << "Bug: Enemy tried to fight non-character!! returning" << endl;
         return;
     }
-    
-    int damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
-    cAgainst->changeHP(-damage);
+
+	bool missAttack = PRNG::random(1) == 1;
+	int damage = 0;
+	if(missAttack){
+		Display::statusMessage+= displayChar;
+		Display::statusMessage+= " missed its attack, ";
+	}
+	else{
+    	damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
+	}
+    damage = specialFightEffect(cAgainst, damage);
+
     stringstream ss;
     ss << displayChar << " dealt " << damage << " to Player! ";
     Display::statusMessage+= ss.str();
+    cAgainst->changeHP(-damage);
     //specialFightEffect is used so subclasses can have their special powers in combat
-    specialFightEffect(cAgainst, damage);
 }
 
 //TODO: fill in all these for the special subclasses
@@ -87,7 +86,7 @@ void Enemy::onDeath(){
 		Display::statusMessage+="Player gained 2 gold! ";
 		Player::getInstance()->addGold(2);
 	}
-    if(dynamic_cast<Goblin *>(Player::getInstance())) {
+    if(Player::getInstance()->raceStr() == "Goblin") {
         Display::statusMessage+="Player steals additional 5 gold. ";
         Player::getInstance()->addGold(5);
     }

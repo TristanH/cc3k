@@ -15,7 +15,10 @@ Vampire::~Vampire() {
 void Vampire::fight(Entity *against) {
     Player::fight(against);
     HP += 5;
-    Display::statusMessage+="Player gained additional 5 HP. ";
+    if(against->getDisplayChar() == 'd')
+    	Display::statusMessage+="Player lost additional 5 HP from fighting a dwarf. ";
+    else
+    	Display::statusMessage+="Player gained additional 5 HP. ";
 }
 
 string Vampire::raceStr() {
