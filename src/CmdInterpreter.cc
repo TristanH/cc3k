@@ -96,6 +96,7 @@ void CmdInterpreter::nextFloor() {
         Player::removePotions(); // remove temp potion decorators
         player = Player::getInstance(); // replace player with undecorated instance
         player->nextFloor(); // increment floor count
+        Display::getInstance()->reset();
         delete floor;
         // doesn't matter what playerSpawn char is, it already exists
         floor = new Floor(mapFile, '!');

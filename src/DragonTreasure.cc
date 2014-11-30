@@ -5,7 +5,8 @@
 
 DragonTreasure::DragonTreasure(Cell *cell, int value, Dragon *dragon):
 	Treasure(cell, '8', value), dragon(dragon){
-
+		if(dragon)
+			dragon->setTreasure(this);
 	}
 
 bool DragonTreasure::collect(Player *player){

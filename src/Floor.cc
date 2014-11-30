@@ -39,10 +39,10 @@ void Floor::generateCells(string fileName, char playerType) {
         // can interact with it later when they are created
         vector<char> theDisplay_column(line.begin(), line.end()); //column vector to be pused into display->theDisplay
         display->addColumn(theDisplay_column);
+        cells.push_back(vector<Cell*>());
         
         // now parse the individual Cells
         char curr;
-        vector<Cell*> column; //column vector to be pushed into cells (the vector of vectors of Cells)
         while(ss.get(curr)) {
             Cell *cell = NULL;
             if(curr == ' ' || curr == '+' || curr == '|' || curr == '-' || curr == '#') 
@@ -66,23 +66,27 @@ void Floor::generateCells(string fileName, char playerType) {
                 // only do this if the hoard already exists:
                 if(dt){
                     dt->setDragon(dragon);
+                    dragon->setTreasure(dt);
                 }
                 //otherwise weve just created the dragon and we wait till we find the hoard
                 enemySpawnCount++;
                 //TODO: make dragons get put in chambers properly.. they dont atm
                 partialSpawn.push_back(dragon);
+                cell->setEntity(dragon);
                 display->notify(cell->getR(), cell->getC(), '.');
             }
             else if(curr == '8'){
                 DragonTreasure *dt = new DragonTreasure(cell, 6, NULL);
                 Entity *de = cell->findEntityInBounds('D');
-                cerr << "here!" << endl;
 
                 Dragon *dragon = dynamic_cast<Dragon*>(de);
                 if(dragon){
                     dragon->setTreasure(dt);
+                    dt->setDragon(dragon);
                 }
+                cell->setEntity(dt);
                 treasureSpawnCount++;
+                partialSpawn.push_back(dt);
             }
             else{
                 // check for partially filled maps
@@ -102,12 +106,9 @@ void Floor::generateCells(string fileName, char playerType) {
                 cell->setEntity(entity);
             }
 
-
-
-            column.push_back(cell);
+            cells[r].push_back(cell);
             c++;
         }
-        cells.push_back(column);
         c = 0;
         r++;
     }
@@ -301,7 +302,7 @@ void Floor::populate(char playerType) {
         // TODO: not sure if there is anything else we need to do to add items that wasn't done in generateCells
         Enemy *curr = dynamic_cast<Enemy *>(partialSpawn[i]);
         if(curr) {
-            cout << "Adding " << curr->getDisplayChar() << " to chamber" << endl;
+            cerr << "Adding " << curr->getDisplayChar() << " to chamber" << endl;
             Chamber *chamber = locateChamber(curr->getCell());
             chamber->addEnemy(curr);
             display->notify(curr->getR(), curr->getC(), curr->getDisplayChar());
@@ -419,7 +420,7 @@ ostream &operator<<(ostream &out, Floor &f) {
 Cell* Floor::getCell(int y, int x){
     if(y < 0 || y >= cells.size() || x < 0 || x>= cells[y].size()){
         #ifdef DEBUG
-        cerr << "Invalid coordinates sent to floor.getCell";
+        cerr << "Invalid coordinates sent to floor.getCell" << endl;
         #endif
         return NULL;
     }

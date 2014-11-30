@@ -17,6 +17,7 @@ class Display {
 		void notify(int i, int j, char newState);
 		char getState(int i, int j);
 		void addColumn(std::vector<char> col);
+		void reset();
         static std::string statusMessage;
 
 	friend std::ostream &operator<<(std::ostream &out, Display &d);

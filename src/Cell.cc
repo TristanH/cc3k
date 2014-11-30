@@ -94,13 +94,15 @@ Cell* Cell::getAdjacentCell(string direction){
 }
 
 Entity* Cell::findEntityInBounds(char type){
+	cerr << "searchng for " << type << endl;
 	for(int i=0;i<8;i++){
 		Cell *checkCell = getAdjacentCell(directions[i]);
+		cout << directions[i] << " is " << checkCell << endl;
 		if(checkCell && checkCell->getEntity() && checkCell->getEntity()->getMapChar() == type) {
 			return checkCell->getEntity();
 		}
 	}
-	// return NULL if it's
+	cerr << "couldnt find it!" <<endl;
 	return NULL;
 }
 
