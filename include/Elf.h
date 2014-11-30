@@ -12,6 +12,8 @@ class Elf : public Enemy {
     	Elf(Cell* cell);
     	~Elf();
     	void fight(Entity *against);
+    	int specialFightEffect(Character *against, int damageDone);
+
 };
 
 #endif

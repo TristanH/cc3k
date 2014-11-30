@@ -59,12 +59,13 @@ void Enemy::fight(Entity *against){
     }
     
     int damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
+    damage = specialFightEffect(cAgainst, damage);
+
     cAgainst->changeHP(-damage);
     stringstream ss;
     ss << displayChar << " dealt " << damage << " to Player! ";
     Display::statusMessage+= ss.str();
     //specialFightEffect is used so subclasses can have their special powers in combat
-    specialFightEffect(cAgainst, damage);
 }
 
 //TODO: fill in all these for the special subclasses

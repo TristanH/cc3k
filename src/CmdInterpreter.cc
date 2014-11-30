@@ -96,7 +96,8 @@ void CmdInterpreter::nextFloor() {
     #endif
     Player *player = Player::getInstance();
     if(player->getFloorNum() == FLOORS_TO_WIN) {
-        //TODO: winning stuff
+        cout << "CONGRATS, you've won Chamber Crawler 3k! Your score is " << player->getGold() << endl;
+        cout << "Exiting the game.." << endl;
     } else {
         Player::removePotions(); // remove temp potion decorators
         player = Player::getInstance(); // replace player with undecorated instance

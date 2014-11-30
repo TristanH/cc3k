@@ -12,6 +12,7 @@ class Human : public Enemy {
     	Human(Cell *cell);
     	~Human();
     	void fight(Entity *against);
+    	void onDeath();
 };
 
 #endif
