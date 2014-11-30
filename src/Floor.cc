@@ -17,7 +17,7 @@
 
 using namespace std;
 
-void Floor::generateCells(string fileName) {
+void Floor::generateCells(string fileName, char playerType) {
     // generate the walls and shit.
     // initialize display->theDisplay simultaneously
     #ifdef DEBUG
@@ -44,28 +44,61 @@ void Floor::generateCells(string fileName) {
         char curr;
         vector<Cell*> column; //column vector to be pushed into cells (the vector of vectors of Cells)
         while(ss.get(curr)) {
-
             Cell *cell = NULL;
             if(curr == ' ' || curr == '+' || curr == '|' || curr == '-' || curr == '#') 
                 cell = new Cell(r, c, curr, this);
             else 
                 cell = new Cell(r,c,'.',this);
 
-
-            // check for partially filled maps
-            Entity *entity = Entity::getNewEntity(curr, cell);
-            if(entity) {
-                if(dynamic_cast<Enemy *>(entity)) enemySpawnCount++;
-                else if(dynamic_cast<Potion *>(entity)) potionSpawnCount++;
-                else if(dynamic_cast<Treasure *>(entity)) treasureSpawnCount++;
-                partialSpawn.push_back(entity);
+            if(curr == '@'){
+                Player* player = Player::getInstance(playerType, cell);
+                cell->setEntity(player);
+                playerSpawned = true;
             }
-            cell->setEntity(entity);
+            else if(curr == '\\'){
+                cell->makeStairway();
+                stairsSpawned = true;
+            }
+            else if(curr == 'D'){
+                Dragon* dragon = new Dragon(cell);
+                Entity *dte = cell->findEntityInBounds('8');
+                DragonTreasure *dt = dynamic_cast<DragonTreasure*>(dte);
+                // only do this if the hoard already exists:
+                if(dt){
+                    dt->setDragon(dragon);
+                }
+                //otherwise weve just created the dragon and we wait till we find the hoard
+                enemySpawnCount++;
+            }
+            else if(curr == '8'){
+                DragonTreasure *dt = new DragonTreasure(cell, 6, NULL);
+                Entity *de = cell->findEntityInBounds('D');
+                cerr << "here!" << endl;
 
-            // Because of the way that the program is set up, it is easier to manually notify the display here to mask
-            // any partially spawned entities on the display.
-            if(curr != ' ' && curr != '+' && curr != '|' && curr != '-' && curr != '#')
-                display->notify(cell->getR(), cell->getC(), '.');
+                Dragon *dragon = dynamic_cast<Dragon*>(de);
+                if(dragon){
+                    dragon->setTreasure(dt);
+                }
+                treasureSpawnCount++;
+            }
+            else{
+                // check for partially filled maps
+                Entity *entity = Entity::getNewEntity(curr, cell);
+                if(entity) {
+                    if(dynamic_cast<Enemy *>(entity)){
+                        enemySpawnCount++;
+                        // Because of the way that the program is set up, it is easier to manually notify the display here to mask
+                        // any partially spawned entities on the display.
+                        if(curr != ' ' && curr != '+' && curr != '|' && curr != '-' && curr != '#')
+                            display->notify(cell->getR(), cell->getC(), '.');
+                    }
+                    else if(dynamic_cast<Potion *>(entity)) potionSpawnCount++;
+                    else if(dynamic_cast<Treasure *>(entity)) treasureSpawnCount++;
+                    partialSpawn.push_back(entity);
+                }
+                cell->setEntity(entity);
+            }
+
 
 
             column.push_back(cell);
@@ -77,7 +110,6 @@ void Floor::generateCells(string fileName) {
     }
     #ifdef DEBUG
     cout << "Map read generated" << endl;
-    cout << *this;
     #endif
     // At this point, both the cells and display->theDisplay should be initialized
 }
@@ -90,11 +122,13 @@ void Floor::notifyChambers() {
     }
 }
 
-Floor::Floor(string fileName) :
+Floor::Floor(string fileName, char playerSpawnType) :
     enemySpawnCount(0),
-    WIDTH(79), HEIGHT(25){
+    WIDTH(79), HEIGHT(25),
+    playerSpawned(false), stairsSpawned(false){
+
     display = Display::getInstance();
-    generateCells(fileName);
+    generateCells(fileName, playerSpawnType);
     #ifdef DEBUG
     cout << "generating chambers..." << endl;
     #endif
@@ -103,6 +137,7 @@ Floor::Floor(string fileName) :
     cout << "chambers created" << endl;
     #endif
     createDies();
+    populate(playerSpawnType);
 }
 
 Floor::~Floor() {
@@ -212,7 +247,7 @@ Chamber *Floor::locateChamber(Cell *cell) {
     return NULL; // Didn't find the coords in any chambers
 }
 
-void Floor::populate() {
+void Floor::populate(char playerType) {
     #ifdef DEBUG
     cout << "populating" << endl;
     #endif
@@ -225,16 +260,23 @@ void Floor::populate() {
      *  4) Gold              *
      *  5) Enemies           *
      ************************/
+    if(!playerSpawned){
+        Cell* playerCell = findUniqueCell();
+        #ifdef DEBUG
+        cout << "unique cell = [" << playerCell->getR() << "," << playerCell->getC() << "]" << endl;
+        #endif
+        Display::statusMessage += "Player character has spawned. ";
+        Player::getInstance(playerType, playerCell);
+    }
+    if(!stairsSpawned){
+        Cell *stairCell;
 
-    // The player should already be placed from CmdInterpreter
-    // First put stairway somewhere on the map
-    Cell *stairCell;
-
-    do{
-        stairCell = findUniqueCell();
-    }while(sameChamber(Player::getInstance()->getCell(), stairCell));
-    // avoid putting stairway in same chamber as player as per spec
-    stairCell->makeStairway();
+        do{
+            stairCell = findUniqueCell();
+        }while(sameChamber(Player::getInstance()->getCell(), stairCell));
+        // avoid putting stairway in same chamber as player as per spec
+        stairCell->makeStairway();
+    }
 
     #ifdef DEBUG
     cout << "partial spawning..." << endl;
@@ -266,7 +308,7 @@ void Floor::populate() {
     }
 
     // spawn gold.... gettin rich bitches
-    for(int i=0; i < 10; i++){
+    for(int i=treasureSpawnCount; i < 10; i++){
         Chamber *randChamber = getRandChamber();
         Cell *cell = findUniqueCell(randChamber); 
         char type = goldDie->rollDie();
@@ -361,8 +403,10 @@ ostream &operator<<(ostream &out, Floor &f) {
 }
 
 Cell* Floor::getCell(int y, int x){
-    if(y < 0 || y >= HEIGHT || x < 0 || x>= WIDTH){
+    if(y < 0 || y >= cells.size() || x < 0 || x>= cells[y].size()){
+        #ifdef DEBUG
         cerr << "Invalid coordinates sent to floor.getCell";
+        #endif
         return NULL;
     }
     else

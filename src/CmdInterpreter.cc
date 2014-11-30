@@ -74,16 +74,15 @@ void CmdInterpreter::nextFloor() {
     if(player->getFloorNum() == FLOORS_TO_WIN) {
 
     } else {
-        Player::removePotions(); // remove temp potion decorators
-        player = Player::getInstance(); // replace player with undecorated instance
-        player->nextFloor(); // increment floor count
-        delete floor;
-        floor = new Floor(mapFile);
-        floor->populate();
-        ostringstream ss;
-        ss << "Welcome to floor " << player->getFloorNum();   
-        Display::statusMessage += ss.str();
-        cout << *floor;
+        // Player::removePotions(); // remove temp potion decorators
+        // player = Player::getInstance(); // replace player with undecorated instance
+        // player->nextFloor(); // increment floor count
+        // delete floor;
+        // floor = new Floor(mapFile);
+        // ostringstream ss;
+        // ss << "Welcome to floor " << player->getFloorNum();   
+        // Display::statusMessage += ss.str();
+        // cout << *floor;
     }
 }
 
@@ -169,21 +168,10 @@ void CmdInterpreter::executeCmd(string cmd) {
 
             // get the name of the file to generate map from
             // TODO: remove temporary fix and actually use cmd line args
-            floor = new Floor(mapFile);
-
-            // we need to generate the player. it can be acessed later by using Player::getInstance again (from any module that includes Player.h)
-            // make a floor function to first find a random chamber, then a random spot in that chamber for the player
-            // maybe reuse it for stairs?
-            Cell* playerCell = floor->findUniqueCell();
-            #ifdef DEBUG
-            cout << "unique cell = [" << playerCell->getR() << "," << playerCell->getC() << "]" << endl;
-            #endif
-            player = Player::getInstance(cmd[0], playerCell);
-            Display::statusMessage += "Player character has spawned. ";
-
-            floor->populate();
+            string filename = "maps/full_map.data";
+            floor = new Floor(filename, cmd[0]);
+            player = Player::getInstance();
             cout << *floor;
-
             state = 1; // we should now start reading commands related to the "playing" state
         }
     }

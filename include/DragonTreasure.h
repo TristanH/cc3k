@@ -16,6 +16,7 @@ class DragonTreasure: public Treasure{
 		bool collect(Player* player);
 		Dragon *getDragon();
 		void dragonDead();
+		void setDragon(Dragon *d);
 };
 
 #endif

@@ -31,7 +31,11 @@ Player::~Player(){
 Player::Player(Cell *cell, int atk, int def, int HP):
     gold(0),
     floorNum(1), // TODO: increment when going to another floor
-    Character(cell, '@', atk, def, HP){}
+    Character(cell, '@', atk, def, HP){
+        #ifdef DEBUG
+        cout << "Player spawned at cell: " << cell->getR() << ", " << cell->getC();
+        #endif
+    }
 
 void Player::cleanup() {
     delete instance;

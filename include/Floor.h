@@ -26,11 +26,17 @@ class Floor{
 	std::vector<std::vector<Cell *> > cells;
 	Display *display; //map needs to notify dislpay - TODO: where do we delete this??
 	std::vector<Chamber *> chambers; // TODO: should we maybe make these stack-allocated so they die with the floor?
-	
+
+	// keeps track of floor dimensions
+	const int WIDTH;
+	const int HEIGHT;
+
 	std::vector<Entity *> partialSpawn; // Keeps track of the entities spawned from the map file
 	int enemySpawnCount;
 	int potionSpawnCount;
 	int treasureSpawnCount;
+	bool playerSpawned;
+	bool stairsSpawned;
 
 	// maps the displayChar of an entity to its probability of spawnining.
 	// this allows us to have different spawn probabilities for different floors.
@@ -39,11 +45,8 @@ class Floor{
 	Die *goldDie;
 	// TODO: add dice for potions and gold piles (if needed)
 
-	// keeps track of floor dimensions
-	const int WIDTH;
-	const int HEIGHT;
 
-	void generateCells(std::string filename);
+	void generateCells(std::string filename, char playerType);
 
 	// --Following 2 methods called by updateGameStep--
 	//update enemies gives enemies a chance to move or attack player
@@ -64,7 +67,7 @@ class Floor{
 
 	public:
 		// sets cells, spawns entities
-		Floor(std::string fileName);
+		Floor(std::string fileName, char playerSpawnType);
 
 		// Since the floor owns its cells and chambers, it will delete all cells and chambers
 		~Floor();
@@ -76,7 +79,7 @@ class Floor{
 		Cell *getCell(int y, int x);
 
 		// this will use the spawnRates to populate the already generate map
-		void populate();
+		void populate(char playerType);
 
 		// simply tells the floor that this entity has just occupied it's space and the display should be updated
 		void notify(int i, int j, Cell *cell);
