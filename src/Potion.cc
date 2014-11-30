@@ -1,4 +1,5 @@
 #include "Potion.h"
+#include "Drow.h"
 
 #include <iostream>
 
@@ -20,4 +21,7 @@ char Potion::getDisplayChar(){
 		return 'P';
 }
 
-
+bool Potion::collect(Player *player) {
+    if(dynamic_cast<Drow *>(Player::getInstance())) amount *= 1.5;
+    Player::addPotion(getMapChar(), amount);
+}

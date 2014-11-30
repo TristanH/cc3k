@@ -7,7 +7,7 @@
 class Character: public Entity{
 
 	protected:
-		Character(Cell *cell, char dc, int atk, int def, int hp);
+		Character(Cell *cell, char dc, int atk, int def, int hp, int maxHP = -1);
 		int attack;
 		int defence;
 		int HP;
@@ -27,6 +27,7 @@ class Character: public Entity{
 		virtual int getDefence();
 		virtual int getAttack();
 		int getHP();
+		int getMaxHP();
 		void changeHP(int amount);
 		virtual void onDeath() = 0;
 

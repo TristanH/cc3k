@@ -76,7 +76,6 @@ void Floor::generateCells(string fileName, char playerType) {
             else if(curr == '8'){
                 DragonTreasure *dt = new DragonTreasure(cell, 6, NULL);
                 Entity *de = cell->findEntityInBounds('D');
-                cerr << "here!" << endl;
 
                 Dragon *dragon = dynamic_cast<Dragon*>(de);
                 if(dragon){
@@ -301,7 +300,6 @@ void Floor::populate(char playerType) {
         // TODO: not sure if there is anything else we need to do to add items that wasn't done in generateCells
         Enemy *curr = dynamic_cast<Enemy *>(partialSpawn[i]);
         if(curr) {
-            cout << "Adding " << curr->getDisplayChar() << " to chamber" << endl;
             Chamber *chamber = locateChamber(curr->getCell());
             chamber->addEnemy(curr);
             display->notify(curr->getR(), curr->getC(), curr->getDisplayChar());

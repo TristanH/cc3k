@@ -40,8 +40,8 @@ ostream &operator<<(ostream &out, Display &d) {
         out << endl;
     }
     Player *p = Player::getInstance();
-    cout << "Race: " << p->raceStr() << " Gold: " << p->getGold();
-    cout << setw(56) << right << "Floor: " << p->getFloorNum() << left << endl;
+    cout << "Race:  " << p->raceStr() << " Gold: " << p->getGold();
+    cout << setw(55) << right << "Floor: " << p->getFloorNum() << left << endl;
     cout << "HP: " << p->getHP() << endl;
     cout << "Atk: " << p->getAttack() << endl;
     cout << "Def: " << p->getDefence() << endl;

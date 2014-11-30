@@ -28,10 +28,10 @@ Player::~Player(){
     #endif
 }
 
-Player::Player(Cell *cell, int atk, int def, int HP, int gold, int floorNum):
+Player::Player(Cell *cell, int atk, int def, int HP, int gold, int floorNum, int maxHP):
     gold(gold),
     floorNum(floorNum), // TODO: increment when going to another floor
-    Character(cell, '@', atk, def, HP){
+    Character(cell, '@', atk, def, HP, maxHP){
         #ifdef DEBUG
         cout << "Player spawned at cell: " << cell->getR() << ", " << cell->getC();
         #endif
@@ -72,6 +72,7 @@ void Player::addPotion(char type, int amount) {
             instance = new DefencePotionEffect(instance,amount);
             #ifdef DEBUG
             cout << "Player: instance decorated" << endl;
+            cout << "Player: maxHP = " << instance->getMaxHP(); 
             #endif
         } else if(type == '0' || type == '3') { // health potions
             instance->changeHP(amount);
@@ -172,4 +173,8 @@ bool Player::notify(){
     return true;
 }
 
-void Player::gameTick() {}
+void Player::gameTick() {
+    #ifdef DEBUG
+    cout << "empty gametick called" << endl;
+    #endif
+}

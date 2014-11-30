@@ -54,6 +54,8 @@ void CmdInterpreter::setMapFile(string filename) {
 
 void CmdInterpreter::start() {
     string cmd;
+    cout << "Pick your race: " << endl;
+    cout << "s - Shade, d - Drow, v - Vampire, g - Goblin, t - Troll" << endl;
     while(!isFinished && cin >> cmd) {
         executeCmd(cmd);
     }
@@ -186,9 +188,10 @@ void CmdInterpreter::executeCmd(string cmd) {
             #ifdef DEBUG
             cout << "CmdInterpreter.cc: updating game step..." << endl;
             #endif
+            Player::getInstance()->gameTick();
             floor->updateGameStep();
         } 
-        cout << *floor;
+        if(!isFinished) cout << *floor;
 
     } else {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
