@@ -68,8 +68,8 @@ void Enemy::fight(Entity *against){
 }
 
 //TODO: fill in all these for the special subclasses
-void Enemy::specialFightEffect(Character *against, int damageDone){
-	;
+int Enemy::specialFightEffect(Character *against, int damageDone){
+	return damageDone;
 }
 
 //TODO: override this for dragons, merchants, humans to give more gold

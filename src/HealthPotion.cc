@@ -17,5 +17,6 @@ bool HealthPotion::collect(Player *player){
     else
         ss << "negative health potion (" << amount << " HP). ";
     Display::statusMessage+= ss.str();
+    Potion::setPotionsVisible(this->getMapChar());
     return true;
 }

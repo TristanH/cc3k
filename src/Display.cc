@@ -32,6 +32,10 @@ void Display::addColumn(vector<char> col){
 	theDisplay.push_back(col);
 }
 
+void Display::reset(){
+    theDisplay.erase(theDisplay.begin(), theDisplay.end());
+}
+
 ostream &operator<<(ostream &out, Display &d) {
     for(int i=0; i < d.theDisplay.size(); i++) {
         for(int j=0; j < d.theDisplay[i].size(); j++) {

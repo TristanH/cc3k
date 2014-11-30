@@ -2,6 +2,11 @@
 #include "Cell.h"
 #include "Player.h"
 #include "DragonTreasure.h"
+#include "Display.h"
+
+#include <iostream>
+
+using namespace std;
 
 Dragon::Dragon(Cell *cell):
 	Enemy(cell, 'D', 20, 20, 150), treasure(NULL){}
@@ -16,7 +21,8 @@ void Dragon::fight(Entity *against) {
 
 bool Dragon::notify() {
 	if(HP <= 0){
-		Enemy::onDeath();
+		Display::statusMessage+="D has been killed! ";
+		cell->setEntity(NULL);
 		treasure->dragonDead();
 		return false;
 	}
@@ -32,4 +38,5 @@ void Dragon::makeHostile(){
 
 void Dragon::setTreasure(DragonTreasure* dt){
 	treasure = dt;
+	cerr << "set dragon treasure!!" << endl;
 }

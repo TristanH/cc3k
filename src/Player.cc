@@ -14,6 +14,7 @@
 #include "Dragon.h"
 
 #include <math.h>
+#include <sstream>
 
 using namespace std;
 
@@ -143,12 +144,14 @@ void Player::fight(Entity *against) {
     
     int damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
     cAgainst->changeHP(-damage);
-    #ifdef DEBUG
-    cout << "Dealt " << damage << " damage. " << endl;
-    cout << "Enemy's HP is now " << cAgainst->getHP() << endl;
-    #endif
+
     //specialFightEffect is used so subclasses can have their special powers in combat
-    specialFightEffect(cAgainst, damage);
+    damage = specialFightEffect(cAgainst, damage);
+
+    stringstream ss;
+    ss << "Player dealt " << damage << " damage to " << cAgainst->getDisplayChar() << ". ";
+    ss << cAgainst->getDisplayChar() << "'s HP is now " << cAgainst->getHP() << ". ";
+    Display::statusMessage+=ss.str();
 
     // cover special merchant and dragon aggression case
     if(against->getDisplayChar() == 'M')
@@ -160,9 +163,9 @@ void Player::fight(Entity *against) {
     // we will deal with enemy onDeath and such when we update it from chamber
 }
 
-void Player::specialFightEffect(Character *against, int damage){
+int Player::specialFightEffect(Character *against, int damage){
     // do nothing for standard player, subclasses CAN but don't have to overwrite
-    ;
+    return damage;
 }
 
 void Player::onDeath(){

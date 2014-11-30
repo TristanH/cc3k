@@ -89,6 +89,7 @@ class Floor{
 		// floor. I needed to add a (optional) intermediate step so that enemies can be added to a chambers enemy vector
 		Cell* findUniqueCell(Chamber *chamber = NULL);
 
+		void updatePotions();
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };
 

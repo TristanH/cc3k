@@ -45,6 +45,7 @@ class Cell{
 		Player *findPlayerInBounds();
 		static std::string getRandomDirection();
 		static bool isValidDirection(std::string direction);
+		static void newFloor();
 
 };
 

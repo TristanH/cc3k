@@ -18,5 +18,6 @@ bool AttackPotion::collect(Player *player){
     else
         ss << "negative attack potion (" << amount << " Atk). ";
     Display::statusMessage+= ss.str();
+    Potion::setPotionsVisible(this->getMapChar());
     return true;
 }
