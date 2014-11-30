@@ -1,5 +1,6 @@
 #ifndef __CELL_H__
 #define __CELL_H__
+#include <iostream>
 
 //We do not have any stack allocated instances of Entity or Map
 //so we don't need to include them. This reduces the chance of accidental
@@ -46,6 +47,7 @@ class Cell{
 		static std::string getRandomDirection();
 		static bool isValidDirection(std::string direction);
 		static void newFloor();
+		friend std::ostream &operator<<(std::ostream &out, Cell &c);
 
 };
 

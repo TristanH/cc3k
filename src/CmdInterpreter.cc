@@ -131,6 +131,7 @@ void CmdInterpreter::executeCmd(string cmd) {
                         potion->collect(player);
                         Cell *cell = potion->getCell();
                         cell->setEntity(NULL);
+                        player = Player::getInstance();
                         delete potion;
                     } else {
                         Display::statusMessage += "That isn't a usable item";
@@ -183,6 +184,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             validCmd = true;
         } else if(cmd == "remove") {
             Player::removePotions();
+            player = Player::getInstance();
             validCmd = true;
         }
         #endif

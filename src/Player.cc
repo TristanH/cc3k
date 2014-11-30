@@ -75,12 +75,17 @@ void Player::addPotion(char type, int amount) {
             instance = new DefencePotionEffect(instance,amount);
             #ifdef DEBUG
             cout << "Player: instance decorated" << endl;
-            cout << "Player: maxHP = " << instance->getMaxHP(); 
+            cout << "Player: maxHP = " << instance->getMaxHP() << endl; 
             #endif
         } else if(type == '0' || type == '3') { // health potions
             instance->changeHP(amount);
         } // else, don't modify instance
         playerCell->setEntity(instance); // refresh the cell with new decorated player
+        #ifdef DEBUG
+        cout << "Instance in function = " << instance << endl;
+        cout << "Player::getInstance  = " << Player::getInstance() << endl;
+        cout << "Instance in cell     = " << playerCell->getEntity() << endl;
+        #endif
     } else {
         cerr << "Player: no instance of Player to decorate" << endl;
     }
