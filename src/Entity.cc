@@ -7,14 +7,11 @@
 #include "Orc.h"
 #include "Merchant.h"
 #include "Dragon.h"
-
 #include "HealthPotion.h"
 #include "AttackPotion.h"
 #include "DefencePotion.h"
-
 #include "DragonTreasure.h"
 #include "NormalTreasure.h"
-
 #include <iostream>
 
 using namespace std;

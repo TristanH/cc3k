@@ -5,7 +5,7 @@ using namespace std;
 
 PotionEffect::PotionEffect(Player *base) : 
     base(base),
-    Player(base->getCell(), base->getAttack(), base->getDefence(), base->getHP()){}
+    Player(base->getCell(), base->getAttack(), base->getDefence(), base->getHP(), base->getGold(), base->getFloorNum()){}
 
 PotionEffect::~PotionEffect() { delete base; }
 
