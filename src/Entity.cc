@@ -23,9 +23,9 @@ Entity::Entity(Cell* cell, char displayChar):
     cell(cell), displayChar(displayChar){
         if(cell != NULL){
             cell->setEntity(this);
-        }
-        else{
-            cerr << "Warning: entity constructed with NULL cell";
+        } else {
+            cerr << "Warning: entity constructed with NULL cell" << endl;
+            cerr << "      --> type = " << displayChar << endl;
         }
     }
 
@@ -66,9 +66,6 @@ Entity * Entity::getNewEntity(char type, Cell *cell) {
         Dragon* dragon = new Dragon(cell->findNearbyEmpty());
         return new DragonTreasure(cell, 6, dragon); 
     }
-    #ifdef DEBUG
-    cout << "Entity: returning NULL entity!!" << endl;
-    #endif
     return NULL; // Not provided with valid enemy type
 }
 

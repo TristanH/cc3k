@@ -53,7 +53,6 @@ int Cell::getC() {
 }
 
 char Cell::getDisplayChar(){
-	//cout << " here!" << type << entity << " " << r <<", " << c << endl; TODO: remove this when no longer needed
 	if(entity==NULL)
 		return type;
 	else

@@ -32,8 +32,8 @@ Character::Character(Cell *cell, char dc, int atk, int def, int hp):
 bool Character::tryMove(string direction){
 	Cell *theCell = getCell();
 	Cell *goTo = theCell->getAdjacentCell(direction);
-	bool isPlayer = this == Player::getInstance();
-	if (goTo->isWalkable(isPlayer)){
+	Player *p = dynamic_cast<Player *>(this);
+	if (goTo->isWalkable(p != NULL)){
 		theCell->setEntity(NULL);
 		goTo->setEntity(this);
 		return true;
