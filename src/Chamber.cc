@@ -77,10 +77,11 @@ bool Chamber::isFull(){
 	return true;
 }
 
-bool Chamber::hasCell(Cell* cell){
+bool Chamber::hasCell(Cell *cell){
 	for(int i=0; i < cells.size(); i++){
-		if(cells[i] == cell)
-			return true;
+		if(cells[i] == cell) {
+            return true;
+        }
 	}
 	return false;
 }

@@ -26,6 +26,11 @@ class Floor{
 	std::vector<std::vector<Cell *> > cells;
 	Display *display; //map needs to notify dislpay - TODO: where do we delete this??
 	std::vector<Chamber *> chambers; // TODO: should we maybe make these stack-allocated so they die with the floor?
+	
+	std::vector<Entity *> partialSpawn; // Keeps track of the entities spawned from the map file
+	int enemySpawnCount;
+	int potionSpawnCount;
+	int treasureSpawnCount;
 
 	// maps the displayChar of an entity to its probability of spawnining.
 	// this allows us to have different spawn probabilities for different floors.
@@ -33,8 +38,6 @@ class Floor{
 	Die *potionDie;
 	Die *goldDie;
 	// TODO: add dice for potions and gold piles (if needed)
-
-	int enemySpawnCount = 0;
 
 	// keeps track of floor dimensions
 	const int WIDTH;
@@ -55,6 +58,7 @@ class Floor{
 	void floodCreateChamber(int y, int x, bool **visited, Chamber* chamber);
 
 	bool sameChamber(Cell *a, Cell *b);
+	Chamber *locateChamber(Cell *cell);
 
 	void createDies();
 

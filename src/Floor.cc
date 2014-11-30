@@ -2,7 +2,7 @@
 #include <map>
 #include <fstream>
 #include <sstream>
-
+#include "Entity.h"
 #include "Display.h"
 #include "Floor.h"
 #include "Chamber.h"
@@ -44,9 +44,30 @@ void Floor::generateCells(string fileName) {
         char curr;
         vector<Cell*> column; //column vector to be pushed into cells (the vector of vectors of Cells)
         while(ss.get(curr)) {
-            Cell *cell = new Cell(r, c, curr, this);
-            Entity *entity = Entity::getNewEntity(curr, cell); // TODO: we should move this before the cell ctor and just include it as a parameter as defined in the cell ctor
+
+            Cell *cell = NULL;
+            if(curr == ' ' || curr == '+' || curr == '|' || curr == '-' || curr == '#') 
+                cell = new Cell(r, c, curr, this);
+            else 
+                cell = new Cell(r,c,'.',this);
+
+
+            // check for partially filled maps
+            Entity *entity = Entity::getNewEntity(curr, cell);
+            if(entity) {
+                if(dynamic_cast<Enemy *>(entity)) enemySpawnCount++;
+                else if(dynamic_cast<Potion *>(entity)) potionSpawnCount++;
+                else if(dynamic_cast<Treasure *>(entity)) treasureSpawnCount++;
+                partialSpawn.push_back(entity);
+            }
             cell->setEntity(entity);
+
+            // Because of the way that the program is set up, it is easier to manually notify the display here to mask
+            // any partially spawned entities on the display.
+            if(curr != ' ' && curr != '+' && curr != '|' && curr != '-' && curr != '#')
+                display->notify(cell->getR(), cell->getC(), '.');
+
+
             column.push_back(cell);
             c++;
         }
@@ -56,6 +77,7 @@ void Floor::generateCells(string fileName) {
     }
     #ifdef DEBUG
     cout << "Map read generated" << endl;
+    cout << *this;
     #endif
     // At this point, both the cells and display->theDisplay should be initialized
 }
@@ -73,7 +95,13 @@ Floor::Floor(string fileName) :
     WIDTH(79), HEIGHT(25){
     display = Display::getInstance();
     generateCells(fileName);
+    #ifdef DEBUG
+    cout << "generating chambers..." << endl;
+    #endif
     generateChambers();
+    #ifdef DEBUG
+    cout << "chambers created" << endl;
+    #endif
     createDies();
 }
 
@@ -135,7 +163,10 @@ void Floor::createDies() {
 }
 
 void Floor::floodCreateChamber(int y, int x, bool** visited, Chamber *chamber){
-    if(visited[y][x] || cells[y][x]->getType() != '.')
+    if(visited[y][x] || (cells[y][x]->getType() == '+' ||
+                         cells[y][x]->getType() == '#' ||
+                         cells[y][x]->getType() == '-' ||
+                         cells[y][x]->getType() == '|'))
         return;
     chamber->addCell(cells[y][x]);
     visited[y][x] = true;
@@ -171,7 +202,20 @@ void Floor::generateChambers(){
 
 }
 
+Chamber *Floor::locateChamber(Cell *cell) {
+    for(int i=0; i < chambers.size(); i++) {
+        Chamber *curr = chambers[i];
+        if(curr->hasCell(cell)) {
+            return curr;
+        }
+    }
+    return NULL; // Didn't find the coords in any chambers
+}
+
 void Floor::populate() {
+    #ifdef DEBUG
+    cout << "populating" << endl;
+    #endif
 
     /*************************
      * ORDER OF SPAWNING:    *
@@ -192,14 +236,31 @@ void Floor::populate() {
     // avoid putting stairway in same chamber as player as per spec
     stairCell->makeStairway();
 
+    #ifdef DEBUG
+    cout << "partial spawning..." << endl;
+    #endif
+    // spawn entites that were defined in the map file
+    // TODO: we need to test that there partially spawned in enemies work!!! They may appear on the map but we need
+    //       to make sure they can move and fight.
+    for(int i=0; i < partialSpawn.size(); i++) {
+        // TODO: not sure if there is anything else we need to do to add items that wasn't done in generateCells
+        Enemy *curr = dynamic_cast<Enemy *>(partialSpawn[i]);
+        if(curr) {
+            Chamber *chamber = locateChamber(curr->getCell());
+            chamber->addEnemy(curr);
+            display->notify(curr->getR(), curr->getC(), curr->getDisplayChar());
+        }
+    }
+
+    #ifdef DEBUG
+    cout << "partial spawning done" << endl;
+    #endif
+
     // spawn potions
     // every floor needs exactly 10 of them
-    for(int i=0; i < 10; i++){
+    for(int i=potionSpawnCount; i < 10; i++){
         Cell *cell = findUniqueCell(); 
         char type = potionDie->rollDie();
-        #ifdef DEBUG
-        cout << "Adding potion: " << type << endl;
-        #endif
         Entity *potion = Entity::getNewEntity(type, cell);
         cell->setEntity(potion);
     }
@@ -241,14 +302,14 @@ void Floor::populate() {
         Chamber *randChamber = getRandChamber();
         Cell *cell = findUniqueCell(randChamber);
         char type = enemyDie->rollDie(); // Garunteed to return a type of enemy 
-        #ifdef DEBUG
-        cout << "Adding enemy of type " << type << endl;
-        #endif
         Entity *entity = Entity::getNewEntity(type,cell); // TODO: we may need to cast this shit...
         cell->setEntity(entity); // make the cell point at the entity
         Enemy *enemy = dynamic_cast<Enemy *>(entity); // entity is known to be an enemy
         if(enemy) {
             randChamber->addEnemy(enemy); // finally, let the chamber know of the new enemy
+            #ifdef DEBUG 
+            cout << "spawned " << enemy->getDisplayChar() << endl;
+            #endif 
         } else {
             cerr << "Floor: invalid cast from Entity* to Enemy*" << endl; 
         }
