@@ -15,18 +15,13 @@ void Enemy::move() {
 		tryDirection = Cell::getRandomDirection();
 		numChecks++;
 	}while(!tryMove(tryDirection) && numChecks <= 1000);
-	#ifdef DEBUG
-	//cout << "Enemy: " << *this << ": " << tryDirection << endl;
-	#endif
+
 }
 
 Enemy::Enemy(Cell *cell, char dc, int atk, int def, int hp):
 	Character(cell, dc, atk, def, hp){}
 
 bool Enemy::notify() {
-	#ifdef DEBUG
-	//cout << "Enemy: notify called" << endl; 
-	#endif
 	if(HP <= 0){
 		this->onDeath();
 		return false;

@@ -25,7 +25,6 @@ void Chamber::updateEnemies() {
     		#endif
     		i--;
     	}
-
     }
 }
 
@@ -45,9 +44,6 @@ void Chamber::addEnemy(Enemy *e) {
 }
 
 void Chamber::update() {
-    #ifdef DEBUG
-    cout << "Chamber: update called" << endl;
-    #endif
     updateEnemies();
 }
 

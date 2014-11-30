@@ -36,6 +36,7 @@ bool Character::tryMove(string direction){
 	//cout << "Character: player currently at cells[" << theCell->getR() << "," << theCell->getC() << "]" << endl;
 	//cout << "Character: player wants to move to cells[" << goTo->getR() << "," << goTo->getC() << "]" << endl;
 	#endif
+
 	bool isPlayer = this == Player::getInstance();
 	if (goTo->isWalkable(isPlayer)){
 		theCell->setEntity(NULL);
@@ -49,6 +50,7 @@ bool Character::tryMove(string direction){
 		#ifdef DEBUG
 		//cout << "Character: unable to move to that cell" << endl;
 		#endif
+
 		return false;
 	}
 

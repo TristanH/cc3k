@@ -23,8 +23,8 @@ class Character: public Entity{
 		// the old cell and the new cell with both notify map
 		bool tryMove(std::string direction);
 
-		int getDefence();
-		int getAttack();
+		virtual int getDefence();
+		virtual int getAttack();
 		int getHP();
 		void changeHP(int amount);
 		virtual void onDeath() = 0;

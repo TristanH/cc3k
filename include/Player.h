@@ -21,6 +21,8 @@ class Player: public Character{
 		void fight(Entity *against); // TODO: we changed this to fight Entity so that we don't have to check if Character. Need to implement properly so attacking an Item just logs something.
         void specialFightEffect(Character *against, int damageDone);
         static  Player *getInstance(char race = 's', Cell *cell = NULL);
+        static void addPotion(char type, int amount);
+        static void removePotions();
         void addGold(int amount); //just adds amount to current gold
         bool move(std::string direction);
         virtual std::string raceStr() = 0;
@@ -28,6 +30,7 @@ class Player: public Character{
         int getFloorNum();
         void onDeath();
         bool notify();
+        virtual Player *unpack();
     protected:
     	Player(Cell *cell, int atk, int def, int HP);
 };
