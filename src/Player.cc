@@ -9,6 +9,7 @@
 #include "Display.h"
 #include "AttackPotionEffect.h"
 #include "DefencePotionEffect.h"
+#include "Treasure.h"
 
 #include <math.h>
 
@@ -95,6 +96,7 @@ void Player::removePotions() {
 void Player::addGold(int amount) {
     gold += amount;
 }
+
 
 int Player::getGold() {
     return gold;

@@ -1,5 +1,5 @@
 #include "DragonTreasure.h"
-
+#include "Display.h"
 #include "Player.h"
 #include "Dragon.h"
 
@@ -11,11 +11,11 @@ DragonTreasure::DragonTreasure(Cell *cell, int value, Dragon *dragon):
 bool DragonTreasure::collect(Player *player){
 	if(dragon){
 		//TODO: dragon->makeAggresive
+		Display::statusMessage += "PC has angered the dragon";
 		return false;
 	}
 	else{
 		player->addGold(value);
-		// TODO: delete gold from map here
 		return true;
 	}
 }

@@ -8,7 +8,6 @@ class DefencePotion: public Potion{
 	public:
 		DefencePotion(Cell *cell, int amount);
 		bool collect(Player* player);
-
 };
 
 #endif

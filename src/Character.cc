@@ -2,6 +2,7 @@
 #include "Cell.h"
 #include "Entity.h"
 #include "Player.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -34,18 +35,15 @@ bool Character::tryMove(string direction){
 	Cell *goTo = theCell->getAdjacentCell(direction);
 	Player *p = dynamic_cast<Player *>(this);
 	if (goTo->isWalkable(p != NULL)){
+		if(p && goTo->getType() == 'G') {
+			Item *item = dynamic_cast<Item *>(goTo->getEntity());
+			item->collect(p);
+		}
 		theCell->setEntity(NULL);
 		goTo->setEntity(this);
-		#ifdef DEBUG
-		//cout << "Character: able to move to that cell" << endl;
-		#endif
 		return true;
 	}
 	else {
-		#ifdef DEBUG
-		//cout << "Character: unable to move to that cell" << endl;
-		#endif
-
 		return false;
 	}
 

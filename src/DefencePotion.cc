@@ -1,4 +1,5 @@
 #include "DefencePotion.h"
+#include "Player.h"
 
 DefencePotion::DefencePotion(Cell *cell, int amount):
 	Potion(cell,
@@ -6,5 +7,6 @@ DefencePotion::DefencePotion(Cell *cell, int amount):
 		   amount){}
 
 bool DefencePotion::collect(Player *player){
-	;//add decorator to player here, fuck if i know how
+    Player::addPotion(getDisplayChar(), amount);
+    return true;
 }

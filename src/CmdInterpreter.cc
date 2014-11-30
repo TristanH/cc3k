@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Cell.h"
 #include "Display.h"
+#include "Item.h"
 #include <iostream> //for NULL and cerr
 #include <string>
 using namespace std;
@@ -70,9 +71,22 @@ void CmdInterpreter::executeCmd(string cmd) {
             string dir;
             cin >> dir;
             if(Cell::isValidDirection(dir)){
-                //TODO: pickup thing in that dir
-                cerr << "This isn't implemented yet :(" << endl; 
-                validCmd = true;
+                Entity *entity = player->getCell()->getAdjacentCell(dir)->getEntity();
+                if(entity) {
+                    Item *item = dynamic_cast<Item *>(entity);
+                    if(item) {
+                        item->collect(player);
+                        Cell *cell = item->getCell();
+                        cell->setEntity(NULL);
+                        // TODO: set entity to '.'
+                        delete item;
+                        validCmd = true;
+                    } else {
+                        Display::statusMessage += "That isn't a usable item";
+                    }
+                } else {
+                    Display::statusMessage += "Nothing to use!";
+                }
             }
         } else if(cmd == "a") {
             string dir;

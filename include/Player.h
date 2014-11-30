@@ -7,6 +7,7 @@
 
 class Cell;
 class Entity;
+class Treasure;
 
 class Player: public Character{
 	static Player *instance;
