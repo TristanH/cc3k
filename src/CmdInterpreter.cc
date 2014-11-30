@@ -203,8 +203,6 @@ void CmdInterpreter::executeCmd(string cmd) {
     } else {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
 
-            // get the name of the file to generate map from
-            // TODO: remove temporary fix and actually use cmd line args
             floor = new Floor(mapFile, cmd[0]);
             player = Player::getInstance();
             cout << *floor;
