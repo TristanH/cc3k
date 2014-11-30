@@ -12,7 +12,6 @@ class Elf : public Enemy {
     	Elf(Cell* cell);
     	~Elf();
     	void fight(Entity *against);
-    	void notify();
 };
 
 #endif

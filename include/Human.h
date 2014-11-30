@@ -11,7 +11,6 @@ class Human : public Enemy {
     public:
     	Human(Cell *cell);
     	~Human();
-    	void notify();
     	void fight(Entity *against);
 };
 

@@ -24,7 +24,7 @@ void Cell::notifyFloor(){
 void Cell::setEntity(Entity *newEntity){
 	// TODO: if there is an entity here and we wanna move to it for some reason, we should delete that existing entity
 	entity = newEntity;
-	if(newEntity) entity->setCell(this); // The entity is not NULL (i.e. contains a non floor/wallcl)
+	if(newEntity) entity->setCell(this); // The entity is not NULL (i.e. contains a non floor/wall)
 	notifyFloor();
 }
 
@@ -90,7 +90,7 @@ Cell* Cell::getAdjacentCell(string direction){
 	else if(direction == "nw")
 		return floor->getCell(r-1, c-1);
 
-	cerr << "ERROR: Invalid direciton given to getAdjacentCell" << endl;
+	cerr << "ERROR: Invalid direction given to getAdjacentCell" << endl;
 	return NULL;
 }
 

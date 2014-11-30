@@ -33,21 +33,21 @@ bool Character::tryMove(string direction){
 	Cell *theCell = getCell();
 	Cell *goTo = theCell->getAdjacentCell(direction);
 	#ifdef DEBUG
-	cout << "Character: player currently at cells[" << theCell->getR() << "," << theCell->getC() << "]" << endl;
-	cout << "Character: player wants to move to cells[" << goTo->getR() << "," << goTo->getC() << "]" << endl;
+	//cout << "Character: player currently at cells[" << theCell->getR() << "," << theCell->getC() << "]" << endl;
+	//cout << "Character: player wants to move to cells[" << goTo->getR() << "," << goTo->getC() << "]" << endl;
 	#endif
 	bool isPlayer = this == Player::getInstance();
 	if (goTo->isWalkable(isPlayer)){
 		theCell->setEntity(NULL);
 		goTo->setEntity(this);
 		#ifdef DEBUG
-		cout << "Character: able to move to that cell" << endl;
+		//cout << "Character: able to move to that cell" << endl;
 		#endif
 		return true;
 	}
 	else {
 		#ifdef DEBUG
-		cout << "Character: unable to move to that cell" << endl;
+		//cout << "Character: unable to move to that cell" << endl;
 		#endif
 		return false;
 	}

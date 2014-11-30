@@ -70,16 +70,23 @@ void CmdInterpreter::executeCmd(string cmd) {
         if(cmd == "u") {
             string dir;
             cin >> dir;
-            //TODO: pickup thing in that dir
-            cerr << "This isn't implemented yet :(" << endl; 
-            validCmd = true;
+            if(Cell::isValidDirection(dir)){
+                //TODO: pickup thing in that dir
+                cerr << "This isn't implemented yet :(" << endl; 
+                validCmd = true;
+            }
         } else if(cmd == "a") {
             string dir;
             cin >> dir;
-            Cell *otherCell = (player->getCell())->getAdjacentCell(dir);
-            Entity *otherEntity = otherCell->getEntity();
-            player->fight(otherEntity); // At this point we know    
-            validCmd = true; 
+            if(Cell::isValidDirection(dir)){
+                #ifdef DEBUG
+                cout << "Player is attempting to fight" << endl;
+                #endif
+                Cell *otherCell = (player->getCell())->getAdjacentCell(dir);
+                Entity *otherEntity = otherCell->getEntity();
+                player->fight(otherEntity); // At this point we know    
+                validCmd = true; 
+            }
         } else if(cmd == "r") {
             restart();
             // Don't set validCmd becaues we don't want a game step to happen after we decide to restart

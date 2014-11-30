@@ -81,21 +81,39 @@ bool Player::move(string direction){
 }
 
 void Player::fight(Entity *against) {
-    //TODO: item check
-    //if Item
-    //   return;
-    
     //if we check to make sure the entity's not an item, we can safely cast to a character
     // we need this to get access to the Character specific functions
-    Character *cAgainst = static_cast<Character*>(against);
+    Character *cAgainst = dynamic_cast<Character*>(against);
+
+    if(!cAgainst){
+        #ifdef DEBUG
+        cout << "Tried to fight non-character!! returning" << endl;
+        //TODO: Display.statusMessage this
+        #endif
+        return;
+    }
     
-    int damage = ceil((100/(100 + cAgainst->getDefence()))*attack);
+    int damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
     cAgainst->changeHP(-damage);
+    #ifdef DEBUG
+    cout << "Dealt " << damage << " damage. " << endl;
+    cout << "Enemy's HP is now " << cAgainst->getHP() << endl;
+    #endif
     //specialFightEffect is used so subclasses can have their special powers in combat
     specialFightEffect(cAgainst, damage);
+
+    // we will deal with enemy onDeatha and such when we update it from chamber
 }
 
 void Player::specialFightEffect(Character *against, int damage){
     // do nothing for standard player, subclasses CAN but don't have to overwrite
     ;
+}
+
+void Player::onDeath(){
+    ; //This doesnt need to be implemented, cmdinterpreter will check for player death
+}
+
+bool Player::notify(){
+    return true;
 }

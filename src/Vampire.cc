@@ -15,10 +15,6 @@ void Vampire::fight(Entity *against) {
 
 }
 
-void Vampire::notify() {
-
-}
-
 string Vampire::raceStr() {
     return "Vampire";
 }

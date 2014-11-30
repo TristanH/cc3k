@@ -11,7 +11,6 @@ class Vampire : public Player {
 		Vampire(Cell *cell);
 		~Vampire();
 		void fight(Entity *against);
-		void notify();
         std::string raceStr();
 };
 

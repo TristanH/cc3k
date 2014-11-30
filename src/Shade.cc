@@ -11,13 +11,6 @@ Shade::~Shade(){
 
 }
 
-void Shade::fight(Entity *against) {
-
-}
-
-void Shade::notify() {
-	// what should we do with dis?
-}
 
 string Shade::raceStr() {
     return "Shade";

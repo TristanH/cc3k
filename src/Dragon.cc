@@ -12,8 +12,8 @@ void Dragon::fight(Entity *against) {
 
 }
 
-void Dragon::notify() {
-	
+bool Dragon::notify() {
+	return true;
 }
 
 void Dragon::updateMove(){

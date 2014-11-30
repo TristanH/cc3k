@@ -12,7 +12,3 @@ Orc::~Orc() {
 void Orc::fight(Entity *against) {
     Enemy::fight(against);
 }
-
-void Orc::notify() {
-    Enemy::notify();
-}

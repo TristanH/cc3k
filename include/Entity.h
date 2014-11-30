@@ -29,7 +29,7 @@ class Entity{
         Cell *getCell();
         void setCell(Cell *newCell);
         char getDisplayChar();
-		virtual void notify() = 0;
+		virtual bool notify() = 0;
 		virtual ~Entity(){};
         
         // This creates and returns a pointer to a new Enemy of the corresponding type of "type".
