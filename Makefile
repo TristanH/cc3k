@@ -6,7 +6,7 @@ TARGET := bin/cc3k
 SRCEXT := cc
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -Wall -DDEBUG
+CFLAGS := -g -Wall -std=c++0x
 INC := -I include
 
 $(TARGET): $(OBJECTS)

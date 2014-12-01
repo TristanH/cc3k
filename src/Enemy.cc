@@ -44,7 +44,9 @@ void Enemy::fight(Entity *against){
 	Character *cAgainst = dynamic_cast<Character*>(against);
 
     if(!cAgainst){
+    	#ifdef DEBUG
         cerr << "Bug: Enemy tried to fight non-character!! returning" << endl;
+        #endif
         return;
     }
 

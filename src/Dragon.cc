@@ -41,5 +41,4 @@ void Dragon::makeHostile(){
 
 void Dragon::setTreasure(DragonTreasure* dt){
 	treasure = dt;
-	cerr << "set dragon treasure!!" << endl;
 }

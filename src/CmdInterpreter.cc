@@ -44,7 +44,6 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
 
 CmdInterpreter::~CmdInterpreter() {
     delete floor;
-    //delete player; TODO: do we explicitly delete singleton or does atexit do this??
 }
 
 void CmdInterpreter::setMapFile(string filename) {

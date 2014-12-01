@@ -63,7 +63,9 @@ char Cell::getDisplayChar(){
 // only called once to make this cell the stairway
 void Cell::makeStairway(){
 	if(Cell::stairwayExists){
+		#ifdef DEBUG
 		cerr << "Tried to make a cell a stairway when the stairway already exists!! " << endl;
+		#endif
 		return;
 	}
 	type = '\\';
@@ -88,21 +90,19 @@ Cell* Cell::getAdjacentCell(string direction){
 		return floor->getCell(r, c-1);
 	else if(direction == "nw")
 		return floor->getCell(r-1, c-1);
-
+	#ifdef DEBUG
 	cerr << "ERROR: Invalid direction given to getAdjacentCell" << endl;
+	#endif
 	return NULL;
 }
 
 Entity* Cell::findEntityInBounds(char type){
-	cerr << "searchng for " << type << endl;
 	for(int i=0;i<8;i++){
 		Cell *checkCell = getAdjacentCell(directions[i]);
-		cout << directions[i] << " is " << checkCell << endl;
 		if(checkCell && checkCell->getEntity() && checkCell->getEntity()->getMapChar() == type) {
 			return checkCell->getEntity();
 		}
 	}
-	cerr << "couldnt find it!" <<endl;
 	return NULL;
 }
 
@@ -113,11 +113,13 @@ Player* Cell::findPlayerInBounds(){
 		#ifdef DEBUG
 		if(checkCell->getEntity()) {
 			char disp = checkCell->getEntity()->getDisplayChar();
+			#ifdef DEBUG
 			if(disp == '@') {
 				cout << "ENEMY SEES PLAYER" << endl; 
 				cout << "-> Player = " << Player::getInstance() << endl;
 				cout << "-> Other  = " << checkCell->getEntity() << endl;;
 			}
+			#endif
 		}
 		#endif
 		if(checkCell->getEntity() == Player::getInstance()) {
@@ -126,7 +128,9 @@ Player* Cell::findPlayerInBounds(){
 			if(thePlayer) {
 				return thePlayer;
 			} else {
+				#ifdef DEBUG
 				cerr << "Error in dynamic_cast from Entity* to Player* in Cell::findPlayerInBounds" << endl;
+				#endif
 			}
 		}
 	}

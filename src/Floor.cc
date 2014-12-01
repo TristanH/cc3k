@@ -127,8 +127,7 @@ void Floor::notifyChambers() {
 
 void Floor::randomFloorGeneration(char playerSpawnType) {
     // TODO: random floor generation. Can create temp file and then just use the generateCells function
-    cerr << "random map generation still not implemented. please provide a map name as an arg." << endl;
-    exit(1);
+    ;
 }
 
 Floor::Floor(string fileName, char playerSpawnType) :
@@ -137,18 +136,13 @@ Floor::Floor(string fileName, char playerSpawnType) :
     playerSpawned(false), stairsSpawned(false){
 
     display = Display::getInstance();
-    if(fileName != "") {
-        #ifdef DEBUG
-        cout << "generating floor from file" << endl;
-        #endif 
-        generateCells(fileName, playerSpawnType);
-    }
-    else {
-        #ifdef DEBUG
-        cout << "generating floor randomly" << endl;
-        #endif
-        randomFloorGeneration(playerSpawnType);
-    }
+    if(fileName == "")
+        fileName="maps/normal_format.data";
+    #ifdef DEBUG
+    cout << "generating floor from file" << endl;
+    #endif 
+    generateCells(fileName, playerSpawnType);
+
     #ifdef DEBUG
     cout << "cells generated" << endl;
     #endif

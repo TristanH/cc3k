@@ -16,8 +16,12 @@ void Potion::setPotionsVisible(char displayChar){
 	visible[displayChar - '0'] = true;
 	if(floor)
 		floor->updatePotions();
-	else
+	else{
+		;
+		#ifdef DEBUG
 		cerr << "Potion doesn't have a floor, cant update all potions!!" << endl;
+		#endif
+	}
 }
 
 char Potion::getDisplayChar(){

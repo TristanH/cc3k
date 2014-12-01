@@ -20,7 +20,9 @@ void Elf::fight(Entity *against){
 	Character *cAgainst = dynamic_cast<Character*>(against);
 
     if(!cAgainst){
+    	#ifdef DEBUG
     	cerr << "BUG: elf tries to fight non-character";
+    	#endif
         return;
     }
 
