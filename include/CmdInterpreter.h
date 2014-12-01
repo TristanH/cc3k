@@ -32,13 +32,6 @@ class CmdInterpreter{
 
     void executeCmd(std::string cmd);
 
-    // these are all called by notifyEntities
-    void notifyPlayer();
-
-    // since the floor is responsible for spawning enemies
-    // it should also be responsible for doing all the updates for
-    // enemies, environment and such
-    void updateFloor();
     void nextFloor();
     void loopDone();
     void won();

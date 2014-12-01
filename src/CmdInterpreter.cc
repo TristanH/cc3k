@@ -62,6 +62,7 @@ void CmdInterpreter::loopDone() {
         floor = NULL;
         Player::restart();
         Display::restart();
+        Cell::newFloor();
         start();
     } else {
         if(didWin) {

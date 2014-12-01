@@ -168,8 +168,4 @@ void Cell::newFloor(){
 	stairwayExists = false;
 }
 
-ostream &operator<<(ostream &out, Cell &c) {
-	out << "[" << c.getR() << "," << c.getC() << "]";
-	return out;
-}
 
