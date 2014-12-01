@@ -8,6 +8,7 @@
 bool Merchant::hostile = false;
 
 void Merchant::makeHostile(){
+	Display::statusMessage+= " Merchants are now aggressive! ";
 	Merchant::hostile = true;
 }
 

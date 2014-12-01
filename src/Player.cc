@@ -155,7 +155,7 @@ void Player::fight(Entity *against) {
     
     int damage = ceil((100.0/(100 + cAgainst->getDefence()))*this->getAttack());
 
-    if(cAgainst->getDisplayChar() == 'H'){
+    if(cAgainst->getDisplayChar() == 'L'){
         bool missAttack = PRNG::random(1) == 1;
         if(missAttack){
             Display::statusMessage+="H beguiles the Player, causing you to miss! ";
