@@ -63,6 +63,7 @@ void CmdInterpreter::loopDone() {
         if(didWin) {
             cout << "Congratulations! You beat the final floor!" << endl;
         } else {
+            finalScore = Player::getInstance()->getGold();
             cout << "Game over." << endl;
         }
         ostringstream ss;

@@ -70,7 +70,6 @@ void Floor::generateCells(string fileName, char playerType) {
                 }
                 //otherwise weve just created the dragon and we wait till we find the hoard
                 enemySpawnCount++;
-                //TODO: make dragons get put in chambers properly.. they dont atm
                 partialSpawn.push_back(dragon);
                 cell->setEntity(dragon);
                 display->notify(cell->getR(), cell->getC(), '.');
@@ -303,8 +302,11 @@ void Floor::populate(char playerType) {
         #ifdef DEBUG
         cout << "unique cell = [" << playerCell->getR() << "," << playerCell->getC() << "]" << endl;
         #endif
+
         Display::statusMessage += "Player character has spawned. ";
-        Player::getInstance(playerType, playerCell);
+        // will only create a new player if its the first floor, which is what we want
+        Player* player = Player::getInstance(playerType, playerCell);
+        playerCell->setEntity(player);
     }
     if(!stairsSpawned){
         Cell *stairCell;
@@ -459,3 +461,4 @@ void Floor::updatePotions(){
             notifyDisplay(r,c,cells[r][c]->getDisplayChar());
     }
 }
+
