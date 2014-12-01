@@ -42,6 +42,7 @@ Player::Player(Cell *cell, int atk, int def, int HP, int gold, int floorNum, int
 
 void Player::cleanup() {
     delete instance;
+    instance = NULL;
 }
 
 // After the player has been initialy created, you can get it by simply calling getInstance (no params).

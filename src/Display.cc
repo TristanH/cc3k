@@ -10,6 +10,7 @@ string Display::statusMessage = "";
 
 void Display::cleanup() {
     delete instance;
+    instance = NULL;
 }
 
 Display* Display::getInstance(){
@@ -18,6 +19,10 @@ Display* Display::getInstance(){
         atexit(cleanup);
     }
     return instance;
+}
+
+void Display::restart() {
+    Display::cleanup();
 }
 
 void Display::notify(int i, int j, char newState) {

@@ -31,15 +31,8 @@ Character::Character(Cell *cell, char dc, int atk, int def, int hp, int maxHP):
 	attack(atk), defence(def), HP(hp) {
 		// this is so we can force set maxHP when decorating a player, otherwise it defaults to -1 and just becomes HP
 		if(maxHP < 0) {
-			#ifdef DEBUG
-			cout << "maxHP not defined. Defining to be HP" << endl;
-			cout << maxHP;
-			#endif
 			this->maxHP = hp;
 		} else {
-			#ifdef DEBUG
-			cout << "maxHP defined: " << maxHP << endl;
-			#endif
 			this->maxHP = maxHP;
 		}
 	}

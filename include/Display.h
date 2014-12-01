@@ -19,6 +19,7 @@ class Display {
 		void addColumn(std::vector<char> col);
 		void reset();
         static std::string statusMessage;
+        static void restart();
 
 	friend std::ostream &operator<<(std::ostream &out, Display &d);
 

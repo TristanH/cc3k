@@ -56,8 +56,12 @@ void CmdInterpreter::loopDone() {
         shouldRestart = false;
         didWin = false;
         isFinished = false;
+        state = 0;
+        finalScore = 0;
         delete floor;
+        floor = NULL;
         Player::restart();
+        Display::restart();
         start();
     } else {
         if(didWin) {
@@ -125,7 +129,9 @@ void CmdInterpreter::nextFloor() {
 void CmdInterpreter::executeCmd(string cmd) {
     if(state == 1) {
         Display::statusMessage = ""; // So messages can be appended.
-        
+        #ifdef DEBUG
+        cout << "cmd = " << cmd << endl;
+        #endif
         Player *player = Player::getInstance();
         bool validCmd = false;
         if(cmd == "u") {
@@ -210,6 +216,7 @@ void CmdInterpreter::executeCmd(string cmd) {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
 
             floor = new Floor(mapFile, cmd[0]);
+            floor->setDisplay(Display::getInstance());
             #ifdef DEBUG
             cout << "floor made" << endl;
             #endif
