@@ -9,7 +9,7 @@
 using namespace std;
 
 Dragon::Dragon(Cell *cell):
-	Enemy(cell, 'D', 20, 20, 150), treasure(NULL){}
+	Enemy(cell, 'D', 20, 20, 150), treasure(NULL), hostile(false){}
 
 Dragon::~Dragon() {
 	
@@ -20,7 +20,9 @@ void Dragon::fight(Entity *against) {
 }
 
 bool Dragon::notify() {
+	#ifdef DEBUG
 	cerr << "notifying dragon! " << hostile << endl;
+	#endif
 	if(HP <= 0){
 		Display::statusMessage+="D has been killed! ";
 		cell->setEntity(NULL);

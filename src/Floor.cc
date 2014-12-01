@@ -351,6 +351,7 @@ void Floor::populate(char playerType) {
             Dragon *dragon = dt->getDragon();
             dragon->getCell()->setEntity(dragon);
             dragon->setTreasure(dt);
+            randChamber->addEnemy(dragon);
         }
         else{
             Entity *gold = Entity::getNewEntity(type, cell);
