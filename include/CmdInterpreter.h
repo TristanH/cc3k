@@ -19,7 +19,6 @@ class CmdInterpreter{
     // keeps track of current state of the game:
     // 0 -> race selection
     // 1 -> playing
-    //TODO: instead of using a int to represent a state we should have a state object and have a stack of states in the CmdInterpreter class
     int state;
 
     bool didWin;
@@ -43,6 +42,7 @@ class CmdInterpreter{
     // enemies, environment and such
     void updateFloor();
     void nextFloor();
+    void loopDone();
     void won();
     // we have to update the player first, because the enemies won't move if he goes near them
 

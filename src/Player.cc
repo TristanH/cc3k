@@ -64,6 +64,10 @@ Player *Player::getInstance(char cmd, Cell *cell) {
     return instance;
 }
 
+void Player::restart() {
+    Player::cleanup();
+}
+
 void Player::addPotion(char type, int amount) {
     if(instance) {
         //Cell *playerCell = instance->getCell();
