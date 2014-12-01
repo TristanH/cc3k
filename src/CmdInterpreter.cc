@@ -33,7 +33,6 @@ CmdInterpreter::CmdInterpreter(vector<string> args) :
     isFinished(false),
     shouldRestart(false),
     floor(NULL),
-    player(NULL),
     state(0),
     mapFile(""),
     didWin(false),
@@ -103,8 +102,8 @@ void CmdInterpreter::nextFloor() {
     #endif
     Player *player = Player::getInstance();
     if(player->getFloorNum() == FLOORS_TO_WIN) {
-        cout << "CONGRATS, you've won Chamber Crawler 3k! Your score is " << player->getGold() << endl;
-        cout << "Exiting the game.." << endl;
+        isFinished = true;
+        didWin = true;
     } else {
         Player::removePotions(); // remove temp potion decorators
         player = Player::getInstance(); // replace player with undecorated instance
@@ -122,9 +121,10 @@ void CmdInterpreter::nextFloor() {
 }
 
 void CmdInterpreter::executeCmd(string cmd) {
-
     if(state == 1) {
         Display::statusMessage = ""; // So messages can be appended.
+        
+        Player *player = Player::getInstance();
         bool validCmd = false;
         if(cmd == "u") {
             string dir;
@@ -209,7 +209,6 @@ void CmdInterpreter::executeCmd(string cmd) {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
 
             floor = new Floor(mapFile, cmd[0]);
-            player = Player::getInstance();
             cout << *floor;
             state = 1; // we should now start reading commands related to the "playing" state
         }

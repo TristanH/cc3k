@@ -26,8 +26,6 @@ class CmdInterpreter{
 
     // this is an observer of the cmd interpreter
     Floor *floor;
-
-    Player *player;
     
     CmdInterpreter(std::vector<std::string> args = std::vector<std::string>());
     ~CmdInterpreter();

@@ -1,5 +1,7 @@
 #include "PotionEffect.h"
 #include "Player.h"
+#include "Cell.h"
+
 #include <string>
 using namespace std;
 
@@ -13,6 +15,8 @@ Player *PotionEffect::unpack() {
     #ifdef DEBUG
     cerr << "PotionEffect: unpacking..." << endl;
     #endif
+    Cell *playerCell = this->getCell();
+    playerCell->setEntity(NULL);
     return base->unpack();
 }
 

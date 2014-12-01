@@ -100,6 +100,7 @@ Player *Player::unpack() {
 }
 
 void Player::removePotions() {
+    Cell *playerCell = instance->getCell(); // record the cell the player's on
     if(instance) {
         #ifdef DEBUG
         cerr << "Player: removing potions" << endl;
@@ -108,6 +109,7 @@ void Player::removePotions() {
     } else {
         cerr << "Player: no instance of Player to remove decorations from" << endl;
     }
+    playerCell->setEntity(instance); // put the player back where it should be
 }
 
 void Player::addGold(int amount) {
