@@ -63,6 +63,7 @@ void CmdInterpreter::loopDone() {
         Player::restart();
         Display::restart();
         Cell::newFloor();
+        Display::statusMessage = "";
         start();
     } else {
         if(didWin) {
@@ -188,8 +189,8 @@ void CmdInterpreter::executeCmd(string cmd) {
                     delete treasure;
                 }
                 player->move(cmd);
-                validCmd = true;
             }
+            validCmd = true;
         }
         #ifdef DEBUG
         else if(cmd == "add") {
@@ -224,10 +225,10 @@ void CmdInterpreter::executeCmd(string cmd) {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
 
             floor = new Floor(mapFile, cmd[0]);
-            floor->setDisplay(Display::getInstance());
             #ifdef DEBUG
             cout << "floor made" << endl;
             #endif
+            Display::statusMessage += "Player character has spawned. ";
             cout << *floor;
             state = 1; // we should now start reading commands related to the "playing" state
         }
