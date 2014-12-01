@@ -56,6 +56,7 @@ void CmdInterpreter::loopDone() {
         shouldRestart = false;
         didWin = false;
         isFinished = false;
+        delete floor;
         Player::restart();
         start();
     } else {
@@ -163,7 +164,6 @@ void CmdInterpreter::executeCmd(string cmd) {
         } else if(cmd == "r") {
             restart();
             // Don't set validCmd becaues we don't want a game step to happen after we decide to restart
-            cerr << "This isn't implemented yet :(" << endl; //TODO: remove this line when this is implemented
         } else if(cmd == "e") {
             end();
         } else if(Cell::isValidDirection(cmd)) {
@@ -210,6 +210,9 @@ void CmdInterpreter::executeCmd(string cmd) {
         if(cmd == "s" || cmd == "d" || cmd == "v" || cmd == "g" || cmd == "t") {
 
             floor = new Floor(mapFile, cmd[0]);
+            #ifdef DEBUG
+            cout << "floor made" << endl;
+            #endif
             cout << *floor;
             state = 1; // we should now start reading commands related to the "playing" state
         }
