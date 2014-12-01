@@ -126,8 +126,8 @@ void Floor::notifyChambers() {
     }
 }
 
-void Floor::randomMapGeneration(char playerSpawnType) {
-    // TODO: random map generation. Can create temp file and then just use the generateCells function
+void Floor::randomFloorGeneration(char playerSpawnType) {
+    // TODO: random floor generation. Can create temp file and then just use the generateCells function
     cerr << "random map generation still not implemented. please provide a map name as an arg." << endl;
     exit(1);
 }
@@ -138,13 +138,33 @@ Floor::Floor(string fileName, char playerSpawnType) :
     playerSpawned(false), stairsSpawned(false){
 
     display = Display::getInstance();
-    if(fileName != "") 
+    if(fileName != "") {
+        #ifdef DEBUG
+        cout << "generating floor from file" << endl;
+        #endif 
         generateCells(fileName, playerSpawnType);
-    else
-        randomMapGeneration(playerSpawnType);
+    }
+    else {
+        #ifdef DEBUG
+        cout << "generating floor randomly" << endl;
+        #endif
+        randomFloorGeneration(playerSpawnType);
+    }
+    #ifdef DEBUG
+    cout << "cells generated" << endl;
+    #endif
     generateChambers();
+    #ifdef DEBUG
+    cout << "chambers generated" << endl;
+    #endif
     createDies();
+    #ifdef DEBUG
+    cout << "dies created" << endl;
+    #endif
     populate(playerSpawnType);
+    #ifdef DEBUG
+    cout << "floor populated" << endl;
+    #endif
     Potion::setFloor(this);
 }
 
