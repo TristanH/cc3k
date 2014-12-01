@@ -51,15 +51,13 @@ void CmdInterpreter::setMapFile(string filename) {
     mapFile = filename;
 }
 
-void CmdInterpreter::start() {
-    string cmd;
-    cout << "Pick your race: " << endl;
-    cout << "s - Shade, d - Drow, v - Vampire, g - Goblin, t - Troll" << endl;
-    while(!isFinished && cin >> cmd) {
-        executeCmd(cmd);
-    }
+void CmdInterpreter::loopDone() {
     if(shouldRestart) {
-        //TODO: restart shit
+        shouldRestart = false;
+        didWin = false;
+        isFinished = false;
+        Player::restart();
+        start();
     } else {
         if(didWin) {
             cout << "Congratulations! You beat the final floor!" << endl;
@@ -71,9 +69,16 @@ void CmdInterpreter::start() {
         ss << "Final Score: " << finalScore;
         cout << ss.str() << endl;
     }
-    #ifdef DEBUG
-    cout << "CmdInterpreter.cc: game loop terminated" << endl;
-    #endif
+}
+
+void CmdInterpreter::start() {
+    string cmd;
+    cout << "Pick your race: " << endl;
+    cout << "s - Shade, d - Drow, v - Vampire, g - Goblin, t - Troll" << endl;
+    while(!isFinished && cin >> cmd) {
+        executeCmd(cmd);
+    }
+    loopDone();
 }
 
 void CmdInterpreter::end() {

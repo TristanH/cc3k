@@ -24,8 +24,8 @@ class Die;
 class Floor{
 	// cells[i][j] will be NULL if it is outside of a chamber
 	std::vector<std::vector<Cell *> > cells;
-	Display *display; //map needs to notify dislpay - TODO: where do we delete this??
-	std::vector<Chamber *> chambers; // TODO: should we maybe make these stack-allocated so they die with the floor?
+	Display *display; //map needs to notify dislpay
+	std::vector<Chamber *> chambers;
 
 	// keeps track of floor dimensions
 	const int WIDTH;
@@ -43,8 +43,6 @@ class Floor{
 	Die *enemyDie;
 	Die *potionDie;
 	Die *goldDie;
-	// TODO: add dice for potions and gold piles (if needed)
-
 
 	void generateCells(std::string filename, char playerType);
 
