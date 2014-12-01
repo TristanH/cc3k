@@ -16,10 +16,11 @@ Dragon::~Dragon() {
 }
 
 void Dragon::fight(Entity *against) {
-
+	Enemy::fight(against);
 }
 
 bool Dragon::notify() {
+	cerr << "notifying dragon! " << hostile << endl;
 	if(HP <= 0){
 		Display::statusMessage+="D has been killed! ";
 		cell->setEntity(NULL);

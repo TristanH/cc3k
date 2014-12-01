@@ -91,6 +91,7 @@ class Floor{
 		Cell* findUniqueCell(Chamber *chamber = NULL);
 
 		void updatePotions();
+
 	friend std::ostream &operator<<(std::ostream &out, Floor &f);
 };
 
