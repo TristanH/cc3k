@@ -133,6 +133,7 @@ void CmdInterpreter::executeCmd(string cmd) {
         cout << "cmd = " << cmd << endl;
         #endif
         Player *player = Player::getInstance();
+
         bool validCmd = false;
         if(cmd == "u") {
             string dir;
@@ -209,7 +210,13 @@ void CmdInterpreter::executeCmd(string cmd) {
             #endif
             Player::getInstance()->gameTick();
             floor->updateGameStep();
+            if(player->getHP() <= 0){
+                cout << "Your HP has dropeed below 0! " << endl;
+                end();
+            }
         } 
+        else
+            Display::statusMessage+= "Invalid command supplied. ";
         if(!isFinished) cout << *floor;
 
     } else {
@@ -223,5 +230,7 @@ void CmdInterpreter::executeCmd(string cmd) {
             cout << *floor;
             state = 1; // we should now start reading commands related to the "playing" state
         }
+        else
+            Display::statusMessage+= "Invalid command supplied. ";
     }
 }
